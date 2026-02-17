@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Beaker } from 'lucide-react'
 import { motion } from 'framer-motion'
+// import sifilonlogo from "@public/sifilonlogo"
+// import Image from 'next/image'
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -13,6 +15,7 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Products', href: '/products' },
+  { name: 'Quality', href: '/quality' },
   { name: 'Contact', href: '/contact' },
 ]
 
@@ -26,7 +29,7 @@ export default function Header() {
   }
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -36,14 +39,14 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div 
+            <div
               className="w-10 h-10 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: PRIMARY_COLOR }}
             >
               <Beaker className="w-6 h-6 text-white" />
             </div>
             <div>
-              <span className="text-xl font-bold text-gray-900">Siflon</span>
+              <span className="text-xl font-bold text-gray-900">Siflon </span>
               <p className="text-xs text-gray-500 -mt-1">Drugs & Pharmaceuticals Pvt Ltd</p>
             </div>
           </Link>
@@ -54,18 +57,17 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  isActive(item.href) 
-                    ? 'font-semibold' 
+                className={`text-sm font-medium transition-colors ${isActive(item.href)
+                    ? 'font-semibold'
                     : 'text-gray-600 hover:opacity-80'
-                }`}
+                  }`}
                 style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
               >
                 {item.name}
               </Link>
             ))}
             <Link href="/contact">
-              <Button 
+              <Button
                 style={{ backgroundColor: PRIMARY_COLOR }}
                 className="hover:opacity-90"
               >
@@ -86,7 +88,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             className="md:hidden py-4 border-t"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
@@ -97,11 +99,10 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive(item.href) 
-                      ? 'font-semibold' 
+                  className={`text-sm font-medium transition-colors ${isActive(item.href)
+                      ? 'font-semibold'
                       : 'text-gray-600 hover:opacity-80'
-                  }`}
+                    }`}
                   style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -109,7 +110,7 @@ export default function Header() {
                 </Link>
               ))}
               <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                <Button 
+                <Button
                   className="w-full"
                   style={{ backgroundColor: PRIMARY_COLOR }}
                 >
