@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Menu, X, Beaker } from 'lucide-react'
 import { motion } from 'framer-motion'
 // import sifilonlogo from "@public/sifilonlogo"
-// import Image from 'next/image'
+//import Image from 'next/image'
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -39,6 +39,13 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
+          {/* <Image 
+              src="/siflonlogo.png" 
+              alt="Siflon Logo" 
+              width={45} 
+              height={45}
+              className="h-10 w-auto object-contain"
+            /> */}
             <div
               className="w-10 h-10 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: PRIMARY_COLOR }}

@@ -160,6 +160,8 @@ import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import { Beaker, MapPin, Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Instagram } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
+
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -197,6 +199,13 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-2 mb-4">
+              {/* <Image 
+                src="/siflonlogo.png" 
+                alt="Siflon Logo" 
+                width={45} 
+                height={45}
+                className="h-10 w-auto object-contain"
+              /> */}
               <div 
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
                 style={{ backgroundColor: PRIMARY_COLOR }}
