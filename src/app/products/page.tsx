@@ -415,6 +415,674 @@
 // }
 
 
+// 'use client'
+
+// import { useRef, useState, useEffect } from 'react'
+// import Link from 'next/link'
+// import { Button } from '@/components/ui/button'
+// import { Card, CardContent } from '@/components/ui/card'
+// import { Badge } from '@/components/ui/badge'
+// import { 
+//   ChevronRight, Droplets, Package, Wheat, Pill, Syringe, 
+//   Shield, Award, Star, ArrowRight,
+//   Beaker, TestTube, Microscope, Zap,
+//   Search, Image as ImageIcon
+// } from 'lucide-react'
+// import { motion, AnimatePresence, useInView } from 'framer-motion'
+// import Header from '@/components/Header'
+// import Footer from '@/components/Footer'
+// import FloatingSocialLinks from '@/components/FloatingSocialLinks'
+
+// const PRIMARY_COLOR = '#243d80'
+// const PRIMARY_HOVER = '#1a2d5c'
+
+// // Animation variants
+// const fadeInUp = {
+//   hidden: { opacity: 0, y: 30 },
+//   visible: { 
+//     opacity: 1, 
+//     y: 0,
+//     transition: { duration: 0.6, ease: 'easeOut' }
+//   }
+// }
+
+// const staggerContainer = {
+//   hidden: { opacity: 0 },
+//   visible: {
+//     opacity: 1,
+//     transition: {
+//       staggerChildren: 0.08,
+//       delayChildren: 0.1
+//     }
+//   }
+// }
+
+// const cardVariants = {
+//   hidden: { opacity: 0, y: 20, scale: 0.95 },
+//   visible: { 
+//     opacity: 1, 
+//     y: 0,
+//     scale: 1,
+//     transition: { duration: 0.4, ease: 'easeOut' }
+//   }
+// }
+
+// const scaleIn = {
+//   hidden: { opacity: 0, scale: 0.8 },
+//   visible: { 
+//     opacity: 1, 
+//     scale: 1,
+//     transition: { duration: 0.5, ease: 'easeOut' }
+//   }
+// }
+
+// // Animated section wrapper
+// function AnimatedSection({ 
+//   children, 
+//   className = '', 
+//   variant = fadeInUp 
+// }: { 
+//   children: React.ReactNode
+//   className?: string
+//   variant?: typeof fadeInUp 
+// }) {
+//   const ref = useRef(null)
+//   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  
+//   return (
+//     <motion.div
+//       ref={ref}
+//       initial="hidden"
+//       animate={isInView ? 'visible' : 'hidden'}
+//       variants={variant}
+//       className={className}
+//     >
+//       {children}
+//     </motion.div>
+//   )
+// }
+
+// // Category configuration
+// const CATEGORIES = [
+//   { 
+//     id: 'oralLiquids', 
+//     name: 'Oral Liquids', 
+//     icon: Droplets, 
+//     color: '#3B82F6',
+//     description: 'Premium liquid formulations for easy administration and rapid absorption'
+//   },
+//   { 
+//     id: 'dryPowders', 
+//     name: 'Dry Powders', 
+//     icon: Package, 
+//     color: '#8B5CF6',
+//     description: 'Stable powder formulations for convenient storage and mixing'
+//   },
+//   { 
+//     id: 'feedSupplements', 
+//     name: 'Feed Supplements', 
+//     icon: Wheat, 
+//     color: '#22C55E',
+//     description: 'Nutritional supplements to enhance feed quality and animal health'
+//   },
+//   { 
+//     id: 'tabletsBolus', 
+//     name: 'Tablets / Bolus', 
+//     icon: Pill, 
+//     color: '#EC4899',
+//     description: 'Precise dosing with convenient tablet and bolus formulations'
+//   },
+//   { 
+//     id: 'injectables', 
+//     name: 'Injectables', 
+//     icon: Syringe, 
+//     color: '#EF4444',
+//     description: 'Professional-grade injectable solutions for veterinary use'
+//   },
+// ]
+
+// interface Product {
+//   id: string
+//   name: string
+//   brandName: string
+//   composition: string
+//   packSize: string
+//   image: string
+//   description: string
+//   category: string
+//   sectors: string
+//   featured: boolean
+//   active: boolean
+// }
+
+// // Globe icon component
+// const Globe = ({ className }: { className?: string }) => (
+//   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//     <circle cx="12" cy="12" r="10"/>
+//     <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+//     <path d="M2 12h20"/>
+//   </svg>
+// )
+
+// // Target icon component
+// const Target = ({ className }: { className?: string }) => (
+//   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//     <circle cx="12" cy="12" r="10"/>
+//     <circle cx="12" cy="12" r="6"/>
+//     <circle cx="12" cy="12" r="2"/>
+//   </svg>
+// )
+
+// // Stats data
+// const stats = [
+//   { icon: Beaker, value: '500+', label: 'Products', color: PRIMARY_COLOR },
+//   { icon: Award, value: '30+', label: 'Years Experience', color: '#22C55E' },
+//   { icon: Globe, value: '50+', label: 'Countries', color: '#8B5CF6' },
+//   { icon: Shield, value: '6', label: 'Certifications', color: '#EF4444' },
+// ]
+
+// export default function ProductsPage() {
+//   const [activeCategory, setActiveCategory] = useState('all')
+//   const [products, setProducts] = useState<Product[]>([])
+//   const [loading, setLoading] = useState(true)
+//   const [searchQuery, setSearchQuery] = useState('')
+
+//   useEffect(() => {
+//     fetchProducts()
+//   }, [])
+
+//   const fetchProducts = async () => {
+//     try {
+//       const res = await fetch('/api/products')
+//       const data = await res.json()
+//       setProducts(data.filter((p: Product) => p.active))
+//     } catch (error) {
+//       console.error('Error fetching products:', error)
+//     } finally {
+//       setLoading(false)
+//     }
+//   }
+
+//   // Filter products by category and search
+//   const filteredProducts = products.filter(product => {
+//     const matchesCategory = activeCategory === 'all' || product.category === activeCategory
+//     const matchesSearch = searchQuery === '' || 
+//       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       product.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       product.composition.toLowerCase().includes(searchQuery.toLowerCase())
+//     return matchesCategory && matchesSearch
+//   })
+
+//   // Get current category info
+//   const currentCategory = CATEGORIES.find(c => c.id === activeCategory)
+
+//   return (
+//     <div className="min-h-screen flex flex-col">
+//       {/* Floating Social Links */}
+//       <FloatingSocialLinks />
+
+//       {/* Header */}
+//       <Header />
+
+//       {/* Hero Section */}
+//       <section className="relative overflow-hidden">
+//         {/* Background Image */}
+//         <div className="absolute inset-0">
+//           <img 
+//             src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&h=800&fit=crop"
+//             alt="Products Background"
+//             className="w-full h-full object-cover"
+//           />
+//           <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}ee, ${PRIMARY_HOVER}cc)` }} />
+//         </div>
+        
+//         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+//           <motion.div
+//             initial={{ opacity: 0, y: 30 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.8 }}
+//             className="text-center"
+//           >
+//             <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur-sm">
+//               <Star className="w-3 h-3 mr-1" />
+//               Our Products
+//             </Badge>
+//             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+//               Comprehensive Range of<br />
+//               <span className="text-blue-200">Animal Healthcare Products</span>
+//             </h1>
+//             <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-8 leading-relaxed">
+//               Trusted by farmers across 50+ countries for quality, efficacy, and reliability in animal health management.
+//             </p>
+//           </motion.div>
+//         </div>
+
+//         {/* Stats Bar */}
+//         <div className="relative bg-white/10 backdrop-blur-md border-t border-white/20">
+//           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+//             <motion.div 
+//               className="grid grid-cols-2 md:grid-cols-4 gap-6"
+//               variants={staggerContainer}
+//               initial="hidden"
+//               animate="visible"
+//             >
+//               {stats.map((stat, i) => (
+//                 <motion.div 
+//                   key={i} 
+//                   className="flex items-center gap-3"
+//                   variants={scaleIn}
+//                 >
+//                   <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/20">
+//                     <stat.icon className="w-6 h-6 text-white" />
+//                   </div>
+//                   <div>
+//                     <div className="text-2xl font-bold text-white">{stat.value}</div>
+//                     <div className="text-sm text-blue-100">{stat.label}</div>
+//                   </div>
+//                 </motion.div>
+//               ))}
+//             </motion.div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Mission Statement */}
+//       <section className="py-12 md:py-16 bg-white">
+//         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+//           <AnimatedSection className="max-w-4xl mx-auto text-center">
+//             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15` }}>
+//               <Target className="w-7 h-7" style={{ color: PRIMARY_COLOR }} />
+//             </div>
+//             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+//               Our Mission
+//             </h2>
+//             <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+//               Our goal is to become one of the most reliable companies with regards to the veterinary formulations. 
+//               We want to be known as a company that is furthering animal health, with good quality products at affordable prices.
+//             </p>
+//           </AnimatedSection>
+//         </div>
+//       </section>
+
+//       {/* Products Catalog Section */}
+//       <section id="products" className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+//         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+//           {/* Section Header */}
+//           <AnimatedSection className="text-center mb-8">
+//             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
+//               <Package className="w-3 h-3 mr-1" />
+//               Product Catalog
+//             </Badge>
+//             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+//               Browse Our Products
+//             </h2>
+//             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+//               Discover our comprehensive range of veterinary formulations
+//             </p>
+//           </AnimatedSection>
+
+//           {/* Search Bar */}
+//           <div className="max-w-md mx-auto mb-8">
+//             <div className="relative">
+//               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+//               <input
+//                 type="text"
+//                 placeholder="Search products..."
+//                 value={searchQuery}
+//                 onChange={(e) => setSearchQuery(e.target.value)}
+//                 className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-gray-300 focus:ring-2 focus:ring-gray-100 outline-none transition-all"
+//               />
+//             </div>
+//           </div>
+
+//           {/* Category Tabs */}
+//           <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
+//             <motion.button
+//               onClick={() => setActiveCategory('all')}
+//               className={`flex items-center cursor-pointer gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
+//                 activeCategory === 'all'
+//                   ? 'text-white shadow-lg'
+//                   : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
+//               }`}
+//               style={{
+//                 backgroundColor: activeCategory === 'all' ? PRIMARY_COLOR : undefined,
+//                 boxShadow: activeCategory === 'all' ? `0 10px 30px ${PRIMARY_COLOR}40` : undefined
+//               }}
+//               whileHover={{ scale: 1.02 }}
+//               whileTap={{ scale: 0.98 }}
+//             >
+//               <Package className="w-4 h-4 md:w-5 md:h-5" />
+//               <span>All Products</span>
+//             </motion.button>
+//             {CATEGORIES.map((category) => (
+//               <motion.button
+//                 key={category.id}
+//                 onClick={() => setActiveCategory(category.id)}
+//                 className={`flex items-center gap-2 cursor-pointer px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
+//                   activeCategory === category.id
+//                     ? 'text-white shadow-lg'
+//                     : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
+//                 }`}
+//                 style={{
+//                   backgroundColor: activeCategory === category.id ? category.color : undefined,
+//                   boxShadow: activeCategory === category.id ? `0 10px 30px ${category.color}40` : undefined
+//                 }}
+//                 whileHover={{ scale: 1.02 }}
+//                 whileTap={{ scale: 0.98 }}
+//               >
+//                 <category.icon className="w-4 h-4 md:w-5 md:h-5" />
+//                 <span className="hidden sm:inline">{category.name}</span>
+//                 <span className="sm:hidden">{category.name.split(' ')[0]}</span>
+//               </motion.button>
+//             ))}
+//           </div>
+
+//           {/* Category Description */}
+//           {currentCategory && (
+//             <motion.p 
+//               initial={{ opacity: 0, y: -10 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               className="text-center text-gray-500 mb-8"
+//             >
+//               {currentCategory.description}
+//             </motion.p>
+//           )}
+
+//           {/* Products Count */}
+//           <div className="text-center mb-6">
+//             <span className="text-sm text-gray-500">
+//               Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+//               {activeCategory !== 'all' && ` in ${CATEGORIES.find(c => c.id === activeCategory)?.name}`}
+//             </span>
+//           </div>
+
+//           {/* Products Grid */}
+//           {loading ? (
+//             <div className="flex items-center justify-center py-20">
+//               <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: PRIMARY_COLOR }} />
+//             </div>
+//           ) : filteredProducts.length === 0 ? (
+//             <Card className="max-w-lg mx-auto">
+//               <CardContent className="p-8 text-center">
+//                 <Package className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+//                 <h3 className="text-lg font-semibold text-gray-700 mb-2">No Products Found</h3>
+//                 <p className="text-gray-500">
+//                   {searchQuery 
+//                     ? 'Try adjusting your search query' 
+//                     : 'No products available in this category yet'}
+//                 </p>
+//               </CardContent>
+//             </Card>
+//           ) : (
+//             <motion.div 
+//               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+//               variants={staggerContainer}
+//               initial="hidden"
+//               animate="visible"
+//             >
+//               <AnimatePresence mode="popLayout">
+//                 {filteredProducts.map((product) => {
+//                   const category = CATEGORIES.find(c => c.id === product.category)
+//                   const packSizes = product.packSize ? JSON.parse(product.packSize) : []
+                  
+//                   return (
+//                     <motion.div
+//                       key={product.id}
+//                       layout
+//                       variants={cardVariants}
+//                       initial="hidden"
+//                       animate="visible"
+//                       exit={{ opacity: 0, scale: 0.9 }}
+//                       whileHover={{ y: -5 }}
+//                       className="h-full"
+//                     >
+//                       <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white overflow-hidden group">
+//                         {/* Product Image */}
+//                         <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-50 overflow-hidden">
+//                           {product.image ? (
+//                             <img 
+//                               src={product.image} 
+//                               alt={product.brandName}
+//                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+//                             />
+//                           ) : (
+//                             <div className="w-full h-full flex items-center justify-center">
+//                               <ImageIcon className="w-16 h-16 text-gray-300" />
+//                             </div>
+//                           )}
+//                           {product.featured && (
+//                             <div className="absolute top-3 left-3">
+//                               <Badge className="bg-yellow-500 text-white border-0 shadow-md">
+//                                 <Star className="w-3 h-3 mr-1 fill-current" />
+//                                 Featured
+//                               </Badge>
+//                             </div>
+//                           )}
+//                           {category && (
+//                             <div className="absolute top-3 right-3">
+//                               <Badge 
+//                                 variant="secondary" 
+//                                 className="shadow-md text-white border-0"
+//                                 style={{ backgroundColor: category.color }}
+//                               >
+//                                 {category.name.split(' ')[0]}
+//                               </Badge>
+//                             </div>
+//                           )}
+//                         </div>
+
+//                         <CardContent className="p-4">
+//                           {/* Brand Name */}
+//                           <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-gray-700">
+//                             {product.brandName}
+//                           </h3>
+                          
+//                           {/* Product Name */}
+//                           <p className="text-sm text-gray-500 mb-2">{product.name}</p>
+                          
+//                           {/* Composition */}
+//                           <div className="mb-3">
+//                             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Composition</p>
+//                             <p className="text-sm text-gray-600 line-clamp-2">{product.composition}</p>
+//                           </div>
+
+//                           {/* Pack Sizes */}
+//                           {packSizes.length > 0 && (
+//                             <div className="mb-3">
+//                               <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Pack Size</p>
+//                               <div className="flex flex-wrap gap-1.5">
+//                                 {packSizes.map((size: string) => (
+//                                   <Badge 
+//                                     key={size} 
+//                                     variant="outline" 
+//                                     className="text-xs font-medium"
+//                                     style={{ 
+//                                       borderColor: category?.color || PRIMARY_COLOR,
+//                                       color: category?.color || PRIMARY_COLOR
+//                                     }}
+//                                   >
+//                                     {size}
+//                                   </Badge>
+//                                 ))}
+//                               </div>
+//                             </div>
+//                           )}
+
+//                           {/* Description */}
+//                           {product.description && (
+//                             <p className="text-xs text-gray-400 line-clamp-2 mt-2">
+//                               {product.description}
+//                             </p>
+//                           )}
+//                         </CardContent>
+//                       </Card>
+//                     </motion.div>
+//                   )
+//                 })}
+//               </AnimatePresence>
+//             </motion.div>
+//           )}
+//         </div>
+//       </section>
+
+//       {/* Why Choose Us */}
+//       <section className="py-16 md:py-24 bg-white">
+//         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+//           <AnimatedSection className="text-center mb-12">
+//             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
+//               Why Choose Us
+//             </Badge>
+//             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+//               The Siflon Advantage
+//             </h2>
+//             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+//               What sets us apart in the animal healthcare industry
+//             </p>
+//           </AnimatedSection>
+
+//           <motion.div 
+//             className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+//             variants={staggerContainer}
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//           >
+//             {[
+//               { 
+//                 icon: Microscope, 
+//                 title: 'Research Driven', 
+//                 description: 'Products developed through extensive R&D and field trials',
+//                 color: '#3B82F6'
+//               },
+//               { 
+//                 icon: Shield, 
+//                 title: 'Quality Assured', 
+//                 description: 'GMP, ISO, and WHO-GMP certified manufacturing',
+//                 color: '#22C55E'
+//               },
+//               { 
+//                 icon: Zap, 
+//                 title: 'Fast Delivery', 
+//                 description: 'Efficient logistics for timely product delivery',
+//                 color: '#F59E0B'
+//               },
+//               { 
+//                 icon: TestTube, 
+//                 title: 'Lab Tested', 
+//                 description: 'Every batch tested for potency and purity',
+//                 color: '#8B5CF6'
+//               },
+//             ].map((item, i) => (
+//               <motion.div
+//                 key={i}
+//                 variants={cardVariants}
+//                 whileHover={{ y: -8 }}
+//               >
+//                 <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white overflow-hidden group">
+//                   <CardContent className="p-6 text-center">
+//                     <motion.div 
+//                       className="w-14 h-14 mx-auto mb-4 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
+//                       style={{ backgroundColor: `${item.color}15` }}
+//                     >
+//                       <item.icon className="w-7 h-7" style={{ color: item.color }} />
+//                     </motion.div>
+//                     <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
+//                     <p className="text-sm text-gray-500">{item.description}</p>
+//                   </CardContent>
+//                 </Card>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Quality Certifications */}
+//       <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
+//         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+//           <AnimatedSection className="text-center mb-10">
+//             <Badge className="mb-4 bg-white/20 text-white border-white/30">
+//               <Award className="w-3 h-3 mr-1" />
+//               Certifications
+//             </Badge>
+//             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+//               Quality You Can Trust
+//             </h2>
+//           </AnimatedSection>
+
+//           <motion.div 
+//             className="flex flex-wrap justify-center gap-6"
+//             variants={staggerContainer}
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//           >
+//             {['GMP Certified', 'ISO 9001:2015', 'WHO-GMP', 'HACCP', 'GLP', 'FSSAI'].map((cert, i) => (
+//               <motion.div
+//                 key={cert}
+//                 variants={scaleIn}
+//                 whileHover={{ scale: 1.05 }}
+//                 className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20"
+//               >
+//                 <span className="text-white font-medium">{cert}</span>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* CTA Section */}
+//       <section className="py-16 md:py-20 bg-gray-50">
+//         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+//           <AnimatedSection>
+//             <Card className="overflow-hidden border-0 shadow-xl bg-white">
+//               <CardContent className="p-0">
+//                 <div className="grid lg:grid-cols-2">
+//                   <div className="p-8 md:p-12">
+//                     <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
+//                       Get Started
+//                     </Badge>
+//                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+//                       Ready to Partner With Us?
+//                     </h2>
+//                     <p className="text-gray-600 mb-6 leading-relaxed">
+//                       Contact our team for product catalogs, pricing, and technical support. 
+//                       We&apos;re here to help you find the right solutions for your animal healthcare needs.
+//                     </p>
+//                     <div className="flex flex-col sm:flex-row gap-4">
+//                       <Link href="/contact">
+//                         <Button size="lg" style={{ backgroundColor: PRIMARY_COLOR }} className="hover:opacity-90">
+//                           Contact Us <ArrowRight className="ml-2 h-5 w-5" />
+//                         </Button>
+//                       </Link>
+//                       <Link href="/quality">
+//                         <Button size="lg" variant="outline" style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}>
+//                           Our Quality Standards
+//                         </Button>
+//                       </Link>
+//                     </div>
+//                   </div>
+//                   <div className="relative h-64 lg:h-auto">
+//                     <img 
+//                       src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop"
+//                       alt="Contact Us"
+//                       className="w-full h-full object-cover"
+//                     />
+//                     <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent lg:hidden" />
+//                   </div>
+//                 </div>
+//               </CardContent>
+//             </Card>
+//           </AnimatedSection>
+//         </div>
+//       </section>
+
+//       {/* Footer */}
+//       <Footer />
+//     </div>
+//   )
+// }
+
+
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
@@ -426,7 +1094,8 @@ import {
   ChevronRight, Droplets, Package, Wheat, Pill, Syringe, 
   Shield, Award, Star, ArrowRight,
   Beaker, TestTube, Microscope, Zap,
-  Search, Image as ImageIcon
+  Search, Image as ImageIcon, ChevronLeft, X,
+  CheckCircle
 } from 'lucide-react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import Header from '@/components/Header'
@@ -435,6 +1104,7 @@ import FloatingSocialLinks from '@/components/FloatingSocialLinks'
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
+const ITEMS_PER_PAGE = 10
 
 // Animation variants
 const fadeInUp = {
@@ -586,6 +1256,8 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
   useEffect(() => {
     fetchProducts()
@@ -613,8 +1285,24 @@ export default function ProductsPage() {
     return matchesCategory && matchesSearch
   })
 
+  // Pagination
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [activeCategory, searchQuery])
+
   // Get current category info
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory)
+
+  // Pagination controls
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)))
+    window.scrollTo({ top: document.getElementById('products')?.offsetTop || 0, behavior: 'smooth' })
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -739,7 +1427,7 @@ export default function ProductsPage() {
           <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
             <motion.button
               onClick={() => setActiveCategory('all')}
-              className={`flex items-center cursor-pointer gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
                 activeCategory === 'all'
                   ? 'text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
@@ -758,7 +1446,7 @@ export default function ProductsPage() {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-2 cursor-pointer px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
                   activeCategory === category.id
                     ? 'text-white shadow-lg'
                     : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
@@ -791,7 +1479,7 @@ export default function ProductsPage() {
           {/* Products Count */}
           <div className="text-center mb-6">
             <span className="text-sm text-gray-500">
-              Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+              Showing {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filteredProducts.length)} of {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
               {activeCategory !== 'all' && ` in ${CATEGORIES.find(c => c.id === activeCategory)?.name}`}
             </span>
           </div>
@@ -814,84 +1502,84 @@ export default function ProductsPage() {
               </CardContent>
             </Card>
           ) : (
-            <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredProducts.map((product) => {
-                  const category = CATEGORIES.find(c => c.id === product.category)
-                  const packSizes = product.packSize ? JSON.parse(product.packSize) : []
-                  
-                  return (
-                    <motion.div
-                      key={product.id}
-                      layout
-                      variants={cardVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      whileHover={{ y: -5 }}
-                      className="h-full"
-                    >
-                      <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white overflow-hidden group">
-                        {/* Product Image */}
-                        <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-50 overflow-hidden">
-                          {product.image ? (
-                            <img 
-                              src={product.image} 
-                              alt={product.brandName}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <ImageIcon className="w-16 h-16 text-gray-300" />
-                            </div>
-                          )}
-                          {product.featured && (
-                            <div className="absolute top-3 left-3">
-                              <Badge className="bg-yellow-500 text-white border-0 shadow-md">
-                                <Star className="w-3 h-3 mr-1 fill-current" />
-                                Featured
-                              </Badge>
-                            </div>
-                          )}
-                          {category && (
-                            <div className="absolute top-3 right-3">
-                              <Badge 
-                                variant="secondary" 
-                                className="shadow-md text-white border-0"
-                                style={{ backgroundColor: category.color }}
-                              >
-                                {category.name.split(' ')[0]}
-                              </Badge>
-                            </div>
-                          )}
-                        </div>
-
-                        <CardContent className="p-4">
-                          {/* Brand Name */}
-                          <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-gray-700">
-                            {product.brandName}
-                          </h3>
-                          
-                          {/* Product Name */}
-                          <p className="text-sm text-gray-500 mb-2">{product.name}</p>
-                          
-                          {/* Composition */}
-                          <div className="mb-3">
-                            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Composition</p>
-                            <p className="text-sm text-gray-600 line-clamp-2">{product.composition}</p>
+            <>
+              <motion.div 
+                key={`${activeCategory}-${currentPage}`}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                variants={staggerContainer}
+                initial="hidden"
+                animate="visible"
+              >
+                <AnimatePresence mode="popLayout">
+                  {paginatedProducts.map((product) => {
+                    const category = CATEGORIES.find(c => c.id === product.category)
+                    const packSizes = product.packSize ? JSON.parse(product.packSize) : []
+                    
+                    return (
+                      <motion.div
+                        key={product.id}
+                        layout
+                        variants={cardVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        whileHover={{ y: -5 }}
+                        className="h-full cursor-pointer"
+                        onClick={() => setSelectedProduct(product)}
+                      >
+                        <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white overflow-hidden group">
+                          {/* Product Image */}
+                          <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-50 overflow-hidden">
+                            {product.image ? (
+                              <img 
+                                src={product.image} 
+                                alt={product.brandName}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <ImageIcon className="w-16 h-16 text-gray-300" />
+                              </div>
+                            )}
+                            {product.featured && (
+                              <div className="absolute top-3 left-3">
+                                <Badge className="bg-yellow-500 text-white border-0 shadow-md">
+                                  <Star className="w-3 h-3 mr-1 fill-current" />
+                                  Featured
+                                </Badge>
+                              </div>
+                            )}
+                            {category && (
+                              <div className="absolute top-3 right-3">
+                                <Badge 
+                                  variant="secondary" 
+                                  className="shadow-md text-white border-0"
+                                  style={{ backgroundColor: category.color }}
+                                >
+                                  {category.name.split(' ')[0]}
+                                </Badge>
+                              </div>
+                            )}
                           </div>
 
-                          {/* Pack Sizes */}
-                          {packSizes.length > 0 && (
+                          <CardContent className="p-4">
+                            {/* Brand Name */}
+                            <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-gray-700">
+                              {product.brandName}
+                            </h3>
+                            
+                            {/* Product Name */}
+                            <p className="text-sm text-gray-500 mb-2">{product.name}</p>
+                            
+                            {/* Composition */}
                             <div className="mb-3">
-                              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Pack Size</p>
+                              <p className="text-xs text-gray-400 line-clamp-2">{product.composition}</p>
+                            </div>
+
+                            {/* Pack Sizes */}
+                            {packSizes.length > 0 && (
                               <div className="flex flex-wrap gap-1.5">
-                                {packSizes.map((size: string) => (
+                                {packSizes.slice(0, 3).map((size: string) => (
                                   <Badge 
                                     key={size} 
                                     variant="outline" 
@@ -904,23 +1592,112 @@ export default function ProductsPage() {
                                     {size}
                                   </Badge>
                                 ))}
+                                {packSizes.length > 3 && (
+                                  <Badge variant="outline" className="text-xs">
+                                    +{packSizes.length - 3} more
+                                  </Badge>
+                                )}
                               </div>
-                            </div>
-                          )}
+                            )}
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    )
+                  })}
+                </AnimatePresence>
+              </motion.div>
 
-                          {/* Description */}
-                          {product.description && (
-                            <p className="text-xs text-gray-400 line-clamp-2 mt-2">
-                              {product.description}
-                            </p>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  )
-                })}
-              </AnimatePresence>
-            </motion.div>
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <motion.div 
+                  className="flex items-center justify-center gap-2 mt-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {/* Previous Button */}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => goToPage(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="h-10 w-10"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+
+                  {/* Page Numbers */}
+                  <div className="flex items-center gap-1">
+                    {/* First page */}
+                    {currentPage > 3 && (
+                      <>
+                        <Button
+                          variant={currentPage === 1 ? 'default' : 'outline'}
+                          size="icon"
+                          onClick={() => goToPage(1)}
+                          className="h-10 w-10"
+                          style={currentPage === 1 ? { backgroundColor: PRIMARY_COLOR } : {}}
+                        >
+                          1
+                        </Button>
+                        {currentPage > 4 && (
+                          <span className="px-2 text-gray-400">...</span>
+                        )}
+                      </>
+                    )}
+
+                    {/* Pages around current */}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                      .filter(page => {
+                        if (totalPages <= 5) return true
+                        if (page === 1 || page === totalPages) return false
+                        return Math.abs(page - currentPage) <= 1
+                      })
+                      .map(page => (
+                        <Button
+                          key={page}
+                          variant={currentPage === page ? 'default' : 'outline'}
+                          size="icon"
+                          onClick={() => goToPage(page)}
+                          className="h-10 w-10"
+                          style={currentPage === page ? { backgroundColor: PRIMARY_COLOR } : {}}
+                        >
+                          {page}
+                        </Button>
+                      ))}
+
+                    {/* Last page */}
+                    {currentPage < totalPages - 2 && (
+                      <>
+                        {currentPage < totalPages - 3 && (
+                          <span className="px-2 text-gray-400">...</span>
+                        )}
+                        <Button
+                          variant={currentPage === totalPages ? 'default' : 'outline'}
+                          size="icon"
+                          onClick={() => goToPage(totalPages)}
+                          className="h-10 w-10"
+                          style={currentPage === totalPages ? { backgroundColor: PRIMARY_COLOR } : {}}
+                        >
+                          {totalPages}
+                        </Button>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Next Button */}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => goToPage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="h-10 w-10"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </motion.div>
+              )}
+            </>
           )}
         </div>
       </section>
@@ -1078,6 +1855,173 @@ export default function ProductsPage() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Product Detail Dialog */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setSelectedProduct(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
+
+              <div className="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
+                {/* Image Section */}
+                <div className="md:w-1/2 relative bg-gray-100">
+                  {selectedProduct.image ? (
+                    <img
+                      src={selectedProduct.image}
+                      alt={selectedProduct.brandName}
+                      className="w-full h-64 md:h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-64 md:h-80 flex items-center justify-center">
+                      <ImageIcon className="w-20 h-20 text-gray-300" />
+                    </div>
+                  )}
+                  {/* Featured Badge */}
+                  {selectedProduct.featured && (
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-yellow-500 text-white border-0 shadow-md">
+                        <Star className="w-3 h-3 mr-1 fill-current" />
+                        Featured Product
+                      </Badge>
+                    </div>
+                  )}
+                </div>
+
+                {/* Content Section */}
+                <div className="md:w-1/2 p-6 md:p-8">
+                  {/* Category Badge */}
+                  {(() => {
+                    const category = CATEGORIES.find(c => c.id === selectedProduct.category)
+                    return category ? (
+                      <Badge 
+                        className="mb-3 text-white"
+                        style={{ backgroundColor: category.color }}
+                      >
+                        {category.name}
+                      </Badge>
+                    ) : null
+                  })()}
+
+                  {/* Brand Name */}
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                    {selectedProduct.brandName}
+                  </h2>
+
+                  {/* Product Name */}
+                  <p className="text-lg text-gray-500 mb-4">{selectedProduct.name}</p>
+
+                  {/* Composition */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                      Composition
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      {selectedProduct.composition}
+                    </p>
+                  </div>
+
+                  {/* Pack Sizes */}
+                  {selectedProduct.packSize && JSON.parse(selectedProduct.packSize).length > 0 && (
+                    <div className="mb-6">
+                      <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                        Available Pack Sizes
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {JSON.parse(selectedProduct.packSize).map((size: string) => {
+                          const category = CATEGORIES.find(c => c.id === selectedProduct.category)
+                          return (
+                            <Badge
+                              key={size}
+                              variant="outline"
+                              className="px-3 py-1.5 text-sm font-medium"
+                              style={{
+                                borderColor: category?.color || PRIMARY_COLOR,
+                                color: category?.color || PRIMARY_COLOR,
+                                backgroundColor: `${category?.color || PRIMARY_COLOR}10`
+                              }}
+                            >
+                              {size}
+                            </Badge>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Description */}
+                  {selectedProduct.description && (
+                    <div className="mb-6">
+                      <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                        Description
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed">
+                        {selectedProduct.description}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Sectors */}
+                  {selectedProduct.sectors && JSON.parse(selectedProduct.sectors).length > 0 && (
+                    <div className="mb-6">
+                      <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                        Suitable For
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {JSON.parse(selectedProduct.sectors).map((sector: string) => (
+                          <div key={sector} className="flex items-center gap-1.5 text-sm text-gray-600">
+                            <CheckCircle className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
+                            <span className="capitalize">{sector === 'all' ? 'All Animals' : sector}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t">
+                    <Link href="/contact" className="flex-1">
+                      <Button 
+                        className="w-full" 
+                        style={{ backgroundColor: PRIMARY_COLOR }}
+                      >
+                        Request Quote
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => setSelectedProduct(null)}
+                    >
+                      Continue Browsing
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
