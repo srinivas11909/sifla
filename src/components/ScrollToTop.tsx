@@ -44,7 +44,7 @@ export default function ScrollToTop() {
           {/* Desktop - Right side above WhatsApp */}
           <motion.button
             onClick={scrollToTop}
-            className="fixed right-6 bottom-20 z-50 hidden md:flex items-center justify-center w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
+            className="fixed right-6 bottom-10 z-50 hidden md:flex items-center justify-center w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
             style={{ backgroundColor: PRIMARY_COLOR }}
             initial={{ opacity: 0, scale: 0, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -60,7 +60,7 @@ export default function ScrollToTop() {
           {/* Mobile - Right side above WhatsApp */}
           <motion.button
             onClick={scrollToTop}
-            className="fixed right-4 bottom-20 z-50 md:hidden flex items-center justify-center w-12 h-12 rounded-full shadow-lg"
+            className="fixed right-4 bottom-4 z-50 md:hidden flex items-center justify-center w-12 h-12 rounded-full shadow-lg"
             style={{ backgroundColor: PRIMARY_COLOR }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}

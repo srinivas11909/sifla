@@ -401,7 +401,7 @@
 
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState,useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -468,6 +468,22 @@ const cardVariants = {
   }
 }
 
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease: 'easeOut' }
+  }
+}
+
+const stats = [
+  { value: 30, suffix: '+', label: 'Years Experience' },
+  { value: 50, suffix: '+', label: 'Countries Served' },
+  { value: 500, suffix: '+', label: 'Products Range' },
+  { value: 10000, suffix: '+', label: 'Happy Clients' },
+]
+
 // Animated section wrapper
 function AnimatedSection({ 
   children, 
@@ -492,6 +508,33 @@ function AnimatedSection({
       {children}
     </motion.div>
   )
+}
+
+
+
+// Counter animation component
+function AnimatedCounter({ value, suffix = '', duration = 2 }: { value: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+
+  useEffect(() => {
+    if (isInView) {
+      let start = 0
+      const end = value
+      const incrementTime = (duration * 1000) / end
+
+      const timer = setInterval(() => {
+        start += 1
+        setCount(start)
+        if (start >= end) clearInterval(timer)
+      }, incrementTime)
+
+      return () => clearInterval(timer)
+    }
+  }, [isInView, value, duration])
+
+  return <span ref={ref}>{count}{suffix}</span>
 }
 
 // Business divisions
@@ -983,6 +1026,8 @@ export default function AboutPage() {
         </div>
       </section>
 
+      
+
       {/* Why Choose Us Section */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -1028,6 +1073,46 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+
+           {/* Stats Section - 30+ Years of Excellence */}
+            <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <AnimatedSection className="text-center mb-12">
+                  <Badge className="mb-4 bg-white/20 text-white border-white/30 border">
+                    Our Journey
+                  </Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    30+ Years of Excellence
+                  </h2>
+                  <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+                    A legacy of trust, innovation, and quality in animal healthcare since 1993
+                  </p>
+                </AnimatedSection>
+      
+                <motion.div
+                  className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  {stats.map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
+                      variants={scaleIn}
+                      whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.15)' }}
+                    >
+                      <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+                        <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                      </div>
+                      <div className="text-sm md:text-base text-blue-100">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </section>
+      
 
       {/* Timeline Section */}
       <section className="py-16 md:py-24 bg-white">

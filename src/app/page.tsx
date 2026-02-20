@@ -1131,7 +1131,7 @@ import type { Metadata } from "next";
 import HomePageClient from "@/components/HomePageClient";
 
 export const metadata: Metadata = {
-  title: "Oxyclozanide Manufacturer & Supplier | Siflon Drugs & Pharmaceuticals Pvt Ltd",
+  title: "Veterinary Pharmaceutical Products, Medicines, Manufacturers | Siflon Drugs & Pharmaceuticals Pvt Ltd",
   description:
     "Siflon Drugs & Pharmaceuticals Pvt Ltd is a leading manufacturer and supplier of Oxyclozanide for veterinary and animal healthcare use. High-quality Oxyclozanide bulk supply globally.",
   keywords: [
@@ -1145,7 +1145,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "Oxyclozanide Manufacturer & Supplier | Siflon Drugs & Pharmaceuticals Pvt Ltd",
+      "Veterinary Pharmaceutical Products, Medicines, Manufacturers | Siflon Drugs & Pharmaceuticals Pvt Ltd",
     description:
       "Premium quality Oxyclozanide manufactured and supplied globally by Siflon Drugs & Pharmaceuticals Pvt Ltd.",
     type: "website",

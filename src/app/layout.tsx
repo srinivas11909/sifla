@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import FloatingActions from "@/components/FloatingActions";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
+
 import ScrollToTop from "@/components/ScrollToTop";
 
 
@@ -71,10 +74,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        <AnalyticsTracker />
         {children}
         <Toaster />
         <ScrollToTop />
-        <FloatingWhatsApp />
+        <FloatingActions />
 
         <script
           type="application/ld+json"

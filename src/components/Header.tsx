@@ -4,10 +4,13 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Beaker } from 'lucide-react'
+import { Menu, X, Beaker, Download, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 // import sifilonlogo from "@public/sifilonlogo"
 //import Image from 'next/image'
+import OutletsDialog from '@/components/OutletsDialog'
+
+
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -73,14 +76,40 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
-            <Link href="/contact">
+            {/* <Link href="/contact">
               <Button
                 style={{ backgroundColor: PRIMARY_COLOR }}
                 className="hover:opacity-90"
               >
                 Get Quote
               </Button>
-            </Link>
+            </Link> */}
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 ml-4">
+              <OutletsDialog />
+              
+              <a href="/siflonpharma-brochure.pdf" download>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
+                  style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
+                >
+                  <Download className="w-4 h-4" />
+                  Brochure
+                </Button>
+              </a>
+              
+              <Link href="/contact">
+                <Button 
+                  size="sm"
+                  style={{ backgroundColor: PRIMARY_COLOR }}
+                  className="hover:opacity-90"
+                >
+                  Get Quote
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -116,14 +145,42 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+              {/* <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                 <Button
                   className="w-full"
                   style={{ backgroundColor: PRIMARY_COLOR }}
                 >
                   Get Quote
                 </Button>
-              </Link>
+              </Link> */}
+               {/* Mobile Action Buttons */}
+              <div className="flex flex-col gap-2 pt-3 border-t mt-2">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
+                  <span className="text-sm text-gray-600">Our Outlets</span>
+                  <span className="text-xs text-gray-400">(see below)</span>
+                </div>
+                
+                <a href="/siflonpharma-brochure.pdf" download onClick={() => setMobileMenuOpen(false)}>
+                  <Button 
+                    variant="outline" 
+                    className="w-full gap-2"
+                    style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Brochure
+                  </Button>
+                </a>
+                
+                <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                  <Button 
+                    className="w-full"
+                    style={{ backgroundColor: PRIMARY_COLOR }}
+                  >
+                    Get Quote
+                  </Button>
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

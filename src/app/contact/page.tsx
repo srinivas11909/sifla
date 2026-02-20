@@ -428,9 +428,105 @@ import { motion, useInView } from 'framer-motion'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import FloatingSocialLinks from '@/components/FloatingSocialLinks'
+import MapComponent, { MapLocation } from '@/components/MapComponent'
+
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
+
+const mapLocations: MapLocation[] = [
+  {
+    id: 'headoffice',
+    name: 'Siflon Drugs & Pharmaceuticals Pvt Ltd',
+    type: 'headoffice',
+    address: 'Plot No. 24, Phase-III, IDA, Jeedimetla, Hyderabad - 500 055, Telangana, India',
+    phone: '+91 40 2304 5678',
+    email: 'info@siflonpharma.com',
+    lat: 17.4399,
+    lng: 78.4983,
+    certifications: ['WHO-GMP', 'ISO 9001:2015']
+  },
+  {
+    id: 'manufacturing',
+    name: 'Manufacturing Unit - Hyderabad',
+    type: 'manufacturing',
+    address: 'Survey No. 125, Pashamylaram, Patancheru, Hyderabad - 502 319, Telangana',
+    phone: '+91 40 2304 5679',
+    email: 'manufacturing@siflonpharma.com',
+    lat: 17.5298,
+    lng: 78.2657,
+    certifications: ['GMP', 'WHO-GMP', 'ISO 9001:2015']
+  },
+  {
+    id: 'mumbai',
+    name: 'Siflon Distributor - Mumbai',
+    type: 'domestic',
+    address: 'Andheri East, Mumbai - 400 069, Maharashtra',
+    phone: '+91 22 2834 5678',
+    email: 'mumbai@siflonpharma.com',
+    lat: 19.1136,
+    lng: 72.8697
+  },
+  {
+    id: 'chennai',
+    name: 'Siflon Distributor - Chennai',
+    type: 'domestic',
+    address: 'T. Nagar, Chennai - 600 017, Tamil Nadu',
+    phone: '+91 44 2815 6789',
+    email: 'chennai@siflonpharma.com',
+    lat: 13.0418,
+    lng: 80.2341
+  },
+  {
+    id: 'vietnam',
+    name: 'Siflon Vietnam',
+    type: 'international',
+    address: 'District 7, Ho Chi Minh City, Vietnam',
+    phone: '+84 28 1234 5678',
+    email: 'vietnam@siflonpharma.com',
+    lat: 10.7756,
+    lng: 106.7005,
+    country: 'Vietnam',
+    flag: '🇻🇳'
+  },
+  {
+    id: 'thailand',
+    name: 'Siflon Thailand',
+    type: 'international',
+    address: 'Bangkok, Thailand',
+    phone: '+66 2 123 4567',
+    email: 'thailand@siflonpharma.com',
+    lat: 13.7563,
+    lng: 100.5018,
+    country: 'Thailand',
+    flag: '🇹🇭'
+  },
+  {
+    id: 'nigeria',
+    name: 'Siflon Nigeria',
+    type: 'international',
+    address: 'Lagos, Nigeria',
+    phone: '+234 1 234 5678',
+    email: 'nigeria@siflonpharma.com',
+    lat: 6.5244,
+    lng: 3.3792,
+    country: 'Nigeria',
+    flag: '🇳🇬'
+  },
+  {
+    id: 'bangladesh',
+    name: 'Siflon Bangladesh',
+    type: 'international',
+    address: 'Dhaka, Bangladesh',
+    phone: '+880 2 1234 5678',
+    email: 'bangladesh@siflonpharma.com',
+    lat: 23.8103,
+    lng: 90.4125,
+    country: 'Bangladesh',
+    flag: '🇧🇩'
+  }
+]
+
 
 // Animation variants
 const fadeInUp = {
@@ -621,6 +717,25 @@ export default function ContactPage() {
                   </motion.div>
                 ))}
               </div>
+
+              {/* <motion.div 
+                className="mt-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Our Locations</h3>
+                  <p className="text-sm text-gray-600">Click on markers to see location details</p>
+                </div>
+                <MapComponent 
+                  locations={mapLocations}
+                  center={[17.4399, 78.4983]}
+                  zoom={5}
+                  height="350px"
+                />
+              </motion.div> */}
 
               {/* Google Maps - Office Location */}
               <motion.div 
