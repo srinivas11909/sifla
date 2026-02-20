@@ -313,7 +313,7 @@ const services = [
     color: '#dc2626',
     description: 'Comprehensive healthcare solutions for livestock including cattle, swine, sheep, and goats.',
     features: ['Therapeutic Solutions', 'Nutritional Supplements', 'Preventive Care', 'Health Management'],
-    sectors: ['Cattle', 'Swine', 'Sheep', 'Goat','Dog','Cat'],
+    sectors: ['Cattle', 'Swine', 'Sheep', 'Goat', 'Dog', 'Cat'],
     image: '/hero-bg.png'
   },
   {
@@ -401,6 +401,24 @@ interface HeroSlideData {
   active: boolean
 }
 
+function getYouTubeVideoId(url: string): string | null {
+  if (!url) return null
+
+  // Handle various YouTube URL formats
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ]
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern)
+    if (match) return match[1]
+  }
+
+  return null
+}
+
+
 export default function Home() {
   const [heroSlides, setHeroSlides] = useState<Array<{
     type: string
@@ -477,10 +495,29 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7 }}
             className="absolute inset-0"
           >
-            {currentSlideData.type === 'video' ? (
+            {currentSlideData.type === 'youtube' ? (
+              <>
+                {/* Poster image as background */}
+                {currentSlideData.poster && (
+                  <div
+                    className="absolute inset-0 bg-cover bg-center z-0"
+                    style={{ backgroundImage: `url(${currentSlideData.poster})` }}
+                  />
+                )}
+                <iframe
+                  className="absolute inset-0 w-full h-full object-cover z-10"
+                  src={`https://www.youtube.com/embed/${getYouTubeVideoId(currentSlideData.src)}?autoplay=1&mute=1&loop=1&playlist=${getYouTubeVideoId(currentSlideData.src)}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+                  title={currentSlideData.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ pointerEvents: 'none' }}
+                />
+              </>
+            ) : currentSlideData.type === 'video' ? (
               <>
                 <video
                   ref={videoRef}
@@ -655,7 +692,7 @@ export default function Home() {
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
-          
+
         </div>
 
         {/* Animated SVG Connections */}
