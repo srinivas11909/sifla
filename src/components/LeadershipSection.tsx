@@ -46,7 +46,7 @@ const leadershipTeam = [
   },
   {
     id: 4,
-    name: 'Mr. Suresh Reddy',
+    name: 'Mr. Suresh',
     designation: 'Director - Operations',
     image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&h=400&q=80',
     bio: 'Ensuring operational excellence across manufacturing facilities. Mr. Reddy oversees production, quality control, and supply chain management.',
