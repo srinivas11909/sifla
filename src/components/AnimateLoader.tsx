@@ -510,3 +510,5 @@ const AnimalLoader = () => {
 };
 
 export default AnimalLoader;
+
+

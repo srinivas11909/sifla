@@ -21,6 +21,10 @@ import FloatingSocialLinks from '@/components/FloatingSocialLinks'
 import OutletsDialog from '@/components/OutletsDialog'
 import AnimalLoader from './AnimateLoader'
 import ProductsAtGlance from './ProductsAtGlance'
+import TestimonialsSection from './TestimonialsSection'
+import BecomeDistributor from './BecomeDistributor'
+import AnimateLoader from './AnimalLoader'
+import AnimalNetworkSection from './AnimalNetworkSection'
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
@@ -672,309 +676,20 @@ export default function Home() {
       </section>
 
 
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#ffffff"
-      }}>
+      <div className="hidden lg:flex items-center justify-center bg-white">
         <AnimalLoader />
       </div>
 
-      {/* Animal Network Section - Beautiful Animated Connections */}
-      <section className="relative w-full min-h-[700px] md:min-h-[800px] overflow-hidden" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}08, #f0f9ff, ${PRIMARY_COLOR}05)` }}>
-        <div className="absolute inset-0 opacity-30">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <circle cx="30" cy="30" r="1" fill={`${PRIMARY_COLOR}20`} />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
+      
+      <div className="flex lg:hidden items-center justify-center bg-white">
+        <AnimateLoader />
+      </div>
+      
 
-        </div>
+       <AnimalNetworkSection />
 
-        {/* Animated SVG Connections */}
-        <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={PRIMARY_COLOR} stopOpacity="0.6" />
-              <stop offset="50%" stopColor="#60a5fa" stopOpacity="1" />
-              <stop offset="100%" stopColor={PRIMARY_COLOR} stopOpacity="0.6" />
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-              <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {/* Animated connection lines */}
-          <motion.line
-            x1="50%" y1="50%"
-            x2="20%" y2="25%"
-            stroke="url(#lineGradient)"
-            strokeWidth="2"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          />
-          <motion.line
-            x1="50%" y1="50%"
-            x2="80%" y2="25%"
-            stroke="url(#lineGradient)"
-            strokeWidth="2"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.2, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          />
-          <motion.line
-            x1="50%" y1="50%"
-            x2="15%" y2="60%"
-            stroke="url(#lineGradient)"
-            strokeWidth="2"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.4, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          />
-          <motion.line
-            x1="50%" y1="50%"
-            x2="85%" y2="60%"
-            stroke="url(#lineGradient)"
-            strokeWidth="2"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          />
-          <motion.line
-            x1="50%" y1="50%"
-            x2="30%" y2="85%"
-            stroke="url(#lineGradient)"
-            strokeWidth="2"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.8, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          />
-          <motion.line
-            x1="50%" y1="50%"
-            x2="70%" y2="85%"
-            stroke="url(#lineGradient)"
-            strokeWidth="2"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          />
-
-          {/* Inter-node connections */}
-          <motion.line
-            x1="20%" y1="25%"
-            x2="80%" y2="25%"
-            stroke="#60a5fa"
-            strokeWidth="1"
-            strokeDasharray="5,5"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.5 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            viewport={{ once: true }}
-          />
-          <motion.line
-            x1="15%" y1="60%"
-            x2="85%" y2="60%"
-            stroke="#60a5fa"
-            strokeWidth="1"
-            strokeDasharray="5,5"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.5 }}
-            transition={{ delay: 1.7, duration: 1 }}
-            viewport={{ once: true }}
-          />
-        </svg>
-
-        {/* Floating particles */}
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full"
-            style={{
-              backgroundColor: i % 2 === 0 ? PRIMARY_COLOR : '#60a5fa',
-              left: `${10 + (i * 8)}%`,
-              top: `${20 + (i % 4) * 20}%`,
-              opacity: 0.3,
-              zIndex: 0
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.6, 0.3],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{
-              duration: 3 + i * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-
-        {/* Center Logo */}
-        <motion.div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-          initial={{ scale: 0, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <motion.div
-            className="relative"
-            animate={{
-              boxShadow: [
-                `0 0 30px ${PRIMARY_COLOR}30`,
-                `0 0 60px ${PRIMARY_COLOR}40`,
-                `0 0 30px ${PRIMARY_COLOR}30`
-              ]
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white shadow-2xl flex items-center justify-center border-4" style={{ borderColor: PRIMARY_COLOR }}>
-              <Image
-                src="/siflonlogo.png"
-                alt="Siflon"
-                width={80}
-                height={80}
-                className="w-16 h-16 md:w-20 md:h-20 object-contain"
-              />
-            </div>
-            {/* Pulsing rings */}
-            <motion.div
-              className="absolute inset-0 rounded-full border-2"
-              style={{ borderColor: PRIMARY_COLOR }}
-              animate={{ scale: [1, 1.5], opacity: [0.8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-            />
-            <motion.div
-              className="absolute inset-0 rounded-full border-2"
-              style={{ borderColor: PRIMARY_COLOR }}
-              animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Animal Nodes */}
-        {[
-          { id: 'poultry', src: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=200&h=200&fit=crop', top: '15%', left: '15%', label: 'Poultry', icon: Feather },
-          { id: 'aqua', src: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=200&h=200&fit=crop', top: '15%', left: '73%', label: 'Aqua', icon: Waves },
-          { id: 'dairy', src: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=200&h=200&fit=crop', top: '50%', left: '5%', label: 'Dairy', icon: Milk },
-          { id: 'swine', src: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=200&h=200&fit=crop', top: '50%', left: '82%', label: 'Swine', icon: CircleDot },
-          { id: 'equine', src: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=200&h=200&fit=crop', top: '78%', left: '22%', label: 'Equine', icon: Activity },
-          { id: 'pets', src: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=200&fit=crop', top: '78%', left: '62%', label: 'Pets', icon: Heart },
-        ].map((animal, index) => (
-          <motion.div
-            key={animal.id}
-            className="absolute z-20"
-            style={{ top: animal.top, left: animal.left }}
-            initial={{ opacity: 0, scale: 0.5, y: 30 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.15, duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <motion.div
-              whileHover={{ scale: 1.15, y: -10 }}
-              className="relative group cursor-pointer"
-            >
-              {/* Glow effect on hover */}
-              <motion.div
-                className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: `radial-gradient(circle, ${PRIMARY_COLOR}20 0%, transparent 70%)` }}
-              />
-
-              {/* Card */}
-              <div className="relative bg-white rounded-2xl p-2 shadow-xl border border-gray-100 group-hover:shadow-2xl transition-all duration-300">
-                <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden">
-                  <Image
-                    src={animal.src}
-                    alt={animal.label}
-                    fill
-                    className="object-cover"
-                  />
-                  {/* Overlay on hover */}
-                  <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ backgroundColor: `${PRIMARY_COLOR}cc` }}
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    <animal.icon className="w-8 h-8 text-white" />
-                  </motion.div>
-                </div>
-
-                {/* Label */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                  <span
-                    className="text-xs md:text-sm font-semibold px-3 py-1 rounded-full shadow-lg bg-white"
-                    style={{ color: PRIMARY_COLOR }}
-                  >
-                    {animal.label}
-                  </span>
-                </div>
-              </div>
-
-              {/* Animated pulse dot */}
-              <motion.div
-                className="absolute -top-1 -right-1 w-4 h-4 rounded-full"
-                style={{ backgroundColor: PRIMARY_COLOR }}
-                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: PRIMARY_COLOR }} />
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        ))}
-
-        {/* Section Title */}
-        <motion.div
-          className="absolute top-8 left-1/2 -translate-x-1/2 text-center z-30"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <Badge className="mb-2" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
-            Our Sectors
-          </Badge>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Serving All Animal Sectors
-          </h2>
-        </motion.div>
-
-        {/* Bottom tagline */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center z-30"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-sm md:text-base text-gray-600 max-w-md">
-            Comprehensive healthcare solutions for all animal sectors, connected by quality and innovation
-          </p>
-        </motion.div>
-      </section>
+       
+    
 
 
       {/* Manufacturing Plant Section - Two Column Layout with Background Image */}
@@ -1706,6 +1421,11 @@ export default function Home() {
           </motion.div>
         </div>
       </section> */}
+
+
+      <TestimonialsSection />
+      
+      <BecomeDistributor />
 
       {/* Global Presence */}
       <section className="py-16 md:py-24 bg-white overflow-hidden">

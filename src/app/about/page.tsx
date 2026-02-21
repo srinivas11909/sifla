@@ -415,6 +415,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import FloatingSocialLinks from '@/components/FloatingSocialLinks'
+import LeadershipSection from '@/components/LeadershipSection'
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
@@ -770,6 +771,105 @@ export default function AboutPage() {
         </div>
       </section>
 
+            {/* Vision & Mission */}
+      <section className="py-16 md:py-24" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <AnimatedSection variant={fadeInLeft}>
+              <Card className="border-0 shadow-xl bg-white/10 backdrop-blur-sm h-full">
+                <CardContent className="p-8">
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+                    <Target className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                  <p className="text-blue-100 leading-relaxed">
+                    Our company is in the process of launching new products to strengthen our portfolio and establish 
+                    a base to launch our products in different countries. We aspire to develop new products and 
+                    medicines that will address significant unmet medical needs of both companion and farm animals.
+                  </p>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            
+            <AnimatedSection variant={fadeInRight}>
+              <Card className="border-0 shadow-xl bg-white/10 backdrop-blur-sm h-full">
+                <CardContent className="p-8">
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+                    <Award className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
+                  <p className="text-blue-100 leading-relaxed">
+                    Our goal is to become one of the most reliable companies with regards to the veterinary formulations. 
+                    We want to be known as a company that is furthering animal health, with good quality products at 
+                    affordable prices.
+                  </p>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+
+      
+      {/* Timeline Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-12">
+            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
+              Our Journey
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Milestones Along the Way
+            </h2>
+          </AnimatedSection>
+          
+          <div className="relative max-w-4xl mx-auto">
+            {/* Timeline line */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 hidden md:block"
+              style={{ backgroundColor: `${PRIMARY_COLOR}20` }}
+            />
+            
+            <div className="space-y-8">
+              {milestones.map((milestone, index) => (
+                <motion.div
+                  key={index}
+                  className={`flex flex-col md:flex-row items-center gap-4 ${
+                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                    <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+                      <CardContent className="p-6">
+                        <div 
+                          className="text-sm font-bold mb-2"
+                          style={{ color: PRIMARY_COLOR }}
+                        >
+                          {milestone.year}
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{milestone.title}</h3>
+                        <p className="text-gray-600 text-sm">{milestone.description}</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <div 
+                    className="w-4 h-4 rounded-full hidden md:block z-10 ring-4 ring-white"
+                    style={{ backgroundColor: PRIMARY_COLOR }}
+                  />
+                  <div className="flex-1 hidden md:block" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* Siflon Drugs & Pharmaceuticals Section */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -832,6 +932,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <LeadershipSection />
 
       {/* Integration, Quality, Infrastructure Tabs Section */}
       <section className="py-16 md:py-24 relative overflow-hidden">
@@ -987,44 +1089,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="py-16 md:py-24" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            <AnimatedSection variant={fadeInLeft}>
-              <Card className="border-0 shadow-xl bg-white/10 backdrop-blur-sm h-full">
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
-                    <Target className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
-                  <p className="text-blue-100 leading-relaxed">
-                    Our company is in the process of launching new products to strengthen our portfolio and establish 
-                    a base to launch our products in different countries. We aspire to develop new products and 
-                    medicines that will address significant unmet medical needs of both companion and farm animals.
-                  </p>
-                </CardContent>
-              </Card>
-            </AnimatedSection>
-            
-            <AnimatedSection variant={fadeInRight}>
-              <Card className="border-0 shadow-xl bg-white/10 backdrop-blur-sm h-full">
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
-                    <Award className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
-                  <p className="text-blue-100 leading-relaxed">
-                    Our goal is to become one of the most reliable companies with regards to the veterinary formulations. 
-                    We want to be known as a company that is furthering animal health, with good quality products at 
-                    affordable prices.
-                  </p>
-                </CardContent>
-              </Card>
-            </AnimatedSection>
-          </div>
-        </div>
-      </section>
 
       
 
@@ -1114,62 +1178,6 @@ export default function AboutPage() {
             </section>
       
 
-      {/* Timeline Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
-              Our Journey
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Milestones Along the Way
-            </h2>
-          </AnimatedSection>
-          
-          <div className="relative max-w-4xl mx-auto">
-            {/* Timeline line */}
-            <div 
-              className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 hidden md:block"
-              style={{ backgroundColor: `${PRIMARY_COLOR}20` }}
-            />
-            
-            <div className="space-y-8">
-              {milestones.map((milestone, index) => (
-                <motion.div
-                  key={index}
-                  className={`flex flex-col md:flex-row items-center gap-4 ${
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                    <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                      <CardContent className="p-6">
-                        <div 
-                          className="text-sm font-bold mb-2"
-                          style={{ color: PRIMARY_COLOR }}
-                        >
-                          {milestone.year}
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{milestone.title}</h3>
-                        <p className="text-gray-600 text-sm">{milestone.description}</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  <div 
-                    className="w-4 h-4 rounded-full hidden md:block z-10 ring-4 ring-white"
-                    style={{ backgroundColor: PRIMARY_COLOR }}
-                  />
-                  <div className="flex-1 hidden md:block" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-gray-50">
