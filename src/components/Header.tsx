@@ -6,8 +6,8 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Beaker, Download, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
-// import sifilonlogo from "@public/sifilonlogo"
-//import Image from 'next/image'
+import sifilonlogo from "@public/sifilonlogo"
+import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
 
 
@@ -42,23 +42,23 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-          {/* <Image 
-              src="/siflonlogo.png" 
+          <Image 
+              src="/Logo.svg" 
               alt="Siflon Logo" 
               width={45} 
               height={45}
-              className="h-10 w-auto object-contain"
-            /> */}
-            <div
+              className="h-[79px] w-auto object-contain"
+            />
+            {/* <div
               className="w-10 h-10 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: PRIMARY_COLOR }}
             >
               <Beaker className="w-6 h-6 text-white" />
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <span className="text-xl font-bold text-gray-900">Siflon </span>
               <p className="text-xs text-gray-500 -mt-1">Drugs & Pharmaceuticals Pvt Ltd</p>
-            </div>
+            </div> */}
           </Link>
 
           {/* Desktop Navigation */}

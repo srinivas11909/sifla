@@ -1,19 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Creator: CorelDRAW -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="297mm" height="210mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 29700 21000"
- xmlns:xlink="http://www.w3.org/1999/xlink"
- xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xodm="http://www.corel.com/coreldraw/odm/2003" xml:space="preserve" width="297mm" height="210mm" version="1.1" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;/* background: red; */clip-rule:evenodd" viewBox="0 0 29700 21000">
  <defs>
-  <style type="text/css">
+  <style xmlns="http://www.w3.org/2000/svg" type="text/css">
    <![CDATA[
-    .fil0 {fill:#253C80}
+    .fil0 {fill:#FFFFFF}
     .fil1 {fill:#3B63AD}
     .fil2 {fill:#4FB7E8}
     .fil3 {fill:#76C6FF}
     .fil4 {fill:white}
-    .fil5 {fill:#253C80;fill-rule:nonzero}
+    .fil5 {fill:#FFFFFF;fill-rule:nonzero}
    ]]>
   </style>
  </defs>

@@ -91,7 +91,7 @@
 
 //   useEffect(() => {
 //     if (!isAutoPlaying) return
-    
+
 //     const interval = setInterval(() => {
 //       setCurrentIndex((prev) => (prev + 1) % sectors.length)
 //     }, 3000)
@@ -180,7 +180,7 @@
 //                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
 //                     />
 //                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    
+
 //                     {/* Name Badge */}
 //                     <div className="absolute bottom-3 left-3 right-3">
 //                       <h3 className="text-lg font-bold text-white">{sector.name}</h3>
@@ -391,7 +391,7 @@
 //                   className="absolute inset-0"
 //                   style={{ background: `linear-gradient(to top, ${PRIMARY_COLOR}ee 0%, ${PRIMARY_COLOR}80 40%, transparent 100%)` }}
 //                 />
-                
+
 //                 {/* Content Overlay */}
 //                 <div className="absolute bottom-0 inset-x-0 p-6 text-white">
 //                   <motion.h3 
@@ -484,7 +484,7 @@
 //     <section className="py-16 md:py-24 relative overflow-hidden">
 //       {/* Background */}
 //       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50" />
-      
+
 //       {/* Decorative Elements */}
 //       <div className="absolute inset-0 overflow-hidden pointer-events-none">
 //         <motion.div 
@@ -596,62 +596,71 @@ const PRIMARY_COLOR = '#243d80'
 const sectors = [
   {
     id: 1,
-    name: 'Camel',
-    image: 'https://images.openai.com/static-rsc-3/wgTPAYHiydV2tdYRFoHygfchXqkh55kotZWw1lS6cqN2-WRXfFvR5JRv7HsTBTDSKZxXZwhWwtvKaqSf7UJ0zjXNfsCOKAMdRJfrsnfZCaY?purpose=fullsize&v=1',
-    description: 'Specialized healthcare solutions for camels',
-    products: ['Vaccines', 'Supplements', 'Antibiotics']
-  },
-  {
-    id: 2,
-    name: 'Sheep',
-    image: 'https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=600&h=400&fit=crop',
-    description: 'Comprehensive sheep health products',
-    products: ['Dewormers', 'Nutrition', 'Vaccines']
-  },
-  {
-    id: 3,
-    name: 'Goat',
-    image: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=600&h=400&fit=crop',
-    description: 'Quality medicines for goat farming',
-    products: ['Supplements', 'Antibiotics', 'Minerals']
-  },
-  {
-    id: 4,
     name: 'Cow',
     image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&h=400&fit=crop',
     description: 'Dairy cattle healthcare solutions',
     products: ['Mastitis Care', 'Nutrition', 'Reproduction']
   },
   {
-    id: 5,
+    id: 2,
     name: 'Buffalo',
     image: 'https://static4.depositphotos.com/1007572/329/i/450/depositphotos_3294853-stock-photo-african-buffalo-cow.jpg?auto=format&fit=crop&w=200&q=80',
     description: 'Complete buffalo health products',
     products: ['Immunity', 'Milk Enhancers', 'Healthcare']
   },
   {
+    id: 3,
+    name: 'Sheep',
+    image: 'https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=600&h=400&fit=crop',
+    description: 'Comprehensive sheep health products',
+    products: ['Dewormers', 'Nutrition', 'Vaccines']
+  },
+  {
+    id: 4,
+    name: 'Goat',
+    image: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=600&h=400&fit=crop',
+    description: 'Quality medicines for goat farming',
+    products: ['Supplements', 'Antibiotics', 'Minerals']
+  },
+  {
+    id: 5,
+    name: "pig",
+    image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=200&q=80",
+    description: 'Quality medicines for pig farming',
+    products: ['Supplements', 'Antibiotics', 'Minerals']
+
+  },
+
+  {
     id: 6,
+    name: 'Camel',
+    image: 'https://images.openai.com/static-rsc-3/wgTPAYHiydV2tdYRFoHygfchXqkh55kotZWw1lS6cqN2-WRXfFvR5JRv7HsTBTDSKZxXZwhWwtvKaqSf7UJ0zjXNfsCOKAMdRJfrsnfZCaY?purpose=fullsize&v=1',
+    description: 'Specialized healthcare solutions for camels',
+    products: ['Vaccines', 'Supplements', 'Antibiotics']
+  },
+  {
+    id: 7,
     name: 'Horse',
     image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&h=400&fit=crop',
     description: 'Premium equine health products',
     products: ['Performance', 'Joint Care', 'Wound Care']
   },
   {
-    id: 7,
+    id: 8,
     name: 'Fish',
     image: 'https://images.openai.com/static-rsc-3/ePZ2jqJGd2dXI1SW0K7MvUv-JAoMnVNUO3NG_XZFSEtZh7bViN64v-MAkqoeW06Gv1-ifuq_tuJgiBVyhX1uXCpb5BhwXhoZ0b-RweYSlIM?purpose=fullsize&v=1',
     description: 'Aquaculture health solutions',
     products: ['Probiotics', 'Water Treatment', 'Feed']
   },
   {
-    id: 8,
+    id: 9,
     name: 'Cat',
     image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=400&fit=crop',
     description: 'Companion cat pharmaceuticals',
     products: ['Deworming', 'Supplements', 'Skin Care']
   },
   {
-    id: 9,
+    id: 10,
     name: 'Dog',
     image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=400&fit=crop',
     description: 'Dog healthcare products',
@@ -674,7 +683,7 @@ const DesktopCarousel = () => {
 
   useEffect(() => {
     if (!isAutoPlaying) return
-    
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => {
         const next = prev + 1
@@ -704,7 +713,7 @@ const DesktopCarousel = () => {
       <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l  to-transparent pointer-events-none" />
 
       {/* Main Carousel Container */}
-      <div 
+      <div
         ref={containerRef}
         className="overflow-hidden py-4"
       >
@@ -713,8 +722,8 @@ const DesktopCarousel = () => {
           animate={{
             x: -currentIndex * itemWidth
           }}
-          transition={{ 
-            type: 'tween', 
+          transition={{
+            type: 'tween',
             ease: 'easeInOut',
             duration: 0.5
           }}
@@ -722,7 +731,7 @@ const DesktopCarousel = () => {
           {tripledSectors.map((sector, index) => {
             const actualIndex = index % sectors.length
             const isActive = actualIndex === currentIndex
-            
+
             return (
               <motion.div
                 key={`${sector.id}-${index}`}
@@ -741,7 +750,7 @@ const DesktopCarousel = () => {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      
+
                       {/* Name Badge */}
                       <div className="absolute bottom-3 left-3 right-3">
                         <h3 className="text-lg font-bold text-white">{sector.name}</h3>
@@ -749,7 +758,7 @@ const DesktopCarousel = () => {
                       </div>
 
                       {/* Hover Overlay */}
-                      <motion.div 
+                      <motion.div
                         className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ backgroundColor: `${PRIMARY_COLOR}cc` }}
                       >
@@ -791,11 +800,10 @@ const DesktopCarousel = () => {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex 
-                  ? 'w-8 h-2.5 bg-white' 
+              className={`transition-all duration-300 rounded-full ${index === currentIndex
+                  ? 'w-8 h-2.5 bg-white'
                   : 'w-2.5 h-2.5 bg-white/50 hover:bg-white/70'
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -831,7 +839,7 @@ const DesktopCarousel = () => {
 // Tablet Carousel Component - Infinite Smooth Scrolling
 const TabletCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  
+
   // Create tripled array for infinite scroll effect
   const tripledSectors = [...sectors, ...sectors, ...sectors]
   const itemWidth = 50 // 50% width for 2 columns
@@ -853,8 +861,8 @@ const TabletCarousel = () => {
         <motion.div
           className="flex"
           animate={{ x: `-${currentIndex * itemWidth}%` }}
-          transition={{ 
-            type: 'tween', 
+          transition={{
+            type: 'tween',
             ease: 'easeInOut',
             duration: 0.5
           }}
@@ -862,7 +870,7 @@ const TabletCarousel = () => {
           {tripledSectors.map((sector, index) => {
             const actualIndex = index % sectors.length
             const isActive = actualIndex === currentIndex
-            
+
             return (
               <motion.div
                 key={`tablet-${sector.id}-${index}`}
@@ -897,9 +905,8 @@ const TabletCarousel = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`transition-all duration-300 rounded-full ${
-              index === currentIndex ? 'w-6 h-2 bg-white' : 'w-2 h-2 bg-white/50'
-            }`}
+            className={`transition-all duration-300 rounded-full ${index === currentIndex ? 'w-6 h-2 bg-white' : 'w-2 h-2 bg-white/50'
+              }`}
           />
         ))}
       </div>
@@ -940,7 +947,7 @@ const MobileCarousel = () => {
   const sector = sectors[currentIndex]
 
   return (
-    <div 
+    <div
       className="relative touch-pan-y"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -963,14 +970,14 @@ const MobileCarousel = () => {
                   alt={sector.name}
                   className="w-full h-full object-cover"
                 />
-                <div 
+                <div
                   className="absolute inset-0"
                   style={{ background: `linear-gradient(to top, ${PRIMARY_COLOR}ee 0%, ${PRIMARY_COLOR}80 40%, transparent 100%)` }}
                 />
-                
+
                 {/* Content Overlay */}
                 <div className="absolute bottom-0 inset-x-0 p-6 text-white">
-                  <motion.h3 
+                  <motion.h3
                     className="text-2xl font-bold mb-1"
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -978,7 +985,7 @@ const MobileCarousel = () => {
                   >
                     {sector.name}
                   </motion.h3>
-                  <motion.p 
+                  <motion.p
                     className="text-sm text-white/80 mb-3"
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -986,15 +993,15 @@ const MobileCarousel = () => {
                   >
                     {sector.description}
                   </motion.p>
-                  <motion.div 
+                  <motion.div
                     className="flex flex-wrap gap-2"
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.3 }}
                   >
                     {sector.products.map((product, i) => (
-                      <span 
-                        key={i} 
+                      <span
+                        key={i}
                         className="text-xs bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full"
                       >
                         {product}
@@ -1019,9 +1026,8 @@ const MobileCarousel = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`transition-all duration-300 rounded-full ${
-              index === currentIndex ? 'w-8 h-2.5' : 'w-2.5 h-2.5 bg-gray-300'
-            }`}
+            className={`transition-all duration-300 rounded-full ${index === currentIndex ? 'w-8 h-2.5' : 'w-2.5 h-2.5 bg-gray-300'
+              }`}
             style={index === currentIndex ? { backgroundColor: PRIMARY_COLOR } : {}}
           />
         ))}
@@ -1060,7 +1066,7 @@ const SectorsCarousel = () => {
     <section className="py-16 md:py-24 relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR} 0%, ${PRIMARY_COLOR}dd 50%, #1e3a5f 100%)` }} />
-      
+
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -1094,31 +1100,31 @@ const SectorsCarousel = () => {
       {/* Floating Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Large glowing orbs */}
-        <motion.div 
+        <motion.div
           className="absolute top-20 right-20 w-96 h-96 rounded-full"
-          style={{ 
+          style={{
             background: `radial-gradient(circle, rgba(96,165,250,0.3) 0%, transparent 70%)`
           }}
-          animate={{ 
+          animate={{
             scale: [1, 1.3, 1],
             x: [0, 30, 0],
             y: [0, -20, 0]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full"
-          style={{ 
+          style={{
             background: `radial-gradient(circle, rgba(147,197,253,0.2) 0%, transparent 70%)`
           }}
-          animate={{ 
+          animate={{
             scale: [1.2, 1, 1.2],
             x: [0, -20, 0],
             y: [0, 30, 0]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
-        
+
         {/* Floating particles */}
         {[...Array(15)].map((_, i) => (
           <motion.div
@@ -1149,7 +1155,7 @@ const SectorsCarousel = () => {
           transition={{ duration: 10, repeat: Infinity }}
         >
           <svg viewBox="0 0 100 100" fill="white">
-            <path d="M50 20c-5 0-10 5-10 10v5c0 3 2 5 5 5h10c3 0 5-2 5-5v-5c0-5-5-10-10-10zm-20 25c-3 0-5 2-5 5v20c0 3 2 5 5 5h5l5 15h20l5-15h5c3 0 5-2 5-5v-20c0-3-2-5-5-5h-40z"/>
+            <path d="M50 20c-5 0-10 5-10 10v5c0 3 2 5 5 5h10c3 0 5-2 5-5v-5c0-5-5-10-10-10zm-20 25c-3 0-5 2-5 5v20c0 3 2 5 5 5h5l5 15h20l5-15h5c3 0 5-2 5-5v-20c0-3-2-5-5-5h-40z" />
           </svg>
         </motion.div>
         <motion.div
@@ -1158,9 +1164,9 @@ const SectorsCarousel = () => {
           transition={{ duration: 12, repeat: Infinity }}
         >
           <svg viewBox="0 0 100 100" fill="white">
-            <ellipse cx="50" cy="60" rx="35" ry="25"/>
-            <circle cx="30" cy="40" r="15"/>
-            <ellipse cx="70" cy="35" rx="12" ry="20"/>
+            <ellipse cx="50" cy="60" rx="35" ry="25" />
+            <circle cx="30" cy="40" r="15" />
+            <ellipse cx="70" cy="35" rx="12" ry="20" />
           </svg>
         </motion.div>
       </div>
@@ -1201,14 +1207,14 @@ const SectorsCarousel = () => {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <Badge 
+          <Badge
             className="mb-4 px-4 py-1.5 bg-white/20 text-white border-white/30 backdrop-blur-sm"
           >
             Our Sectors
@@ -1248,7 +1254,7 @@ const SectorsCarousel = () => {
         </motion.div>
 
         {/* Stats */}
-        <motion.div 
+        <motion.div
           className="mt-16 grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
