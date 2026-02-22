@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import FloatingActions from "@/components/FloatingActions";
+import SiteLoader from "@/components/SiteLoader";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 import ScrollToTop from "@/components/ScrollToTop";
@@ -74,7 +75,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        
+                <SiteLoader />
         <AnalyticsTracker />
+
         {children}
         <Toaster />
         <ScrollToTop />

@@ -25,6 +25,11 @@ import TestimonialsSection from './TestimonialsSection'
 import BecomeDistributor from './BecomeDistributor'
 import AnimateLoader from './AnimalLoader'
 import AnimalNetworkSection from './AnimalNetworkSection'
+import SectorsCarousel from './SectorsCarousel'
+import HeroSlider from './HeroSlider'
+import CertificatesSection from './Certifications'
+import FeaturedProductsCarousel from './ProductsList'
+
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
@@ -490,111 +495,9 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <FloatingSocialLinks />
       <Header />
-
+      <HeroSlider slides={heroSlides} />
       {/* Hero Carousel */}
-      <section className="relative overflow-hidden h-[600px] md:h-[700px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7 }}
-            className="absolute inset-0"
-          >
-            {currentSlideData.type === 'youtube' ? (
-              <>
-                {/* Poster image as background */}
-                {currentSlideData.poster && (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center z-0"
-                    style={{ backgroundImage: `url(${currentSlideData.poster})` }}
-                  />
-                )}
-                <iframe
-                  className="absolute inset-0 w-full h-full object-cover z-10"
-                  src={`https://www.youtube.com/embed/${getYouTubeVideoId(currentSlideData.src)}?autoplay=1&mute=1&loop=1&playlist=${getYouTubeVideoId(currentSlideData.src)}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
-                  title={currentSlideData.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ pointerEvents: 'none' }}
-                />
-              </>
-            ) : currentSlideData.type === 'video' ? (
-              <>
-                <video
-                  ref={videoRef}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  poster={currentSlideData.poster}
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src={currentSlideData.src} type="video/mp4" />
-                </video>
-                <button
-                  onClick={() => setIsVideoPlaying(!isVideoPlaying)}
-                  className="absolute bottom-24 right-8 z-30 w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center hover:bg-white/30 transition-colors"
-                >
-                  {isVideoPlaying ? <Pause className="w-6 h-6 text-white" /> : <Play className="w-6 h-6 text-white ml-1" />}
-                </button>
-              </>
-            ) : (
-              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${currentSlideData.src})` }} />
-            )}
-          </motion.div>
-        </AnimatePresence>
 
-        <div className="absolute inset-0 z-10" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}cc, ${PRIMARY_COLOR}99)` }} />
-
-        <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16 h-full flex items-center">
-          <div className="max-w-3xl">
-            <AnimatePresence mode="wait">
-              <motion.div key={currentSlide} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }}>
-                <Badge className="mb-4 border" style={{ backgroundColor: `${PRIMARY_COLOR}40`, color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-                  {currentSlideData.badge}
-                </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                  {currentSlideData.title}
-                </h1>
-                <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
-                  {currentSlideData.subtitle}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/products">
-                    <Button size="lg" className="text-white" style={{ backgroundColor: '#3b82f6' }}>
-                      Explore Products <ChevronRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Link href="/contact">
-                    <Button size="lg" className="bg-white hover:bg-gray-100 text-gray-900 font-semibold">
-                      Contact Us
-                    </Button>
-                  </Link>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Carousel Navigation */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
-          <button onClick={() => handleSlideChange((currentSlide - 1 + heroSlides.length) % heroSlides.length)} className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center hover:bg-white/30 transition-colors">
-            <ChevronLeft className="w-5 h-5 text-white" />
-          </button>
-          <div className="flex gap-2">
-            {heroSlides.map((_, index) => (
-              <button key={index} onClick={() => handleSlideChange(index)} className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide ? 'w-8 bg-white' : 'bg-white/50'}`} />
-            ))}
-          </div>
-          <button onClick={() => handleSlideChange((currentSlide + 1) % heroSlides.length)} className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center hover:bg-white/30 transition-colors">
-            <ChevronRight className="w-5 h-5 text-white" />
-          </button>
-        </div>
-
-
-      </section>
 
 
 
@@ -676,21 +579,27 @@ export default function Home() {
       </section>
 
 
+      {/* Secotrs we are in are serve*/}
+
+      <SectorsCarousel />
+
+      {/* 
       <div className="hidden lg:flex items-center justify-center bg-white">
         <AnimalLoader />
-      </div>
+      </div> */}
 
-      
-      <div className="flex lg:hidden items-center justify-center bg-white">
+
+      {/* <div className="flex lg:hidden items-center justify-center bg-white">
         <AnimateLoader />
       </div>
-      
+       */}
+      {/* 
+       <AnimalNetworkSection /> */}
 
-       <AnimalNetworkSection />
 
-       
-    
 
+      <ProductsAtGlance />
+      <FeaturedProductsCarousel />
 
       {/* Manufacturing Plant Section - Two Column Layout with Background Image */}
       <section className="relative min-h-[700px] md:min-h-[800px] overflow-hidden">
@@ -1114,7 +1023,7 @@ export default function Home() {
       </section>
 
       {/* Manufacturing Excellence */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-white">
+      <section className="py-16 md:py-24 relative overflow-hidden bg-[#243d80]">
         <div className="absolute top-0 right-0 w-1/3 h-full opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23243d80' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`
@@ -1123,13 +1032,13 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
           <AnimatedSection className="text-center mb-12">
-            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
+            <Badge className="mb-4 bg-white text-white">
               Manufacturing
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white-900 mb-4">
               Pharmaceutical Manufacturing Excellence
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-wheat-600 max-w-2xl mx-auto">
               State-of-the-art facilities with international certifications for quality veterinary pharmaceutical production
             </p>
           </AnimatedSection>
@@ -1238,8 +1147,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section> */}
-
-      <ProductsAtGlance />
+      <CertificatesSection />
+      <TestimonialsSection />
 
 
 
@@ -1301,7 +1210,7 @@ export default function Home() {
       </section>
 
       {/* Our Best Services */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      {/* <section className="py-16 md:py-24 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
@@ -1374,7 +1283,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Sectors We Serve */}
       {/* <section className="py-16 md:py-24 bg-white">
@@ -1423,8 +1332,8 @@ export default function Home() {
       </section> */}
 
 
-      <TestimonialsSection />
-      
+
+
       <BecomeDistributor />
 
       {/* Global Presence */}
