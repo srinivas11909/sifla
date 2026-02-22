@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Beaker, Download, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
-import sifilonlogo from "@public/sifilonlogo"
+import sifilonlogo from "@public/Logo"
 import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
 
@@ -43,7 +43,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
           <Image 
-              src="/Logo.svg" 
+              src="/Siflon.svg" 
               alt="Siflon Logo" 
               width={45} 
               height={45}
