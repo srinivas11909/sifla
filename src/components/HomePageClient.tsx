@@ -1032,13 +1032,13 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
           <AnimatedSection className="text-center mb-12">
-            <Badge className="mb-4 bg-white text-white">
+            <Badge className="mb-4 bg-white text-primary">
               Manufacturing
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-white-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Pharmaceutical Manufacturing Excellence
             </h2>
-            <p className="text-lg text-wheat-600 max-w-2xl mx-auto">
+            <p className="text-lg text-white max-w-2xl mx-auto">
               State-of-the-art facilities with international certifications for quality veterinary pharmaceutical production
             </p>
           </AnimatedSection>
