@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Beaker, Download, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
-import sifilonlogo from "@public/Logo"
 import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
 
@@ -19,6 +18,8 @@ const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Products', href: '/products' },
   { name: 'Quality', href: '/quality' },
+  { name: 'Global Presence', href: '/global-presence' },
+  { name: 'Careers', href: '/careers' },
   { name: 'Contact', href: '/contact' },
 ]
 
@@ -42,10 +43,10 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-          <Image 
-              src="/Siflon.svg" 
-              alt="Siflon Logo" 
-              width={45} 
+            <Image
+              src="/Siflon.svg"
+              alt="Siflon Logo"
+              width={45}
               height={45}
               className="h-[79px] w-auto object-contain"
             />
@@ -68,8 +69,8 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={`text-sm font-medium transition-colors ${isActive(item.href)
-                    ? 'font-semibold'
-                    : 'text-gray-600 hover:opacity-80'
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
                   }`}
                 style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
               >
@@ -87,7 +88,7 @@ export default function Header() {
             {/* Action Buttons */}
             <div className="flex items-center gap-2 ml-4">
               <OutletsDialog />
-              
+
               <a href="/siflonpharma-brochure.pdf" download>
                 <Button
                   variant="outline"
@@ -99,9 +100,9 @@ export default function Header() {
                   Brochure
                 </Button>
               </a>
-              
+
               <Link href="/contact">
-                <Button 
+                <Button
                   size="sm"
                   style={{ backgroundColor: PRIMARY_COLOR }}
                   className="hover:opacity-90"
@@ -136,8 +137,8 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   className={`text-sm font-medium transition-colors ${isActive(item.href)
-                      ? 'font-semibold'
-                      : 'text-gray-600 hover:opacity-80'
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
                     }`}
                   style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
                   onClick={() => setMobileMenuOpen(false)}
@@ -153,17 +154,17 @@ export default function Header() {
                   Get Quote
                 </Button>
               </Link> */}
-               {/* Mobile Action Buttons */}
+              {/* Mobile Action Buttons */}
               <div className="flex flex-col gap-2 pt-3 border-t mt-2">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
                   <span className="text-sm text-gray-600">Our Outlets</span>
                   <span className="text-xs text-gray-400">(see below)</span>
                 </div>
-                
+
                 <a href="/siflonpharma-brochure.pdf" download onClick={() => setMobileMenuOpen(false)}>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full gap-2"
                     style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
                   >
@@ -171,9 +172,9 @@ export default function Header() {
                     Download Brochure
                   </Button>
                 </a>
-                
+
                 <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                  <Button 
+                  <Button
                     className="w-full"
                     style={{ backgroundColor: PRIMARY_COLOR }}
                   >

@@ -674,8 +674,8 @@ const DesktopCarousel = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const cardWidth = 280
-  const gap = 24
+  const cardWidth = 240
+  const gap = 32
   const itemWidth = cardWidth + gap
 
   // Create tripled array for infinite scroll effect
@@ -693,7 +693,7 @@ const DesktopCarousel = () => {
         }
         return next
       })
-    }, 3000)
+    }, 8000)
 
     return () => clearInterval(interval)
   }, [isAutoPlaying])
@@ -718,7 +718,7 @@ const DesktopCarousel = () => {
         className="overflow-hidden py-4"
       >
         <motion.div
-          className="flex gap-6"
+          className="flex gap-8 justify-center"
           animate={{
             x: -currentIndex * itemWidth
           }}
@@ -735,47 +735,19 @@ const DesktopCarousel = () => {
             return (
               <motion.div
                 key={`${sector.id}-${index}`}
-                className="flex-shrink-0"
+                className="flex-shrink-0 flex items-center justify-center"
                 style={{ width: cardWidth }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={{ y: -12, scale: 1.08 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className={`group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden py-0 bg-white ${isActive ? 'ring-2 ring-blue-400' : ''}`}>
-                  <CardContent className="p-0">
-                    {/* Image Container */}
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={sector.image}
-                        alt={sector.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                      {/* Name Badge */}
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <h3 className="text-lg font-bold text-white">{sector.name}</h3>
-                        <p className="text-xs text-white/80 line-clamp-1">{sector.description}</p>
-                      </div>
-
-                      {/* Hover Overlay */}
-                      <motion.div
-                        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ backgroundColor: `${PRIMARY_COLOR}cc` }}
-                      >
-                        <div className="text-center p-4">
-                          <p className="text-white text-sm mb-2">Products:</p>
-                          <div className="flex flex-wrap justify-center gap-1">
-                            {sector.products.map((product, i) => (
-                              <span key={i} className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">
-                                {product}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Circular Image Container */}
+                <div className={`group relative w-56 h-56 rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isActive ? 'ring-4 ring-blue-400 scale-110' : ''}`}>
+                  <img
+                    src={sector.image}
+                    alt={sector.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-120"
+                  />
+                </div>
               </motion.div>
             )
           })}
@@ -847,7 +819,7 @@ const TabletCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sectors.length)
-    }, 3500)
+    }, 8000)
     return () => clearInterval(interval)
   }, [])
 
@@ -857,9 +829,9 @@ const TabletCarousel = () => {
       <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l  to-transparent pointer-events-none" />
 
-      <div className="overflow-hidden py-2">
+      <div className="overflow-hidden py-6">
         <motion.div
-          className="flex"
+          className="flex gap-6 justify-center"
           animate={{ x: `-${currentIndex * itemWidth}%` }}
           transition={{
             type: 'tween',
@@ -874,25 +846,17 @@ const TabletCarousel = () => {
             return (
               <motion.div
                 key={`tablet-${sector.id}-${index}`}
-                className="w-1/2 flex-shrink-0 px-2"
-                whileHover={{ scale: 1.02 }}
+                className="flex-shrink-0 flex justify-center"
+                whileHover={{ scale: 1.08, y: -8 }}
               >
-                <Card className={`group border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0 overflow-hidden bg-white ${isActive ? 'ring-2 ring-blue-400' : ''}`}>
-                  <CardContent className="p-0">
-                    <div className="relative h-40 overflow-hidden">
-                      <img
-                        src={sector.image}
-                        alt={sector.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                      <div className="absolute bottom-2 left-2 right-2">
-                        <h3 className="text-base font-bold text-white">{sector.name}</h3>
-                        <p className="text-xs text-white/70">{sector.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Circular Image Container */}
+                <div className={`group relative w-40 h-40 rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 ${isActive ? 'ring-4 ring-blue-400 scale-110' : ''}`}>
+                  <img
+                    src={sector.image}
+                    alt={sector.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-120"
+                  />
+                </div>
               </motion.div>
             )
           })}
@@ -923,7 +887,7 @@ const MobileCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sectors.length)
-    }, 4000)
+    }, 8000)
     return () => clearInterval(interval)
   }, [])
 
@@ -961,62 +925,19 @@ const MobileCarousel = () => {
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.4 }}
         >
-          <Card className="border-0 shadow-xl overflow-hidden py-0 bg-white">
-            <CardContent className="p-0">
-              {/* Full Width Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={sector.image}
-                  alt={sector.name}
-                  className="w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{ background: `linear-gradient(to top, ${PRIMARY_COLOR}ee 0%, ${PRIMARY_COLOR}80 40%, transparent 100%)` }}
-                />
+          {/* Circular Image Container */}
+          <div className="relative w-80 h-80 rounded-full overflow-hidden shadow-xl">
+            <img
+              src={sector.image}
+              alt={sector.name}
+              className="w-full h-full object-cover"
+            />
 
-                {/* Content Overlay */}
-                <div className="absolute bottom-0 inset-x-0 p-6 text-white">
-                  <motion.h3
-                    className="text-2xl font-bold mb-1"
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    {sector.name}
-                  </motion.h3>
-                  <motion.p
-                    className="text-sm text-white/80 mb-3"
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    {sector.description}
-                  </motion.p>
-                  <motion.div
-                    className="flex flex-wrap gap-2"
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    {sector.products.map((product, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full"
-                      >
-                        {product}
-                      </span>
-                    ))}
-                  </motion.div>
-                </div>
-
-                {/* Counter Badge */}
-                <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
-                  <span className="text-white text-sm font-medium">{currentIndex + 1} / {sectors.length}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            {/* Counter Badge */}
+            <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+              <span className="text-white text-sm font-medium">{currentIndex + 1} / {sectors.length}</span>
+            </div>
+          </div>
         </motion.div>
       </AnimatePresence>
 

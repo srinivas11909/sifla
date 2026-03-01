@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection, ObjectId } from 'mongodb'
+import { MongoClient, Db, Collection, ObjectId, Document } from 'mongodb'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
 
@@ -228,7 +228,7 @@ export interface HeroSlide {
   badge: string | null
   type: string
   src: string
-  poster: string | null
+  poster: string | undefined
   order: number
   active: boolean
   createdAt: Date
@@ -275,6 +275,37 @@ export interface ProductCategory {
   slug: string
   title: string
   description: string
+  order: number
+  active: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface Event extends Document {
+  _id: string
+  title: string
+  description: string
+  date: string
+  location: string
+  images: string[]
+  eventType: string
+  featured: boolean
+  active: boolean
+  order: number
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface Leadership extends Document {
+  _id: string
+  name: string
+  designation: string
+  image: string
+  bio: string
+  achievements: string[]
+  linkedin: string
+  twitter: string
+  email: string
   order: number
   active: boolean
   createdAt: Date

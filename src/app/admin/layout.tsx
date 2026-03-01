@@ -13,7 +13,9 @@ import {
   LogOut, 
   Menu, 
   X,
-  ChevronRight
+  ChevronRight,
+  Calendar,
+  Users,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -22,6 +24,8 @@ const PRIMARY_COLOR = '#243d80'
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Hero Slides', href: '/admin/hero-slides', icon: Image },
+  { name: 'Leadership', href: '/admin/leadership', icon: Users },
+  { name: 'Events', href: '/admin/events', icon: Calendar },
   { name: 'About Content', href: '/admin/about', icon: FileText },
   { name: 'Products', href: '/admin/products', icon: Package },
 ]

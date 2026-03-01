@@ -302,7 +302,7 @@ function getYouTubeVideoId(url: string): string | null {
 interface HeroSlide {
   type: string
   src: string
-  poster?: string | null
+  poster?: string | undefined
   title: string
   subtitle: string
   badge: string
@@ -328,7 +328,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 6000)
+    }, 8000)
     
     return () => clearInterval(interval)
   }, [slides.length, isHovered])
