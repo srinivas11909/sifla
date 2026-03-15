@@ -1086,6 +1086,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -1316,10 +1317,12 @@ export default function ProductsPage() {
       <section className="relative overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img 
+          <Image
             src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&h=800&fit=crop"
             alt="Products Background"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
           />
           <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}ee, ${PRIMARY_HOVER}cc)` }} />
         </div>
@@ -1346,7 +1349,7 @@ export default function ProductsPage() {
         </div>
 
         {/* Stats Bar */}
-        <div className="relative bg-white/10 backdrop-blur-md border-t border-white/20">
+        {/* <div className="relative bg-white/10 backdrop-blur-md border-t border-white/20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
             <motion.div 
               className="grid grid-cols-2 md:grid-cols-4 gap-6"
@@ -1371,11 +1374,11 @@ export default function ProductsPage() {
               ))}
             </motion.div>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Mission Statement */}
-      <section className="py-12 md:py-16 bg-white">
+      {/* <section className="py-12 md:py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15` }}>
@@ -1390,7 +1393,7 @@ export default function ProductsPage() {
             </p>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
 
       {/* Products Catalog Section */}
       <section id="products" className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -1527,14 +1530,15 @@ export default function ProductsPage() {
                         className="h-full cursor-pointer"
                         onClick={() => setSelectedProduct(product)}
                       >
-                        <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white overflow-hidden group">
+                        <Card className="h-full border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white overflow-hidden group rounded-xl py-0">
                           {/* Product Image */}
-                          <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-50 overflow-hidden">
+                          <div className="relative h-56 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden p-6">
                             {product.image ? (
-                              <img 
-                                src={product.image} 
+                              <Image
+                                src={product.image}
                                 alt={product.brandName}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                fill
+                                className="object-contain group-hover:scale-110 transition-transform duration-500"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
@@ -1562,22 +1566,22 @@ export default function ProductsPage() {
                             )}
                           </div>
 
-                          <CardContent className="p-4">
+                          <CardContent className="p-5">
                             {/* Brand Name */}
-                            <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-gray-700">
+                            <h3 className="text-base font-bold text-gray-900 mb-1.5 line-clamp-2">
                               {product.brandName}
                             </h3>
                             
                             {/* Product Name */}
-                            <p className="text-sm text-gray-500 mb-2">{product.name}</p>
+                            <p className="text-sm text-gray-600 mb-3 line-clamp-1">{product.name}</p>
                             
                             {/* Composition */}
-                            <div className="mb-3">
+                            {/* <div className="mb-3">
                               <p className="text-xs text-gray-400 line-clamp-2">{product.composition}</p>
-                            </div>
+                            </div> */}
 
                             {/* Pack Sizes */}
-                            {packSizes.length > 0 && (
+                            {/* {packSizes.length > 0 && (
                               <div className="flex flex-wrap gap-1.5">
                                 {packSizes.slice(0, 3).map((size: string) => (
                                   <Badge 
@@ -1598,7 +1602,7 @@ export default function ProductsPage() {
                                   </Badge>
                                 )}
                               </div>
-                            )}
+                            )} */}
                           </CardContent>
                         </Card>
                       </motion.div>
@@ -1703,7 +1707,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
@@ -1771,10 +1775,10 @@ export default function ProductsPage() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Quality Certifications */}
-      <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
+      {/* <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-10">
             <Badge className="mb-4 bg-white/20 text-white border-white/30">
@@ -1805,10 +1809,10 @@ export default function ProductsPage() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gray-50">
+      {/* <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <Card className="overflow-hidden border-0 shadow-xl bg-white">
@@ -1839,10 +1843,11 @@ export default function ProductsPage() {
                     </div>
                   </div>
                   <div className="relative h-64 lg:h-auto">
-                    <img 
+                    <Image
                       src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop"
                       alt="Contact Us"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent lg:hidden" />
                   </div>
@@ -1851,7 +1856,7 @@ export default function ProductsPage() {
             </Card>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <Footer />
@@ -1871,146 +1876,154 @@ export default function ProductsPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden"
+              className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProduct(null)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors"
+                className="absolute top-6 right-6 z-20 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
               >
-                <X className="w-5 h-5 text-gray-600" />
+                <X className="w-5 h-5 text-gray-700" />
               </button>
 
-              <div className="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
+              <div className="flex flex-col md:flex-row h-full max-h-[92vh] overflow-hidden">
                 {/* Image Section */}
-                <div className="md:w-1/2 relative bg-gray-100">
-                  {selectedProduct.image ? (
-                    <img
-                      src={selectedProduct.image}
-                      alt={selectedProduct.brandName}
-                      className="w-full h-64 md:h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-64 md:h-80 flex items-center justify-center">
-                      <ImageIcon className="w-20 h-20 text-gray-300" />
-                    </div>
-                  )}
+                <div className="md:w-2/5 relative bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8 md:p-12 overflow-y-auto">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    {selectedProduct.image ? (
+                      <Image
+                        src={selectedProduct.image}
+                        alt={selectedProduct.brandName}
+                        fill
+                        className="object-contain"
+                      />
+                    ) : (
+                      <ImageIcon className="w-24 h-24 text-gray-300" />
+                    )}
+                  </div>
                   {/* Featured Badge */}
                   {selectedProduct.featured && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-yellow-500 text-white border-0 shadow-md">
+                    <div className="absolute top-8 left-8">
+                      <Badge className="bg-yellow-500 text-white border-0 shadow-lg">
                         <Star className="w-3 h-3 mr-1 fill-current" />
-                        Featured Product
+                        Featured
                       </Badge>
                     </div>
                   )}
                 </div>
 
                 {/* Content Section */}
-                <div className="md:w-1/2 p-6 md:p-8">
-                  {/* Category Badge */}
-                  {(() => {
-                    const category = CATEGORIES.find(c => c.id === selectedProduct.category)
-                    return category ? (
-                      <Badge 
-                        className="mb-3 text-white"
-                        style={{ backgroundColor: category.color }}
-                      >
-                        {category.name}
-                      </Badge>
-                    ) : null
-                  })()}
+                <div className="md:w-3/5 flex flex-col overflow-y-auto">
+                  {/* Header with Category */}
+                  <div className="px-8 md:px-10 pt-8 md:pt-10 pb-6 border-b border-gray-100">
+                    {(() => {
+                      const category = CATEGORIES.find(c => c.id === selectedProduct.category)
+                      return category ? (
+                        <Badge 
+                          className="mb-4 text-white font-medium"
+                          style={{ backgroundColor: category.color }}
+                        >
+                          {category.name}
+                        </Badge>
+                      ) : null
+                    })()}
 
-                  {/* Brand Name */}
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                    {selectedProduct.brandName}
-                  </h2>
-
-                  {/* Product Name */}
-                  <p className="text-lg text-gray-500 mb-4">{selectedProduct.name}</p>
-
-                  {/* Composition */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">
-                      Composition
-                    </h4>
-                    <p className="text-gray-700 leading-relaxed">
-                      {selectedProduct.composition}
-                    </p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                      {selectedProduct.brandName}
+                    </h2>
+                    <p className="text-lg text-gray-600">{selectedProduct.name}</p>
                   </div>
 
-                  {/* Pack Sizes */}
-                  {selectedProduct.packSize && JSON.parse(selectedProduct.packSize).length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
-                        Available Pack Sizes
+                  {/* Main Content */}
+                  <div className="flex-1 px-8 md:px-10 py-8 space-y-8 overflow-y-auto">
+                    {/* Composition */}
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
+                        Composition
                       </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {JSON.parse(selectedProduct.packSize).map((size: string) => {
-                          const category = CATEGORIES.find(c => c.id === selectedProduct.category)
-                          return (
-                            <Badge
-                              key={size}
-                              variant="outline"
-                              className="px-3 py-1.5 text-sm font-medium"
-                              style={{
-                                borderColor: category?.color || PRIMARY_COLOR,
-                                color: category?.color || PRIMARY_COLOR,
-                                backgroundColor: `${category?.color || PRIMARY_COLOR}10`
-                              }}
-                            >
-                              {size}
-                            </Badge>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Description */}
-                  {selectedProduct.description && (
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">
-                        Description
-                      </h4>
-                      <p className="text-gray-600 leading-relaxed">
-                        {selectedProduct.description}
+                      <p className="text-gray-700 leading-relaxed text-base">
+                        {selectedProduct.composition}
                       </p>
                     </div>
-                  )}
 
-                  {/* Sectors */}
-                  {selectedProduct.sectors && JSON.parse(selectedProduct.sectors).length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
-                        Suitable For
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {JSON.parse(selectedProduct.sectors).map((sector: string) => (
-                          <div key={sector} className="flex items-center gap-1.5 text-sm text-gray-600">
-                            <CheckCircle className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
-                            <span className="capitalize">{sector === 'all' ? 'All Animals' : sector}</span>
-                          </div>
-                        ))}
+                    {/* Pack Sizes */}
+                    {selectedProduct.packSize && JSON.parse(selectedProduct.packSize).length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
+                          Available Pack Sizes
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {JSON.parse(selectedProduct.packSize).map((size: string) => {
+                            const category = CATEGORIES.find(c => c.id === selectedProduct.category)
+                            return (
+                              <Badge
+                                key={size}
+                                className="px-4 py-2 text-sm font-semibold"
+                                style={{
+                                  borderColor: category?.color || PRIMARY_COLOR,
+                                  color: category?.color || PRIMARY_COLOR,
+                                  backgroundColor: `${category?.color || PRIMARY_COLOR}10`,
+                                  border: `1.5px solid ${category?.color || PRIMARY_COLOR}`
+                                }}
+                                variant="outline"
+                              >
+                                {size}
+                              </Badge>
+                            )
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+
+                    {/* Description */}
+                    {selectedProduct.description && (
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
+                          Description
+                        </h4>
+                        <p className="text-gray-700 leading-relaxed text-base">
+                          {selectedProduct.description}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Sectors */}
+                    {selectedProduct.sectors && JSON.parse(selectedProduct.sectors).length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
+                          Suitable For
+                        </h4>
+                        <div className="flex flex-wrap gap-3">
+                          {JSON.parse(selectedProduct.sectors).map((sector: string) => (
+                            <div key={sector} className="flex items-center gap-2.5">
+                              <div className="flex-shrink-0">
+                                <CheckCircle className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                              </div>
+                              <span className="text-gray-700 font-medium capitalize">
+                                {sector === 'all' ? 'All Animals' : sector}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t">
+                  <div className="px-8 md:px-10 py-6 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row gap-3">
                     <Link href="/contact" className="flex-1">
                       <Button 
-                        className="w-full" 
+                        className="w-full h-12 text-base font-semibold hover:shadow-lg transition-all"
                         style={{ backgroundColor: PRIMARY_COLOR }}
                       >
                         Request Quote
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
                     <Button 
+                      className="flex-1 h-12 text-base font-semibold hover:bg-gray-100 transition-all"
                       variant="outline"
-                      className="flex-1"
                       onClick={() => setSelectedProduct(null)}
                     >
                       Continue Browsing

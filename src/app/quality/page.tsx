@@ -9,6 +9,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import FloatingSocialLinks from '@/components/FloatingSocialLinks'
+import CertificatesSection from '@/components/Certifications'
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
@@ -16,8 +17,8 @@ const PRIMARY_HOVER = '#1a2d5c'
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -25,8 +26,8 @@ const fadeInUp = {
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -34,8 +35,8 @@ const fadeInLeft = {
 
 const fadeInRight = {
   hidden: { opacity: 0, x: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -54,26 +55,26 @@ const staggerContainer = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: { duration: 0.5, ease: 'easeOut' }
   }
 }
 
 // Animated section wrapper
-function AnimatedSection({ 
-  children, 
-  className = '', 
-  variant = fadeInUp 
-}: { 
+function AnimatedSection({
+  children,
+  className = '',
+  variant = fadeInUp
+}: {
   children: React.ReactNode
   className?: string
-  variant?: typeof fadeInUp 
+  variant?: typeof fadeInUp
 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
   return (
     <motion.div
       ref={ref}
@@ -161,7 +162,8 @@ const certifications = [
   { icon: Leaf, name: 'WHO-GMP', description: 'World Health Organization standards' },
   { icon: Microscope, name: 'HACCP', description: 'Food Safety Management' },
   { icon: Factory, name: 'GLP', description: 'Good Laboratory Practice' },
-  { icon: ClipboardCheck, name: 'FSSAI', description: 'Food Safety Standards Authority' }
+  { icon: ClipboardCheck, name: 'FSSAI', description: 'Food Safety Standards Authority' },
+  { icon: Shield, name: 'GLP Certification', description: 'Food Safety Standards Authority' }
 ]
 
 export default function QualityPage() {
@@ -227,7 +229,7 @@ export default function QualityPage() {
           })
         }}
       />
-      
+
       {/* Floating Social Links */}
       <FloatingSocialLinks />
 
@@ -235,7 +237,7 @@ export default function QualityPage() {
       <Header />
 
       {/* Hero Section */}
-      <section 
+      <section
         className="relative py-20 md:py-28"
         style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}
       >
@@ -314,11 +316,10 @@ export default function QualityPage() {
               <motion.button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-3 px-6 py-4 rounded-xl font-medium transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'text-white shadow-lg'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 shadow'
-                }`}
+                className={`flex items-center gap-3 px-6 py-4 rounded-xl font-medium transition-all duration-300 ${activeTab === tab.id
+                  ? 'text-white shadow-lg'
+                  : 'bg-white text-gray-600 hover:bg-gray-100 shadow'
+                  }`}
                 style={{
                   backgroundColor: activeTab === tab.id ? PRIMARY_COLOR : undefined
                 }}
@@ -417,8 +418,10 @@ export default function QualityPage() {
         </div>
       </section>
 
+      <CertificatesSection />
+
       {/* Certifications Section */}
-      <section className="py-16 md:py-20 bg-white">
+      {/* <section className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
@@ -453,10 +456,10 @@ export default function QualityPage() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Quality Process Section */}
-      <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
+      {/* <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4 bg-white/20 text-white border-white/30">
@@ -506,10 +509,10 @@ export default function QualityPage() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gray-50">
+      {/* <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16 text-center">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -528,7 +531,7 @@ export default function QualityPage() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <Footer />

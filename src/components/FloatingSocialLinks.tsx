@@ -5,11 +5,11 @@ import { Facebook, Twitter, Linkedin, Youtube, Instagram } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, url: '#', color: '#1877F2' },
-  { name: 'Twitter', icon: Twitter, url: '#', color: '#1DA1F2' },
-  { name: 'LinkedIn', icon: Linkedin, url: '#', color: '#0A66C2' },
-  { name: 'YouTube', icon: Youtube, url: '#', color: '#FF0000' },
-  { name: 'Instagram', icon: Instagram, url: '#', color: '#E4405F' },
+  { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/siflonpharma', color: '#1877F2' },
+  { name: 'Twitter', icon: Twitter, url: 'https://x.com/siflonpharma', color: '#1DA1F2' },
+  { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/company/siflon', color: '#0A66C2' },
+  { name: 'YouTube', icon: Youtube, url: 'https://www.youtube.com/@siflonpharma', color: '#FF0000' },
+  { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/siflonpharma', color: '#E4405F' },
 ]
 
 export default function FloatingSocialLinks() {

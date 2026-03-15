@@ -298,7 +298,7 @@ export default function CareersPage() {
                         </div>
 
                         {/* Benefits Pills */}
-                        <motion.div
+                        {/* <motion.div
                             className="flex flex-wrap justify-center gap-4 mt-10"
                             variants={staggerContainer}
                             initial="hidden"
@@ -315,7 +315,7 @@ export default function CareersPage() {
                                     <span className="font-medium text-gray-700">{benefit.text}</span>
                                 </motion.div>
                             ))}
-                        </motion.div>
+                        </motion.div> */}
                     </motion.div>
                 </div>
             </section>
@@ -374,7 +374,7 @@ export default function CareersPage() {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 relative" style={{ backgroundColor: PRIMARY_COLOR }}>
+            {/* <section className="py-12 relative" style={{ backgroundColor: PRIMARY_COLOR }}>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {[
@@ -396,7 +396,7 @@ export default function CareersPage() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Apply Section */}
             <section id="apply" className="py-16 md:py-24 bg-white">

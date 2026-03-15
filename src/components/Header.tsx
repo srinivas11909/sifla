@@ -8,6 +8,8 @@ import { Menu, X, Beaker, Download, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
+import EnquiryDialog from '@/components/EnquiryDialog'
+
 
 
 
@@ -26,6 +28,8 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const [enquiryDialogOpen, setEnquiryDialogOpen] = useState(false)
+
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -33,105 +37,38 @@ export default function Header() {
   }
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b shadow-sm"
-    >
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/Siflon.svg"
-              alt="Siflon Logo"
-              width={45}
-              height={45}
-              className="h-[79px] w-auto object-contain"
-            />
-            {/* <div
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b shadow-sm"
+      >
+        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/Siflon.svg"
+                alt="Siflon Logo"
+                width={45}
+                height={45}
+                className="h-[79px] w-auto object-contain"
+              />
+              {/* <div
               className="w-10 h-10 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: PRIMARY_COLOR }}
             >
               <Beaker className="w-6 h-6 text-white" />
             </div> */}
-            {/* <div>
+              {/* <div>
               <span className="text-xl font-bold text-gray-900">Siflon </span>
               <p className="text-xs text-gray-500 -mt-1">Drugs & Pharmaceuticals Pvt Ltd</p>
             </div> */}
-          </Link>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-medium transition-colors ${isActive(item.href)
-                  ? 'font-semibold'
-                  : 'text-gray-600 hover:opacity-80'
-                  }`}
-                style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
-              >
-                {item.name}
-              </Link>
-            ))}
-            {/* <Link href="/contact">
-              <Button
-                style={{ backgroundColor: PRIMARY_COLOR }}
-                className="hover:opacity-90"
-              >
-                Get Quote
-              </Button>
-            </Link> */}
-            {/* Action Buttons */}
-            <div className="flex items-center gap-2 ml-4">
-              <OutletsDialog />
-
-              <a href="/siflonpharma-brochure.pdf" download>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-2"
-                  style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
-                >
-                  <Download className="w-4 h-4" />
-                  Brochure
-                </Button>
-              </a>
-
-              <Link href="/contact">
-                <Button
-                  size="sm"
-                  style={{ backgroundColor: PRIMARY_COLOR }}
-                  className="hover:opacity-90"
-                >
-                  Get Quote
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            className="md:hidden p-2 text-gray-600"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <motion.div
-            className="md:hidden py-4 border-t"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            <div className="flex flex-col gap-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -141,12 +78,79 @@ export default function Header() {
                     : 'text-gray-600 hover:opacity-80'
                     }`}
                   style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
-                  onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              {/* <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+              {/* <Link href="/contact">
+              <Button
+                style={{ backgroundColor: PRIMARY_COLOR }}
+                className="hover:opacity-90"
+              >
+                Get Quote
+              </Button>
+            </Link> */}
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2 ml-4">
+                <OutletsDialog />
+
+                <a href="/siflonpharma-brochure.pdf" download>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                    style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
+                  >
+                    <Download className="w-4 h-4" />
+                    Brochure
+                  </Button>
+                </a>
+
+                <Button
+                  size="sm"
+                  style={{ backgroundColor: PRIMARY_COLOR }}
+                  className="hover:opacity-90"
+                  onClick={() => setEnquiryDialogOpen(true)}
+                >
+                  Get Quote
+                </Button>
+              </div>
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              className="md:hidden p-2 text-gray-600"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <motion.div
+              className="md:hidden py-4 border-t"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+            >
+              <div className="flex flex-col gap-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`text-sm font-medium transition-colors ${isActive(item.href)
+                      ? 'font-semibold'
+                      : 'text-gray-600 hover:opacity-80'
+                      }`}
+                    style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                {/* <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                 <Button
                   className="w-full"
                   style={{ backgroundColor: PRIMARY_COLOR }}
@@ -154,38 +158,41 @@ export default function Header() {
                   Get Quote
                 </Button>
               </Link> */}
-              {/* Mobile Action Buttons */}
-              <div className="flex flex-col gap-2 pt-3 border-t mt-2">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
-                  <span className="text-sm text-gray-600">Our Outlets</span>
-                  <span className="text-xs text-gray-400">(see below)</span>
-                </div>
+                {/* Mobile Action Buttons */}
+                <div className="flex flex-col gap-2 pt-3 border-t mt-2">
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
+                    <span className="text-sm text-gray-600">Our Outlets</span>
+                    <span className="text-xs text-gray-400">(see below)</span>
+                  </div>
 
-                <a href="/siflonpharma-brochure.pdf" download onClick={() => setMobileMenuOpen(false)}>
-                  <Button
-                    variant="outline"
-                    className="w-full gap-2"
-                    style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
-                  >
-                    <Download className="w-4 h-4" />
-                    Download Brochure
-                  </Button>
-                </a>
-
-                <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                   <Button
                     className="w-full"
                     style={{ backgroundColor: PRIMARY_COLOR }}
+                    onClick={() => {
+                      setMobileMenuOpen(false)
+                      setEnquiryDialogOpen(true)
+                    }}
                   >
                     Get Quote
                   </Button>
-                </Link>
+
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                    <Button
+                      className="w-full"
+                      style={{ backgroundColor: PRIMARY_COLOR }}
+                    >
+                      Get Quote
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </nav>
-    </motion.header>
+            </motion.div>
+          )}
+        </nav>
+      </motion.header>
+      {/* Enquiry Dialog */}
+      <EnquiryDialog open={enquiryDialogOpen} onOpenChange={setEnquiryDialogOpen} />
+    </>
   )
 }

@@ -186,11 +186,11 @@ const products = [
 ]
 
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, url: '#', color: '#1877F2' },
-  { name: 'Twitter', icon: Twitter, url: '#', color: '#1DA1F2' },
-  { name: 'LinkedIn', icon: Linkedin, url: '#', color: '#0A66C2' },
-  { name: 'YouTube', icon: Youtube, url: '#', color: '#FF0000' },
-  { name: 'Instagram', icon: Instagram, url: '#', color: '#E4405F' },
+  { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/siflonpharma', color: '#1877F2' },
+  { name: 'Twitter', icon: Twitter, url: 'https://x.com/siflonpharma', color: '#1DA1F2' },
+  { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/company/siflon', color: '#0A66C2' },
+  { name: 'YouTube', icon: Youtube, url: 'https://www.instagram.com/siflonpharma', color: '#FF0000' },
+  { name: 'Instagram', icon: Instagram, url: 'https://www.youtube.com/@siflonpharma', color: '#E4405F' },
 ]
 
 export default function Footer() {
@@ -316,15 +316,15 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: PRIMARY_COLOR }} />
-                <span>Phase-1, Manu Residency, Plot No. 76 & 77, Hafeezpet, Hyderabad - 500049</span>
+                <span>Phase-1, Manu Residency, Plot No. 76 & 77, behind Sri Sairam Model School, Mythri Nagar, Indra Reddy Allwyn Colony, Hafeezpet, Madeenaguda, Hyderabad, Telangana  - 500049</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" style={{ color: PRIMARY_COLOR }} />
-                <span>+91 6366798465 / 9281162784</span>
+                <span>+91 9618828282</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0" style={{ color: PRIMARY_COLOR }} />
-                <span>marketing@siflonpolymers.com</span>
+                <span>info@siflonpharma.com, marketing1@siflonpharma.com</span>
               </li>
             </ul>
           </motion.div>
@@ -339,11 +339,11 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <p>&copy; {new Date().getFullYear()} Siflon Drugs & Pharmaceuticals Pvt Ltd. All rights reserved.</p>
-          <div className="flex gap-6">
+          {/* <div className="flex gap-6">
             <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Sitemap</a>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </footer>

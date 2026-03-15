@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
+import {
   Award, FileCheck, ShieldCheck, Globe, Activity, X, ExternalLink, Download
 } from 'lucide-react'
 
@@ -10,38 +10,45 @@ const PRIMARY_COLOR = '#243d80'
 
 // Certificate Data
 const certificates = [
-  { 
-    title: 'Good Manufacturing Practice', 
+  {
+    title: 'Good Manufacturing Practice',
     subtitle: 'GMP Certificate',
-    icon: ShieldCheck, 
+    icon: ShieldCheck,
     url: 'https://pujya.com/siflon/wp-content/uploads/2026/02/GMP.pdf',
     tag: 'Quality'
   },
-  { 
-    title: 'ISO 9001:2015', 
+  {
+    title: 'ISO 9001:2015',
     subtitle: 'Quality Management System',
-    icon: Award, 
+    icon: Award,
     url: 'https://pujya.com/siflon/wp-content/uploads/2026/02/ISO_9001-2015.pdf',
     tag: 'Standard'
   },
-  { 
-    title: 'WHO - GMP Compliance', 
+  {
+    title: 'WHO - GMP Compliance',
     subtitle: 'World Health Organization',
-    icon: Activity, 
+    icon: Activity,
     url: 'https://pujya.com/siflon/wp-content/uploads/2026/02/WHO-GMP.pdf',
     tag: 'Global'
   },
-  { 
-    title: 'Ethiopia GMP Certificate', 
+  {
+    title: 'Ethiopia GMP Certificate',
     subtitle: 'Manufacturing Site Approval',
-    icon: Globe, 
+    icon: Globe,
     url: 'https://pujya.com/siflon/wp-content/uploads/2026/02/Ethiopia-GMP.pdf',
     tag: 'Africa'
   },
-  { 
-    title: 'Iraq Approval Certificate', 
+  {
+    title: 'Iraq Approval Certificate',
     subtitle: 'Gharb-AL-Rafidein',
-    icon: FileCheck, 
+    icon: FileCheck,
+    url: 'https://pujya.com/siflon/wp-content/uploads/2026/02/Gharb-AL-Rafidein_Iraq-Approval-Certificate-of-Manufacturing-Site.pdf',
+    tag: 'Middle East'
+  },
+  {
+    title: 'GLP Approval Certificate',
+    subtitle: 'Gharb-AL-Rafidein',
+    icon: FileCheck,
     url: 'https://pujya.com/siflon/wp-content/uploads/2026/02/Gharb-AL-Rafidein_Iraq-Approval-Certificate-of-Manufacturing-Site.pdf',
     tag: 'Middle East'
   },
@@ -58,8 +65,8 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     scale: 1,
     transition: { duration: 0.5, ease: 'easeOut' }
@@ -79,13 +86,13 @@ export default function CertificatesSection() {
     <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Background Styling */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f4f6fb] to-white" />
-      
+
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
+        <div
           className="absolute -top-20 -left-20 w-80 h-80 rounded-full opacity-20"
           style={{ background: `radial-gradient(circle, ${PRIMARY_COLOR}20 0%, transparent 70%)` }}
         />
-        <div 
+        <div
           className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full opacity-20"
           style={{ background: `radial-gradient(circle, ${PRIMARY_COLOR}20 0%, transparent 70%)` }}
         />
@@ -93,7 +100,7 @@ export default function CertificatesSection() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +122,7 @@ export default function CertificatesSection() {
         </motion.div>
 
         {/* Certificate Grid */}
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
@@ -131,7 +138,7 @@ export default function CertificatesSection() {
               className="group relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 cursor-pointer transition-all duration-300 hover:shadow-2xl overflow-hidden"
             >
               {/* Decorative Top Accent */}
-              <div 
+              <div
                 className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
                 style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}, #3b5998)` }}
               />
@@ -139,7 +146,7 @@ export default function CertificatesSection() {
               {/* Content */}
               <div className="flex flex-col items-center text-center">
                 {/* Icon Container */}
-                <div 
+                <div
                   className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 shadow-md"
                   style={{ backgroundColor: `${PRIMARY_COLOR}10` }}
                 >
@@ -147,7 +154,7 @@ export default function CertificatesSection() {
                 </div>
 
                 {/* Tag */}
-                <span 
+                <span
                   className="absolute top-5 right-5 text-xs font-bold px-2 py-1 rounded"
                   style={{ backgroundColor: `${PRIMARY_COLOR}10`, color: PRIMARY_COLOR }}
                 >
@@ -163,7 +170,7 @@ export default function CertificatesSection() {
                 </p>
 
                 {/* Action Button */}
-                <div 
+                <div
                   className="flex items-center gap-2 text-sm font-semibold transition-colors duration-300"
                   style={{ color: PRIMARY_COLOR }}
                 >
@@ -173,7 +180,7 @@ export default function CertificatesSection() {
               </div>
 
               {/* Hover Background Glow */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
                 style={{ background: `radial-gradient(circle at center, ${PRIMARY_COLOR}08 0%, transparent 70%)` }}
               />
@@ -185,14 +192,14 @@ export default function CertificatesSection() {
       {/* PDF Modal Viewer */}
       <AnimatePresence>
         {selectedPdf && (
-          <motion.div 
+          <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedPdf(null)}
           >
-            <motion.div 
+            <motion.div
               className="relative w-full max-w-5xl h-[90vh] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col"
               variants={modalVariants}
               initial="hidden"
@@ -201,7 +208,7 @@ export default function CertificatesSection() {
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
             >
               {/* Modal Header */}
-              <div 
+              <div
                 className="flex items-center justify-between p-4 border-b"
                 style={{ borderColor: '#e5e7eb', backgroundColor: PRIMARY_COLOR }}
               >
@@ -210,15 +217,15 @@ export default function CertificatesSection() {
                   <h3 className="font-bold text-lg">{selectedPdf.title}</h3>
                 </div>
                 <div className="flex items-center gap-2">
-                  <a 
-                    href={selectedPdf.url} 
-                    download 
+                  <a
+                    href={selectedPdf.url}
+                    download
                     className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-white"
                     title="Download"
                   >
                     <Download className="w-5 h-5" />
                   </a>
-                  <button 
+                  <button
                     onClick={() => setSelectedPdf(null)}
                     className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-white"
                   >
@@ -233,8 +240,8 @@ export default function CertificatesSection() {
                    Using iframe for PDF embedding. 
                    This provides a clean viewer within the browser.
                 */}
-                <iframe 
-                  src={`${selectedPdf.url}#view=FitH`} 
+                <iframe
+                  src={`${selectedPdf.url}#view=FitH`}
                   className="w-full h-full border-0"
                   title={selectedPdf.title}
                 />
