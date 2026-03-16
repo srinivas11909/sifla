@@ -510,6 +510,11 @@ const CATEGORIES = [
   { value: 'injectables', label: 'Injectables' },
 ]
 
+const PRODUCT_TYPES = [
+  { value: 'anthelmintics', label: 'Anthelmintics' },
+  { value: 'antibiotics', label: 'Antibiotics' },
+]
+
 const SECTORS = [
   { value: 'all', label: 'All Sectors' },
   { value: 'poultry', label: 'Poultry' },
@@ -532,11 +537,12 @@ const PACK_SIZE_OPTIONS: Record<string, string[]> = {
 interface Product {
   id: string
   name: string
-  brandName: string
+  productType: string
   composition: string
   packSize: string
   image: string
-  description: string
+  indications: string
+  dosage: string
   category: string
   sectors: string
   featured: boolean
@@ -553,14 +559,19 @@ export default function ProductsAdmin() {
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null)
   const [filterCategory, setFilterCategory] = useState<string>('all')
   const [packSizeDropdownOpen, setPackSizeDropdownOpen] = useState(false)
+  const [customPackSizeInput, setCustomPackSizeInput] = useState('')
+  const [customProductTypeInput, setCustomProductTypeInput] = useState('')
+  const [productTypeDropdownOpen, setProductTypeDropdownOpen] = useState(false)
+  const [availableProductTypes, setAvailableProductTypes] = useState<{ value: string; label: string }[]>(PRODUCT_TYPES)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [formData, setFormData] = useState({
     name: '',
-    brandName: '',
+    productType: 'anthelmintics',
     composition: '',
     packSize: [] as string[],
     image: '',
-    description: '',
+    indications: '',
+    dosage: '',
     category: 'oralLiquids',
     sectors: [] as string[],
     featured: false,
@@ -584,15 +595,18 @@ export default function ProductsAdmin() {
   }
 
   const handleOpenDialog = (product?: Product) => {
+    setCustomPackSizeInput('')
+    setCustomProductTypeInput('')
     if (product) {
       setEditingProduct(product)
       setFormData({
         name: product.name,
-        brandName: product.brandName || '',
+        productType: product.productType || 'anthelmintics',
         composition: product.composition || '',
         packSize: product.packSize ? JSON.parse(product.packSize) : [],
         image: product.image || '',
-        description: product.description,
+        indications: product.indications || '',
+        dosage: product.dosage || '',
         category: product.category,
         sectors: JSON.parse(product.sectors),
         featured: product.featured,
@@ -602,11 +616,12 @@ export default function ProductsAdmin() {
       setEditingProduct(null)
       setFormData({
         name: '',
-        brandName: '',
+        productType: 'anthelmintics',
         composition: '',
         packSize: [],
         image: '',
-        description: '',
+        indications: '',
+        dosage: '',
         category: 'oralLiquids',
         sectors: [],
         featured: false,
@@ -744,6 +759,26 @@ export default function ProductsAdmin() {
     setFormData({ ...formData, packSize: formData.packSize.filter(s => s !== size) })
   }
 
+  const addCustomPackSize = () => {
+    const trimmedInput = customPackSizeInput.trim()
+    if (trimmedInput && !formData.packSize.includes(trimmedInput)) {
+      setFormData({ ...formData, packSize: [...formData.packSize, trimmedInput] })
+      setCustomPackSizeInput('')
+    }
+  }
+
+  const addCustomProductType = () => {
+    const trimmedInput = customProductTypeInput.trim()
+    if (trimmedInput) {
+      const newProductType = { value: trimmedInput.toLowerCase().replace(/\s+/g, '-'), label: trimmedInput }
+      if (!availableProductTypes.find(pt => pt.value === newProductType.value)) {
+        setAvailableProductTypes([...availableProductTypes, newProductType])
+        setFormData({ ...formData, productType: newProductType.value })
+        setCustomProductTypeInput('')
+      }
+    }
+  }
+
   // Handle category change - reset pack size when category changes
   const handleCategoryChange = (category: string) => {
     setFormData({ 
@@ -841,9 +876,9 @@ export default function ProductsAdmin() {
                   </Badge>
                 </div>
                 
-                {product.brandName && (
+                {product.productType && (
                   <p className="text-sm font-medium text-gray-700 mb-1">
-                    Brand: <span className="text-gray-600">{product.brandName}</span>
+                    Type: <span className="text-gray-600">{availableProductTypes.find(pt => pt.value === product.productType)?.label || product.productType}</span>
                   </p>
                 )}
                 
@@ -853,7 +888,7 @@ export default function ProductsAdmin() {
                   </p>
                 )}
                 
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+                <p className="text-sm text-gray-600 mb-3 line-clamp-2">Indications: {product.indications}</p>
                 
                 {product.packSize && JSON.parse(product.packSize).length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-3">
@@ -985,13 +1020,75 @@ export default function ProductsAdmin() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="brandName">Brand Name *</Label>
-              <Input
-                id="brandName"
-                value={formData.brandName}
-                onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
-                placeholder="e.g., SIFLON-VET"
-              />
+              <Label htmlFor="productType">Product Type *</Label>
+              <div className="relative">
+                <div 
+                  className="flex items-center justify-between min-h-[42px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background cursor-pointer"
+                  onClick={() => setProductTypeDropdownOpen(!productTypeDropdownOpen)}
+                >
+                  <span>{availableProductTypes.find(pt => pt.value === formData.productType)?.label || 'Select type...'}</span>
+                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                </div>
+                
+                {productTypeDropdownOpen && (
+                  <div className="absolute z-50 w-full mt-1 bg-white border rounded-md shadow-lg">
+                    {availableProductTypes.map((type) => (
+                      <div
+                        key={type.value}
+                        className={`flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-100 ${
+                          formData.productType === type.value ? 'bg-blue-50' : ''
+                        }`}
+                        onClick={() => {
+                          setFormData({ ...formData, productType: type.value })
+                          setProductTypeDropdownOpen(false)
+                        }}
+                      >
+                        <div 
+                          className={`w-4 h-4 border rounded flex items-center justify-center ${
+                            formData.productType === type.value ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
+                          }`}
+                        >
+                          {formData.productType === type.value && (
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
+                        <span className="text-sm">{type.label}</span>
+                      </div>
+                    ))}
+                    
+                    <div className="border-t px-3 py-2 bg-gray-50">
+                      <div className="flex gap-2 items-center">
+                        <Input
+                          placeholder="Add new type"
+                          value={customProductTypeInput}
+                          onChange={(e) => setCustomProductTypeInput(e.target.value)}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              addCustomProductType()
+                            }
+                          }}
+                          className="text-sm flex-1"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <Button
+                          size="sm"
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            addCustomProductType()
+                          }}
+                          style={{ backgroundColor: PRIMARY_COLOR }}
+                          disabled={!customProductTypeInput.trim()}
+                        >
+                          Add
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -1066,41 +1163,112 @@ export default function ProductsAdmin() {
                 
                 {packSizeDropdownOpen && (
                   <div className="absolute z-50 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
-                    {currentPackSizeOptions.map((size) => (
-                      <div
-                        key={size}
-                        className={`flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-100 ${
-                          formData.packSize.includes(size) ? 'bg-blue-50' : ''
-                        }`}
-                        onClick={() => togglePackSize(size)}
-                      >
-                        <div 
-                          className={`w-4 h-4 border rounded flex items-center justify-center ${
-                            formData.packSize.includes(size) ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
-                          }`}
-                        >
-                          {formData.packSize.includes(size) && (
-                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
+                    {/* Predefined pack sizes */}
+                    {currentPackSizeOptions.length > 0 && (
+                      <>
+                        {currentPackSizeOptions.map((size) => (
+                          <div
+                            key={size}
+                            className={`flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-100 ${
+                              formData.packSize.includes(size) ? 'bg-blue-50' : ''
+                            }`}
+                            onClick={() => togglePackSize(size)}
+                          >
+                            <div 
+                              className={`w-4 h-4 border rounded flex items-center justify-center ${
+                                formData.packSize.includes(size) ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
+                              }`}
+                            >
+                              {formData.packSize.includes(size) && (
+                                <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                </svg>
+                              )}
+                            </div>
+                            <span className="text-sm">{size}</span>
+                          </div>
+                        ))}
+                      </>
+                    )}
+                    
+                    {/* Custom pack sizes */}
+                    {formData.packSize.some(size => !currentPackSizeOptions.includes(size)) && (
+                      <>
+                        <div className="px-3 py-1 text-xs font-semibold text-gray-500 bg-gray-50 border-t">
+                          Custom
                         </div>
-                        <span className="text-sm">{size}</span>
+                        {formData.packSize.filter(size => !currentPackSizeOptions.includes(size)).map((size) => (
+                          <div
+                            key={size}
+                            className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-100 bg-amber-50"
+                            onClick={() => togglePackSize(size)}
+                          >
+                            <div 
+                              className="w-4 h-4 border rounded flex items-center justify-center bg-blue-500 border-blue-500"
+                            >
+                              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                            <span className="text-sm flex-1">{size}</span>
+                            <X className="w-4 h-4 text-gray-400 hover:text-red-500" />
+                          </div>
+                        ))}
+                      </>
+                    )}
+                    
+                    <div className="border-t px-3 py-2 sticky bottom-0 bg-gray-50">
+                      <div className="flex gap-2 items-center">
+                        <Input
+                          placeholder="Enter custom pack size"
+                          value={customPackSizeInput}
+                          onChange={(e) => setCustomPackSizeInput(e.target.value)}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              addCustomPackSize()
+                            }
+                          }}
+                          className="text-sm flex-1"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <Button
+                          size="sm"
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            addCustomPackSize()
+                          }}
+                          style={{ backgroundColor: PRIMARY_COLOR }}
+                          disabled={!customPackSizeInput.trim()}
+                        >
+                          Add
+                        </Button>
                       </div>
-                    ))}
+                    </div>
                   </div>
                 )}
               </div>
-              <p className="text-xs text-gray-500">Available options for {CATEGORIES.find(c => c.value === formData.category)?.label}</p>
+              <p className="text-xs text-gray-500">Available options for {CATEGORIES.find(c => c.value === formData.category)?.label} or add custom values</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="indications">Indications *</Label>
               <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Product description..."
+                id="indications"
+                value={formData.indications}
+                onChange={(e) => setFormData({ ...formData, indications: e.target.value })}
+                placeholder="e.g., Used for treating respiratory infections, boosting immunity..."
+                rows={3}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="dosage">Dosage *</Label>
+              <Textarea
+                id="dosage"
+                value={formData.dosage}
+                onChange={(e) => setFormData({ ...formData, dosage: e.target.value })}
+                placeholder="e.g., 5ml per liter of drinking water for 5-7 days..."
                 rows={3}
               />
             </div>
@@ -1153,7 +1321,7 @@ export default function ProductsAdmin() {
             <Button 
               onClick={handleSave}
               style={{ backgroundColor: PRIMARY_COLOR }}
-              disabled={!formData.name || !formData.brandName || !formData.composition || !formData.description}
+              disabled={!formData.name || !formData.productType || !formData.composition || !formData.indications || !formData.dosage}
             >
               {editingProduct ? 'Save Changes' : 'Add Product'}
             </Button>
@@ -1181,11 +1349,14 @@ export default function ProductsAdmin() {
         </DialogContent>
       </Dialog>
 
-      {/* Click outside to close pack size dropdown */}
-      {packSizeDropdownOpen && (
+      {/* Click outside to close dropdowns */}
+      {(packSizeDropdownOpen || productTypeDropdownOpen) && (
         <div 
           className="fixed inset-0 z-40" 
-          onClick={() => setPackSizeDropdownOpen(false)}
+          onClick={() => {
+            setPackSizeDropdownOpen(false)
+            setProductTypeDropdownOpen(false)
+          }}
         />
       )}
     </div>

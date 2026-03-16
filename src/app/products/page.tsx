@@ -58,7 +58,7 @@
 // }) {
 //   const ref = useRef(null)
 //   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
 //   return (
 //     <motion.div
 //       ref={ref}
@@ -488,7 +488,7 @@
 // }) {
 //   const ref = useRef(null)
 //   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
 //   return (
 //     <motion.div
 //       ref={ref}
@@ -635,7 +635,7 @@
 //           />
 //           <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}ee, ${PRIMARY_HOVER}cc)` }} />
 //         </div>
-        
+
 //         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
 //           <motion.div
 //             initial={{ opacity: 0, y: 30 }}
@@ -824,7 +824,7 @@
 //                 {filteredProducts.map((product) => {
 //                   const category = CATEGORIES.find(c => c.id === product.category)
 //                   const packSizes = product.packSize ? JSON.parse(product.packSize) : []
-                  
+
 //                   return (
 //                     <motion.div
 //                       key={product.id}
@@ -876,10 +876,10 @@
 //                           <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-gray-700">
 //                             {product.brandName}
 //                           </h3>
-                          
+
 //                           {/* Product Name */}
 //                           <p className="text-sm text-gray-500 mb-2">{product.name}</p>
-                          
+
 //                           {/* Composition */}
 //                           <div className="mb-3">
 //                             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Composition</p>
@@ -1091,8 +1091,8 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  ChevronRight, Droplets, Package, Wheat, Pill, Syringe, 
+import {
+  ChevronRight, Droplets, Package, Wheat, Pill, Syringe,
   Shield, Award, Star, ArrowRight,
   Beaker, TestTube, Microscope, Zap,
   Search, Image as ImageIcon, ChevronLeft, X,
@@ -1105,13 +1105,13 @@ import FloatingSocialLinks from '@/components/FloatingSocialLinks'
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
-const ITEMS_PER_PAGE = 10
+const ITEMS_PER_PAGE = 12
 
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -1130,8 +1130,8 @@ const staggerContainer = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     scale: 1,
     transition: { duration: 0.4, ease: 'easeOut' }
@@ -1140,26 +1140,26 @@ const cardVariants = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: { duration: 0.5, ease: 'easeOut' }
   }
 }
 
 // Animated section wrapper
-function AnimatedSection({ 
-  children, 
-  className = '', 
-  variant = fadeInUp 
-}: { 
+function AnimatedSection({
+  children,
+  className = '',
+  variant = fadeInUp
+}: {
   children: React.ReactNode
   className?: string
-  variant?: typeof fadeInUp 
+  variant?: typeof fadeInUp
 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
   return (
     <motion.div
       ref={ref}
@@ -1175,38 +1175,38 @@ function AnimatedSection({
 
 // Category configuration
 const CATEGORIES = [
-  { 
-    id: 'oralLiquids', 
-    name: 'Oral Liquids', 
-    icon: Droplets, 
+  {
+    id: 'oralLiquids',
+    name: 'Oral Liquids',
+    icon: Droplets,
     color: '#3B82F6',
     description: 'Premium liquid formulations for easy administration and rapid absorption'
   },
-  { 
-    id: 'dryPowders', 
-    name: 'Dry Powders', 
-    icon: Package, 
+  {
+    id: 'dryPowders',
+    name: 'Dry Powders',
+    icon: Package,
     color: '#8B5CF6',
     description: 'Stable powder formulations for convenient storage and mixing'
   },
-  { 
-    id: 'feedSupplements', 
-    name: 'Feed Supplements', 
-    icon: Wheat, 
+  {
+    id: 'feedSupplements',
+    name: 'Feed Supplements',
+    icon: Wheat,
     color: '#22C55E',
     description: 'Nutritional supplements to enhance feed quality and animal health'
   },
-  { 
-    id: 'tabletsBolus', 
-    name: 'Tablets / Bolus', 
-    icon: Pill, 
+  {
+    id: 'tabletsBolus',
+    name: 'Tablets / Bolus',
+    icon: Pill,
     color: '#EC4899',
     description: 'Precise dosing with convenient tablet and bolus formulations'
   },
-  { 
-    id: 'injectables', 
-    name: 'Injectables', 
-    icon: Syringe, 
+  {
+    id: 'injectables',
+    name: 'Injectables',
+    icon: Syringe,
     color: '#EF4444',
     description: 'Professional-grade injectable solutions for veterinary use'
   },
@@ -1215,11 +1215,12 @@ const CATEGORIES = [
 interface Product {
   id: string
   name: string
-  brandName: string
+  productType: string
   composition: string
   packSize: string
   image: string
-  description: string
+  indications: string
+  dosage: string
   category: string
   sectors: string
   featured: boolean
@@ -1229,18 +1230,18 @@ interface Product {
 // Globe icon component
 const Globe = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/>
-    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-    <path d="M2 12h20"/>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+    <path d="M2 12h20" />
   </svg>
 )
 
 // Target icon component
 const Target = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/>
-    <circle cx="12" cy="12" r="6"/>
-    <circle cx="12" cy="12" r="2"/>
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
   </svg>
 )
 
@@ -1279,9 +1280,9 @@ export default function ProductsPage() {
   // Filter products by category and search
   const filteredProducts = products.filter(product => {
     const matchesCategory = activeCategory === 'all' || product.category === activeCategory
-    const matchesSearch = searchQuery === '' || 
+    const matchesSearch = searchQuery === '' ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.productType.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.composition.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
@@ -1326,7 +1327,7 @@ export default function ProductsPage() {
           />
           <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}ee, ${PRIMARY_HOVER}cc)` }} />
         </div>
-        
+
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1430,11 +1431,10 @@ export default function ProductsPage() {
           <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
             <motion.button
               onClick={() => setActiveCategory('all')}
-              className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
-                activeCategory === 'all'
-                  ? 'text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
-              }`}
+              className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${activeCategory === 'all'
+                ? 'text-white shadow-lg'
+                : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
+                }`}
               style={{
                 backgroundColor: activeCategory === 'all' ? PRIMARY_COLOR : undefined,
                 boxShadow: activeCategory === 'all' ? `0 10px 30px ${PRIMARY_COLOR}40` : undefined
@@ -1449,11 +1449,10 @@ export default function ProductsPage() {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'text-white shadow-lg'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
-                }`}
+                className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${activeCategory === category.id
+                  ? 'text-white shadow-lg'
+                  : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
+                  }`}
                 style={{
                   backgroundColor: activeCategory === category.id ? category.color : undefined,
                   boxShadow: activeCategory === category.id ? `0 10px 30px ${category.color}40` : undefined
@@ -1470,7 +1469,7 @@ export default function ProductsPage() {
 
           {/* Category Description */}
           {currentCategory && (
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center text-gray-500 mb-8"
@@ -1498,15 +1497,15 @@ export default function ProductsPage() {
                 <Package className="w-16 h-16 mx-auto mb-4 text-gray-300" />
                 <h3 className="text-lg font-semibold text-gray-700 mb-2">No Products Found</h3>
                 <p className="text-gray-500">
-                  {searchQuery 
-                    ? 'Try adjusting your search query' 
+                  {searchQuery
+                    ? 'Try adjusting your search query'
                     : 'No products available in this category yet'}
                 </p>
               </CardContent>
             </Card>
           ) : (
             <>
-              <motion.div 
+              <motion.div
                 key={`${activeCategory}-${currentPage}`}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
                 variants={staggerContainer}
@@ -1517,7 +1516,7 @@ export default function ProductsPage() {
                   {paginatedProducts.map((product) => {
                     const category = CATEGORIES.find(c => c.id === product.category)
                     const packSizes = product.packSize ? JSON.parse(product.packSize) : []
-                    
+
                     return (
                       <motion.div
                         key={product.id}
@@ -1534,11 +1533,10 @@ export default function ProductsPage() {
                           {/* Product Image */}
                           <div className="relative h-56 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden p-6">
                             {product.image ? (
-                              <Image
+                              <img
                                 src={product.image}
-                                alt={product.brandName}
-                                fill
-                                className="object-contain group-hover:scale-110 transition-transform duration-500"
+                                alt={product.name}
+                                className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
@@ -1555,9 +1553,9 @@ export default function ProductsPage() {
                             )}
                             {category && (
                               <div className="absolute top-3 right-3">
-                                <Badge 
-                                  variant="secondary" 
-                                  className="shadow-md text-white border-0"
+                                <Badge
+                                  variant="secondary"
+                                  className="shadow-md text-white border-0 uppercase"
                                   style={{ backgroundColor: category.color }}
                                 >
                                   {category.name.split(' ')[0]}
@@ -1567,14 +1565,14 @@ export default function ProductsPage() {
                           </div>
 
                           <CardContent className="p-5">
-                            {/* Brand Name */}
-                            <h3 className="text-base font-bold text-gray-900 mb-1.5 line-clamp-2">
-                              {product.brandName}
-                            </h3>
-                            
                             {/* Product Name */}
-                            <p className="text-sm text-gray-600 mb-3 line-clamp-1">{product.name}</p>
-                            
+                            <h3 className="text-base font-bold text-gray-900 mb-1.5 line-clamp-2">
+                              {product.name}
+                            </h3>
+
+                            {/* Product Type (Category) */}
+                            <p className="text-xs text-gray-500 mb-3 line-clamp-1 uppercase">{product.productType}</p>
+
                             {/* Composition */}
                             {/* <div className="mb-3">
                               <p className="text-xs text-gray-400 line-clamp-2">{product.composition}</p>
@@ -1613,7 +1611,7 @@ export default function ProductsPage() {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <motion.div 
+                <motion.div
                   className="flex items-center justify-center gap-2 mt-10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -1892,11 +1890,10 @@ export default function ProductsPage() {
                 <div className="md:w-2/5 relative bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8 md:p-12 overflow-y-auto">
                   <div className="relative w-full h-full flex items-center justify-center">
                     {selectedProduct.image ? (
-                      <Image
+                      <img
                         src={selectedProduct.image}
-                        alt={selectedProduct.brandName}
-                        fill
-                        className="object-contain"
+                        alt={selectedProduct.name}
+                        className="max-w-full max-h-full object-contain"
                       />
                     ) : (
                       <ImageIcon className="w-24 h-24 text-gray-300" />
@@ -1920,8 +1917,8 @@ export default function ProductsPage() {
                     {(() => {
                       const category = CATEGORIES.find(c => c.id === selectedProduct.category)
                       return category ? (
-                        <Badge 
-                          className="mb-4 text-white font-medium"
+                        <Badge
+                          className="mb-4 text-white font-medium "
                           style={{ backgroundColor: category.color }}
                         >
                           {category.name}
@@ -1930,9 +1927,9 @@ export default function ProductsPage() {
                     })()}
 
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                      {selectedProduct.brandName}
+                      {selectedProduct.name}
                     </h2>
-                    <p className="text-lg text-gray-600">{selectedProduct.name}</p>
+                    <p className="text-sm text-gray-500 uppercase">{selectedProduct.productType}</p>
                   </div>
 
                   {/* Main Content */}
@@ -1976,15 +1973,40 @@ export default function ProductsPage() {
                       </div>
                     )}
 
-                    {/* Description */}
-                    {selectedProduct.description && (
+                    {/* Indications */}
+                    {selectedProduct.indications && (
                       <div>
-                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
-                          Description
+                        <h4 className="text-xs font-bold text-black uppercase tracking-widest mb-3">
+                          Indications
                         </h4>
                         <p className="text-gray-700 leading-relaxed text-base">
-                          {selectedProduct.description}
+                          {selectedProduct.indications}
                         </p>
+                      </div>
+                    )}
+
+                    {/* Dosage */}
+                    {selectedProduct.dosage && (
+                      <div>
+                        <h4 className="text-xs font-bold text-black uppercase tracking-widest mb-3">
+                          Dosage
+                        </h4>
+                        <div className="text-gray-700 leading-relaxed text-base space-y-2">
+                          {selectedProduct.dosage.split('\n').map((line: string, idx: number) => {
+                            const colonIndex = line.indexOf(':')
+                            if (colonIndex === -1) {
+                              return <p key={idx}>{line}</p>
+                            }
+                            const boldPart = line.substring(0, colonIndex)
+                            const normalPart = line.substring(colonIndex)
+                            return (
+                              <p key={idx}>
+                                <span className="font-bold">{boldPart}</span>
+                                {normalPart}
+                              </p>
+                            )
+                          })}
+                        </div>
                       </div>
                     )}
 
@@ -2013,7 +2035,7 @@ export default function ProductsPage() {
                   {/* CTA Buttons */}
                   <div className="px-8 md:px-10 py-6 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row gap-3">
                     <Link href="/contact" className="flex-1">
-                      <Button 
+                      <Button
                         className="w-full h-12 text-base font-semibold hover:shadow-lg transition-all"
                         style={{ backgroundColor: PRIMARY_COLOR }}
                       >
@@ -2021,7 +2043,7 @@ export default function ProductsPage() {
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
-                    <Button 
+                    <Button
                       className="flex-1 h-12 text-base font-semibold hover:bg-gray-100 transition-all"
                       variant="outline"
                       onClick={() => setSelectedProduct(null)}
