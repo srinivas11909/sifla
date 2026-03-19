@@ -69,7 +69,7 @@
 //   return (
 //     <section className="py-20 bg-gray-50 overflow-hidden">
 //       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
 //         {/* Header */}
 //         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
 //           <div>
@@ -117,7 +117,7 @@
 //               {products.map((product) => (
 //                 <ProductCard key={product._id} product={product} />
 //               ))}
-              
+
 //               {/* Duplicate Set for Infinite Illusion */}
 //               {products.map((product) => (
 //                 <ProductCard key={`dup-${product._id}`} product={product} />
@@ -134,7 +134,7 @@
 // const ProductCard = ({ product }: { product: Product }) => (
 //   <Link href={`/products/${product._id}`} className="flex-shrink-0 w-[280px] md:w-[300px] group">
 //     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full flex flex-col">
-      
+
 //       {/* Image Area */}
 //       <div className="relative w-full h-56 bg-gray-100 overflow-hidden">
 //         {product.image ? (
@@ -148,7 +148,7 @@
 //             <Box className="w-16 h-16 text-gray-200" />
 //           </div>
 //         )}
-        
+
 //         {/* Category Tag */}
 //         {product.category && (
 //           <span 
@@ -165,7 +165,7 @@
 //         <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#243d80] transition-colors">
 //           {product.name}
 //         </h3>
-        
+
 //         {product.type && (
 //           <p className="text-sm text-gray-500 mb-4">{product.type}</p>
 //         )}
@@ -188,6 +188,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Box, Loader2, ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -202,6 +203,7 @@ interface Product {
   image?: string
   active?: boolean
 }
+
 
 export default function FeaturedProductsCarousel() {
   const [products, setProducts] = useState<Product[]>([])
@@ -241,7 +243,7 @@ export default function FeaturedProductsCarousel() {
   }
 
   // --- Navigation Logic ---
-  
+
   // Calculate item width based on screen size (matches Tailwind classes)
   const getItemWidth = () => {
     if (typeof window !== 'undefined') {
@@ -264,25 +266,25 @@ export default function FeaturedProductsCarousel() {
   // We duplicate the array for infinite illusion, but for button controls, 
   // we calculate position based on currentIndex of the original set.
   // To ensure infinite feel, we map index to position seamlessly.
-  
+
   // For smooth infinite scrolling with buttons, the standard approach is:
   // 1. Animate to index.
   // 2. If we reach the 'clone' index, instantly snap back to the 'real' index.
-  
+
   // Simplified Approach: We render just enough items to fill screen, 
   // and loop the index mathematically. 
-  
+
   const itemWidth = getItemWidth()
   const xPosition = -currentIndex * itemWidth
 
   return (
-    <section className="py-20 bg-gray-50 relative overflow-hidden" style={{background: `${PRIMARY_HOVER}`}}>
+    <section className="py-20 bg-gray-50 relative overflow-hidden" style={{ background: `${PRIMARY_HOVER}` }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div>
-            <span 
+            <span
               className="inline-block mb-3 px-4 py-1.5 text-sm font-semibold rounded-full uppercase tracking-wider"
               style={{ backgroundColor: `${PRIMARY_COLOR}10`, color: PRIMARY_COLOR }}
             >
@@ -292,8 +294,8 @@ export default function FeaturedProductsCarousel() {
               Top Products
             </h2>
           </div>
-          <Link 
-            href="/products" 
+          <Link
+            href="/products"
             className="mt-4 md:mt-0 inline-flex items-center gap-2 text-sm font-semibold hover:gap-3 transition-all duration-300"
             style={{ color: PRIMARY_COLOR }}
           >
@@ -303,24 +305,26 @@ export default function FeaturedProductsCarousel() {
 
         {/* Carousel Container */}
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-10 h-10 animate-spin text-gray-400" />
+          <div className="flex gap-6 overflow-hidden mx-2 md:mx-8">
+            {[...Array(4)].map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))}
           </div>
         ) : products.length === 0 ? (
           <div className="text-center py-12 text-gray-500">No active products found.</div>
         ) : (
           <div className="relative">
-            
+
             {/* Navigation Buttons */}
-            <button 
+            <button
               onClick={prevSlide}
               className="absolute left-0 top-1/2 -translate-y-1/2 z-20 -ml-4 md:ml-2 bg-white p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all border border-gray-100 hover:scale-110"
               aria-label="Previous Product"
             >
               <ChevronLeft className="w-6 h-6 text-gray-700" />
             </button>
-            
-            <button 
+
+            <button
               onClick={nextSlide}
               className="absolute right-0 top-1/2 -translate-y-1/2 z-20 -mr-4 md:mr-2 bg-white p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all border border-gray-100 hover:scale-110"
               aria-label="Next Product"
@@ -330,12 +334,12 @@ export default function FeaturedProductsCarousel() {
 
             {/* Carousel Track */}
             <div className="overflow-hidden mx-2 md:mx-8" ref={carouselRef}>
-              <motion.div 
+              <motion.div
                 className="flex gap-6"
                 animate={{ x: xPosition }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 300, 
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
                   damping: 30,
                   mass: 1
                 }}
@@ -364,25 +368,32 @@ export default function FeaturedProductsCarousel() {
 const ProductCard = ({ product }: { product: Product }) => (
   <Link href={`/products`} className="flex-shrink-0 w-[280px] md:w-[300px] group">
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full flex flex-col">
-      
+
       {/* Image Area */}
-      <div className="relative w-full h-56 bg-gray-100 overflow-hidden">
+      <div className="relative w-full h-56 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex items-center justify-center p-4">
         {product.image ? (
-          <img 
-            src={product.image} 
+          // <img 
+          //   src={product.image} 
+          //   alt={product.name}
+          //   className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+          // />
+          <Image
+            src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 280px, 300px"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-50">
             <Box className="w-16 h-16 text-gray-200" />
           </div>
         )}
-        
+
         {/* Category Tag */}
         {product.category && (
-          <span 
-            className="absolute top-3 right-3 px-3 py-1 text-xs font-bold text-white rounded-full shadow-lg"
+          <span
+            className="absolute top-3 right-3 px-3 py-1 text-xs font-bold text-white rounded-full shadow-lg uppercase tracking-wider"
             style={{ backgroundColor: PRIMARY_COLOR }}
           >
             {product.category}
@@ -395,13 +406,13 @@ const ProductCard = ({ product }: { product: Product }) => (
         <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#243d80] transition-colors">
           {product.name}
         </h3>
-        
+
         {product.type && (
           <p className="text-sm text-gray-500 mb-4">{product.type}</p>
         )}
 
         <div className="mt-auto pt-4 border-t border-gray-50">
-          <span 
+          <span
             className="inline-flex items-center text-sm font-semibold group-hover:gap-2 transition-all"
             style={{ color: PRIMARY_COLOR }}
           >
@@ -413,3 +424,33 @@ const ProductCard = ({ product }: { product: Product }) => (
     </div>
   </Link>
 )
+
+
+
+
+// --- Skeleton Component for Loading State ---
+const ProductSkeleton = () => {
+  return (
+    <div className="flex-shrink-0 w-[280px] md:w-[300px]">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col animate-pulse">
+        {/* Image Skeleton */}
+        <div className="relative w-full h-56 bg-gradient-to-br from-gray-200 to-gray-300" />
+
+        {/* Content Skeleton */}
+        <div className="p-5 flex flex-col flex-grow">
+          {/* Title Skeleton */}
+          <div className="h-6 bg-gray-200 rounded-lg w-3/4 mb-2" />
+          <div className="h-6 bg-gray-200 rounded-lg w-1/2 mb-2" />
+
+          {/* Type Skeleton */}
+          <div className="h-4 bg-gray-200 rounded w-1/3 mb-4" />
+
+          {/* Footer Skeleton */}
+          <div className="mt-auto pt-4 border-t border-gray-50">
+            <div className="h-4 bg-gray-200 rounded w-1/4" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

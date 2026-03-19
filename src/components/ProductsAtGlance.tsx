@@ -773,6 +773,7 @@ import { motion } from 'framer-motion'
 import { 
   Droplets, Package, Beaker, Pill, Syringe, FlaskConical, Shield, ArrowRight
 } from 'lucide-react'
+import Injectables from '@/public/images/injectables.jpg'
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -783,7 +784,7 @@ const productCategories = [
     count: '120+',
     description: 'High-quality liquid formulations for easy administration and rapid absorption',
     items: ['Oral Suspensions', 'Liquid Medicines', 'Electrolytes'],
-    bgImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop'
+    bgImage: '/products/oral.jpg'
   },
   { 
     icon: Package, 
@@ -791,7 +792,7 @@ const productCategories = [
     count: '80+',
     description: 'Stable powder formulations with extended shelf life for water soluble applications',
     items: ['Water Soluble Powders', 'Premixes', 'Concentrates'],
-    bgImage: 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?q=80&w=600&auto=format&fit=crop'
+    bgImage: '/products/drypowders.jpg'
   },
   { 
     icon: Beaker, 
@@ -807,7 +808,7 @@ const productCategories = [
     count: '60+',
     description: 'Precise dosage solid formulations for accurate treatment protocols',
     items: ['Anthelmintics', 'Antibiotics', 'Nutritional'],
-    bgImage: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=600&auto=format&fit=crop'
+    bgImage: '/products/tablets.jpg'
   },
   { 
     icon: Syringe, 
@@ -815,7 +816,7 @@ const productCategories = [
     count: '50+',
     description: 'Sterile injectable formulations for rapid and effective treatment',
     items: ['Antibiotics', 'Anti-inflammatory', 'Vitamins'],
-    bgImage: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=600&auto=format&fit=crop'
+    bgImage: '/products/injectables.jpg'
   },
   { 
     icon: FlaskConical, 
@@ -824,7 +825,7 @@ const productCategories = [
     description: 'Powerful biosecurity solutions for farm hygiene and disease prevention',
     items: ['Surface Cleaners', 'Water Sanitizers', 'Aerial Disinfectants'],
     // FIXED: Reliable image URL for disinfectants/cleaning products
-    bgImage: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=600&auto=format&fit=crop' 
+    bgImage: '/products/discc.jpg' 
   },
   { 
     icon: Shield, 
@@ -832,7 +833,7 @@ const productCategories = [
     count: '35+',
     description: 'Effective external parasite control for all animal species',
     items: ['Tick Control', 'Mite Treatment', 'Fly Repellents'],
-    bgImage: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=600&auto=format&fit=crop'
+    bgImage: '/products/some.jpg'
   },
 ]
 

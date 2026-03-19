@@ -590,6 +590,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import Fish from '../public/fish.jpg'
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -648,7 +649,7 @@ const sectors = [
   {
     id: 8,
     name: 'Fish',
-    image: 'https://images.openai.com/static-rsc-3/ePZ2jqJGd2dXI1SW0K7MvUv-JAoMnVNUO3NG_XZFSEtZh7bViN64v-MAkqoeW06Gv1-ifuq_tuJgiBVyhX1uXCpb5BhwXhoZ0b-RweYSlIM?purpose=fullsize&v=1',
+    image: "fish.jpg",
     description: 'Aquaculture health solutions',
     products: ['Probiotics', 'Water Treatment', 'Feed']
   },

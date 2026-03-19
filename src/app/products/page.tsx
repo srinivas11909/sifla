@@ -1488,9 +1488,11 @@ export default function ProductsPage() {
 
           {/* Products Grid */}
           {loading ? (
-            <div className="flex items-center justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: PRIMARY_COLOR }} />
-            </div>
+            <div className="flex gap-6 overflow-hidden mx-2 md:mx-8">
+            {[...Array(8)].map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))}
+          </div>
           ) : filteredProducts.length === 0 ? (
             <Card className="max-w-lg mx-auto">
               <CardContent className="p-8 text-center">
@@ -2057,6 +2059,36 @@ export default function ProductsPage() {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  )
+}
+
+
+
+
+// --- Skeleton Component for Loading State ---
+const ProductSkeleton = () => {
+  return (
+    <div className="flex-shrink-0 w-[280px] md:w-[300px]">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col animate-pulse">
+        {/* Image Skeleton */}
+        <div className="relative w-full h-56 bg-gradient-to-br from-gray-200 to-gray-300" />
+
+        {/* Content Skeleton */}
+        <div className="p-5 flex flex-col flex-grow">
+          {/* Title Skeleton */}
+          <div className="h-6 bg-gray-200 rounded-lg w-3/4 mb-2" />
+          <div className="h-6 bg-gray-200 rounded-lg w-1/2 mb-2" />
+
+          {/* Type Skeleton */}
+          <div className="h-4 bg-gray-200 rounded w-1/3 mb-4" />
+
+          {/* Footer Skeleton */}
+          <div className="mt-auto pt-4 border-t border-gray-50">
+            <div className="h-4 bg-gray-200 rounded w-1/4" />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
