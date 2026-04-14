@@ -75,7 +75,7 @@
 // }) {
 //   const ref = useRef(null)
 //   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
 //   return (
 //     <motion.div
 //       ref={ref}
@@ -299,14 +299,14 @@
 //               Milestones Along the Way
 //             </h2>
 //           </AnimatedSection>
-          
+
 //           <div className="relative">
 //             {/* Timeline line */}
 //             <div 
 //               className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 hidden md:block"
 //               style={{ backgroundColor: `${PRIMARY_COLOR}20` }}
 //             />
-            
+
 //             <div className="space-y-8">
 //               {milestones.map((milestone, index) => (
 //                 <motion.div
@@ -401,12 +401,12 @@
 
 'use client'
 
-import { useRef, useState,useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
+import {
   CheckCircle, Award, Globe, Shield, Users, Clock, Target, ChevronRight,
   Building2, Microscope, Beaker, Factory, Leaf, Stethoscope, ArrowRight,
   Layers, ShieldCheck, Warehouse, Droplets, Pill, Package
@@ -415,7 +415,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import FloatingSocialLinks from '@/components/FloatingSocialLinks'
-import LeadershipSection from '@/components/LeadershipSection'
+// import LeadershipSection from '@/components/LeadershipSection'
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
@@ -423,8 +423,8 @@ const PRIMARY_HOVER = '#1a2d5c'
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -432,8 +432,8 @@ const fadeInUp = {
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -441,8 +441,8 @@ const fadeInLeft = {
 
 const fadeInRight = {
   hidden: { opacity: 0, x: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -461,8 +461,8 @@ const staggerContainer = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     scale: 1,
     transition: { duration: 0.5, ease: 'easeOut' }
@@ -486,18 +486,18 @@ const stats = [
 ]
 
 // Animated section wrapper
-function AnimatedSection({ 
-  children, 
-  className = '', 
-  variant = fadeInUp 
-}: { 
+function AnimatedSection({
+  children,
+  className = '',
+  variant = fadeInUp
+}: {
   children: React.ReactNode
   className?: string
-  variant?: typeof fadeInUp 
+  variant?: typeof fadeInUp
 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
   return (
     <motion.div
       ref={ref}
@@ -542,13 +542,13 @@ function AnimatedCounter({ value, suffix = '', duration = 2 }: { value: number; 
 const divisions = [
   {
     icon: Beaker,
-    name: 'Siflon Drugs',
+    name: 'Siflon Pharma Pvt Ltd',
     description: 'Manufacture of Veterinary APIs',
     color: '#3B82F6'
   },
   {
     icon: Stethoscope,
-    name: 'Siflon Drugs & Pharmaceuticals',
+    name: 'Siflon Drugs & Pharmaceuticals Pvt Ltd',
     description: 'Veterinary Formulations',
     color: '#22C55E'
   },
@@ -560,22 +560,22 @@ const divisions = [
   },
   {
     icon: Factory,
-    name: 'Siflon Polymers',
+    name: 'Siflon Polymers Pvt Ltd',
     description: 'PTFE Components Manufacturing',
     color: '#F59E0B'
   },
   {
     icon: Microscope,
-    name: 'Siflon Engineering',
-    description: 'Reactors & Engineering Solutions',
+    name: 'Siflon Drip & Sprinklers Pvt Ltd',
+    description: 'Micro irrigation equipment for agriculture',
     color: '#EF4444'
   },
-  {
-    icon: Leaf,
-    name: 'Aloewell Herbals',
-    description: 'Aloevera Products',
-    color: '#10B981'
-  },
+  // {
+  //   icon: Leaf,
+  //   name: 'Aloewell Herbals',
+  //   description: 'Aloevera Products',
+  //   color: '#10B981'
+  // },
 ]
 
 const strengths = [
@@ -681,14 +681,14 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=800&fit=crop"
             alt="About Siflon"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}ee, ${PRIMARY_HOVER}cc)` }} />
         </div>
-        
+
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -720,20 +720,20 @@ export default function AboutPage() {
                 From PTFE to Pharmaceutical Excellence
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed text-lg">
-                Founded in <strong>1996 by Mr. R. Ananthaiah</strong> as a small scale PTFE component manufacturing 
-                industry, we&apos;ve gradually diversified into different sectors. Today, our operations span 6 major areas 
+                Founded in <strong>1996 by Mr. R. Ananthaiah</strong> as a small scale PTFE component manufacturing
+                industry, we&apos;ve gradually diversified into different sectors. Today, our operations span 5 major areas
                 serving diverse industries.
               </p>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Our group companies include <strong>Siflon Drugs</strong> (Veterinary APIs), <strong>Siflon Drugs & 
-                Pharmaceuticals Pvt. Ltd.</strong> (Veterinary Formulations), <strong>Siflon Vet Pharma</strong> 
-                (Veterinary Pharmaceutical Franchisee Outlets), <strong>Siflon Polymers</strong> (PTFE components), 
-                <strong> Siflon Engineering</strong> (Reactors), and <strong>Aloewell Herbals</strong> (Aloevera products).
+                Our group companies include <strong>Siflon Pharma Pvt Ltd</strong> (Veterinary APIs), <strong>Siflon Drugs &
+                  Pharmaceuticals Pvt. Ltd.</strong> (Veterinary Formulations), <strong>Siflon Vet Pharma</strong>
+                (Veterinary Pharmaceutical Franchisee Outlets), <strong>Siflon Polymers Pvt Ltd</strong> (PTFE components),
+                <strong>  Siflon Drip & Sprinklers Pvt Ltd </strong> (Micro irrigation equipment for agriculture).
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {['GMP Certified', 'ISO 9001:2015', 'WHO-GMP', 'Quality Assured'].map((cert, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     className="flex items-center gap-2"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -746,16 +746,16 @@ export default function AboutPage() {
                 ))}
               </div>
             </AnimatedSection>
-            
+
             <AnimatedSection variant={fadeInRight}>
               <div className="relative">
                 <div className="absolute -inset-4 rounded-3xl opacity-20" style={{ backgroundColor: PRIMARY_COLOR }} />
-                <img 
+                <img
                   src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=600&fit=crop"
                   alt="Siflon Manufacturing Facility"
                   className="relative rounded-2xl shadow-xl w-full h-auto object-cover"
                 />
-                <motion.div 
+                <motion.div
                   className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-6"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -771,7 +771,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-            {/* Vision & Mission */}
+      {/* Vision & Mission */}
       <section className="py-16 md:py-24" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
@@ -783,14 +783,14 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
                   <p className="text-blue-100 leading-relaxed">
-                    Our company is in the process of launching new products to strengthen our portfolio and establish 
-                    a base to launch our products in different countries. We aspire to develop new products and 
+                    Our company is in the process of launching new products to strengthen our portfolio and establish
+                    a base to launch our products in different countries. We aspire to develop new products and
                     medicines that will address significant unmet medical needs of both companion and farm animals.
                   </p>
                 </CardContent>
               </Card>
             </AnimatedSection>
-            
+
             <AnimatedSection variant={fadeInRight}>
               <Card className="border-0 shadow-xl bg-white/10 backdrop-blur-sm h-full">
                 <CardContent className="p-8">
@@ -799,8 +799,8 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
                   <p className="text-blue-100 leading-relaxed">
-                    Our goal is to become one of the most reliable companies with regards to the veterinary formulations. 
-                    We want to be known as a company that is furthering animal health, with good quality products at 
+                    Our goal is to become one of the most reliable companies with regards to the veterinary formulations.
+                    We want to be known as a company that is furthering animal health, with good quality products at
                     affordable prices.
                   </p>
                 </CardContent>
@@ -811,7 +811,7 @@ export default function AboutPage() {
       </section>
 
 
-      
+
       {/* Timeline Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -823,21 +823,20 @@ export default function AboutPage() {
               Milestones Along the Way
             </h2>
           </AnimatedSection>
-          
+
           <div className="relative max-w-4xl mx-auto">
             {/* Timeline line */}
-            <div 
+            <div
               className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 hidden md:block"
               style={{ backgroundColor: `${PRIMARY_COLOR}20` }}
             />
-            
+
             <div className="space-y-8">
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={index}
-                  className={`flex flex-col md:flex-row items-center gap-4 ${
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
+                  className={`flex flex-col md:flex-row items-center gap-4 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -846,7 +845,7 @@ export default function AboutPage() {
                   <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                       <CardContent className="p-6">
-                        <div 
+                        <div
                           className="text-sm font-bold mb-2"
                           style={{ color: PRIMARY_COLOR }}
                         >
@@ -857,7 +856,7 @@ export default function AboutPage() {
                       </CardContent>
                     </Card>
                   </div>
-                  <div 
+                  <div
                     className="w-4 h-4 rounded-full hidden md:block z-10 ring-4 ring-white"
                     style={{ backgroundColor: PRIMARY_COLOR }}
                   />
@@ -881,15 +880,15 @@ export default function AboutPage() {
               Siflon Drugs & Pharmaceuticals Pvt. Ltd.
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              A subsidiary of Siflon Group, started in 2006 with a vision to provide good quality animal healthcare products.
-            </p>
+              A member of Siflon Group, started in 2006 with a vision to provide good quality animal healthcare products.Siflon Pharma Pvt Ltd
+              A flagship of Siflon Group manufacturing Veterinary and API            </p>
           </AnimatedSection>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection variant={fadeInLeft}>
               <Card className="border-0 shadow-xl overflow-hidden">
                 <CardContent className="p-0">
-                  <img 
+                  <img
                     src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=400&fit=crop"
                     alt="Veterinary Products"
                     className="w-full h-64 object-cover"
@@ -897,20 +896,20 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             </AnimatedSection>
-            
+
             <AnimatedSection variant={fadeInRight}>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Committed to Animal Health
               </h3>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                We offer a variety of products with regards to animal health, especially for farm animals such as 
-                <strong> sheep, goat, cattle, and swine</strong>. We provide outstanding technical support and 
-                service to animal farmers as well as their veterinarians in India, to ensure the safety and improve 
+                We offer a variety of products with regards to animal health, especially for farm animals such as
+                <strong> sheep, goat, cattle, and swine</strong>. We provide outstanding technical support and
+                service to animal farmers as well as their veterinarians in India, to ensure the safety and improve
                 the quality and productivity of their livestock.
               </p>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Our goal is to become one of the most reliable companies with regards to the veterinary formulations. 
-                We want to be known as a company that is furthering animal health, with good quality products at 
+                Our goal is to become one of the most reliable companies with regards to the veterinary formulations.
+                We want to be known as a company that is furthering animal health, with good quality products at
                 affordable prices.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -933,19 +932,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <LeadershipSection />
+      {/* <LeadershipSection /> */}
 
       {/* Integration, Quality, Infrastructure Tabs Section */}
       <section className="py-16 md:py-24 relative overflow-hidden">
         {/* Background with pattern */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100" />
-        <div 
+        <div
           className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23243d80' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
           }}
         />
-        
+
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
@@ -965,11 +964,10 @@ export default function AboutPage() {
               <motion.button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'text-white shadow-xl'
-                    : 'bg-white/70 backdrop-blur-sm text-gray-600 hover:bg-white shadow-md'
-                }`}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all duration-300 ${activeTab === tab.id
+                  ? 'text-white shadow-xl'
+                  : 'bg-white/70 backdrop-blur-sm text-gray-600 hover:bg-white shadow-md'
+                  }`}
                 style={{
                   backgroundColor: activeTab === tab.id ? PRIMARY_COLOR : undefined,
                   boxShadow: activeTab === tab.id ? `0 10px 30px ${PRIMARY_COLOR}40` : undefined
@@ -995,7 +993,7 @@ export default function AboutPage() {
             >
               {/* Image - Full Width */}
               <div className="relative h-64 sm:h-80 md:h-96 w-full">
-                <img 
+                <img
                   src={activeTabData.image}
                   alt={activeTabData.title}
                   className="w-full h-full object-cover"
@@ -1003,7 +1001,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                   <div className="flex items-center gap-3 mb-2">
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center"
                       style={{ backgroundColor: PRIMARY_COLOR }}
                     >
@@ -1015,18 +1013,18 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Content - Below Image */}
               <div className="p-6 md:p-8">
                 <p className="text-gray-600 mb-6 leading-relaxed text-base md:text-lg">
                   {activeTabData.content}
                 </p>
-                
+
                 {/* Highlights */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {activeTabData.highlights.map((highlight, i) => (
-                    <motion.div 
-                      key={i} 
+                    <motion.div
+                      key={i}
                       className="flex items-center gap-2 p-3 rounded-lg bg-gray-50"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -1058,7 +1056,7 @@ export default function AboutPage() {
             </p>
           </AnimatedSection>
 
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={staggerContainer}
             initial="hidden"
@@ -1073,7 +1071,7 @@ export default function AboutPage() {
               >
                 <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-white h-full overflow-hidden">
                   <CardContent className="p-6">
-                    <div 
+                    <div
                       className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
                       style={{ backgroundColor: `${division.color}15` }}
                     >
@@ -1090,7 +1088,7 @@ export default function AboutPage() {
       </section>
 
 
-      
+
 
       {/* Why Choose Us Section */}
       <section className="py-16 md:py-24 bg-gray-50">
@@ -1106,8 +1104,8 @@ export default function AboutPage() {
               Discover why thousands of farmers and businesses trust Siflon
             </p>
           </AnimatedSection>
-          
-          <motion.div 
+
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={staggerContainer}
             initial="hidden"
@@ -1122,7 +1120,7 @@ export default function AboutPage() {
               >
                 <Card className="group hover:shadow-lg transition-all duration-300 border-0 bg-white h-full">
                   <CardContent className="p-6">
-                    <motion.div 
+                    <motion.div
                       className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
                       style={{ backgroundColor: `${PRIMARY_COLOR}15` }}
                     >
@@ -1138,45 +1136,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-           {/* Stats Section - 30+ Years of Excellence */}
-            <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
-                <AnimatedSection className="text-center mb-12">
-                  <Badge className="mb-4 bg-white/20 text-white border-white/30 border">
-                    Our Journey
-                  </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                    30+ Years of Excellence
-                  </h2>
-                  <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-                    A legacy of trust, innovation, and quality in animal healthcare since 1993
-                  </p>
-                </AnimatedSection>
-      
-                <motion.div
-                  className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
-                  {stats.map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
-                      variants={scaleIn}
-                      whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.15)' }}
-                    >
-                      <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                        <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                      </div>
-                      <div className="text-sm md:text-base text-blue-100">{stat.label}</div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            </section>
-      
+      {/* Stats Section - 30+ Years of Excellence */}
+      <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+          <AnimatedSection className="text-center mb-12">
+            <Badge className="mb-4 bg-white/20 text-white border-white/30 border">
+              Our Journey
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              30+ Years of Excellence
+            </h2>
+            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+              A legacy of trust, innovation, and quality in animal healthcare since 1993
+            </p>
+          </AnimatedSection>
+
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
+                variants={scaleIn}
+                whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.15)' }}
+              >
+                <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="text-sm md:text-base text-blue-100">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
 
 
       {/* CTA Section */}
@@ -1194,7 +1192,7 @@ export default function AboutPage() {
                       Partner With Us Today
                     </h2>
                     <p className="text-gray-600 mb-6 leading-relaxed">
-                      Join thousands of farmers and businesses who trust Siflon for quality animal healthcare solutions. 
+                      Join thousands of farmers and businesses who trust Siflon for quality animal healthcare solutions.
                       Contact us to learn more about our products and services.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
@@ -1211,7 +1209,7 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <div className="relative h-64 lg:h-auto">
-                    <img 
+                    <img
                       src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop"
                       alt="Partner with Siflon"
                       className="w-full h-full object-cover"

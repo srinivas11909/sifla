@@ -1260,6 +1260,7 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [selectedProductType, setSelectedProductType] = useState<string>('all')
 
   useEffect(() => {
     fetchProducts()
@@ -1280,12 +1281,19 @@ export default function ProductsPage() {
   // Filter products by category and search
   const filteredProducts = products.filter(product => {
     const matchesCategory = activeCategory === 'all' || product.category === activeCategory
+    const matchesProductType = activeCategory === 'all' || selectedProductType === 'all' || product.productType === selectedProductType
+
     const matchesSearch = searchQuery === '' ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.productType.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.composition.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesCategory && matchesSearch
+    return matchesCategory && matchesProductType && matchesSearch
   })
+
+  // Get unique product types for the selected category
+  const productTypesInCategory = activeCategory !== 'all'
+    ? [...new Set(products.filter(p => p.category === activeCategory).map(p => p.productType))].filter(Boolean)
+    : []
 
   // Pagination
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
@@ -1467,6 +1475,43 @@ export default function ProductsPage() {
             ))}
           </div>
 
+          {/* Product Type Sub-Tabs - Show when category is selected */}
+          {activeCategory !== 'all' && productTypesInCategory.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-wrap justify-center gap-2 mb-6 py-3 px-4 bg-gray-50 rounded-xl mx-auto max-w-3xl"
+            >
+              {/* <button
+                onClick={() => setSelectedProductType('all')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${selectedProductType === 'all'
+                  ? 'text-white shadow-md'
+                  : 'bg-white text-gray-600 hover:bg-gray-100 shadow-sm'
+                  }`}
+                style={{
+                  backgroundColor: selectedProductType === 'all' ? currentCategory?.color : undefined,
+                }}
+              >
+                All Types
+              </button> */}
+              {productTypesInCategory.map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setSelectedProductType(type)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 uppercase ${selectedProductType === type
+                    ? 'text-white shadow-md'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 shadow-sm'
+                    }`}
+                  style={{
+                    backgroundColor: selectedProductType === type ? currentCategory?.color : undefined,
+                  }}
+                >
+                  {type}
+                </button>
+              ))}
+            </motion.div>
+          )}
+
           {/* Category Description */}
           {currentCategory && (
             <motion.p
@@ -1489,10 +1534,10 @@ export default function ProductsPage() {
           {/* Products Grid */}
           {loading ? (
             <div className="flex gap-6 overflow-hidden mx-2 md:mx-8">
-            {[...Array(8)].map((_, i) => (
-              <ProductSkeleton key={i} />
-            ))}
-          </div>
+              {[...Array(8)].map((_, i) => (
+                <ProductSkeleton key={i} />
+              ))}
+            </div>
           ) : filteredProducts.length === 0 ? (
             <Card className="max-w-lg mx-auto">
               <CardContent className="p-8 text-center">
