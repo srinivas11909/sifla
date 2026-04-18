@@ -103,6 +103,7 @@ export default function CareersPage() {
     })
     const [submitting, setSubmitting] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
     const heroRef = useRef(null)
     const isHeroInView = useInView(heroRef, { once: true })
@@ -110,16 +111,43 @@ export default function CareersPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setSubmitting(true)
+        setError(null)
+
 
         // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        // await new Promise(resolve => setTimeout(resolve, 1500))
 
-        setSubmitting(false)
-        setSubmitted(true)
-        setFormData({ name: '', email: '', phone: '', position: '', message: '' })
+        // setSubmitting(false)
+        // setSubmitted(true)
+        // setFormData({ name: '', email: '', phone: '', position: '', message: '' })
 
-        // Reset success message after 5 seconds
-        setTimeout(() => setSubmitted(false), 5000)
+        // // Reset success message after 5 seconds
+        // setTimeout(() => setSubmitted(false), 5000)
+        try {
+            const response = await fetch('/api/careers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to submit application')
+            }
+
+            setSubmitted(true)
+            setFormData({ name: '', email: '', phone: '', position: '', message: '' })
+
+            // Reset success message after 5 seconds
+            setTimeout(() => setSubmitted(false), 5000)
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to submit application. Please try again.')
+        } finally {
+            setSubmitting(false)
+        }
     }
 
     // JSON-LD Structured Data for SEO

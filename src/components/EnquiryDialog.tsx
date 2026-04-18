@@ -363,12 +363,16 @@ export default function EnquiryDialog({ open, onOpenChange }: EnquiryDialogProps
     phone: '',
     company: '',
     productCategory: '',
+    fullPhone: '',
+    countryCode: '',
     message: '',
   })
   const [selectedCountry, setSelectedCountry] = useState<Country>(DEFAULT_COUNTRY)
   const [countrySearch, setCountrySearch] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
 
   const filteredCountries = COUNTRIES.filter(c =>
     c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
@@ -379,36 +383,79 @@ export default function EnquiryDialog({ open, onOpenChange }: EnquiryDialogProps
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
+    setError(null)
+
 
     // Full phone with country code
     const fullPhone = `${selectedCountry.dial_code}${formData.phone}`
 
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-
-    console.log('Submitted:', {
-      ...formData,
-      fullPhone,
-      countryCode: selectedCountry.code,
-    })
-
-    setSubmitting(false)
-    setSubmitted(true)
-
-    // Reset after 3 seconds and close dialog
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        productCategory: '',
-        message: '',
+    // await new Promise(resolve => setTimeout(resolve, 1500))
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          products: formData.productCategory,
+          message: formData.message,
+          fullPhone: fullPhone,
+          countryCode: selectedCountry.code,
+        }),
       })
-      setSelectedCountry(DEFAULT_COUNTRY)
-      onOpenChange(false)
-    }, 2500)
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to submit enquiry')
+      }
+
+      setSubmitted(true)
+
+      // Reset after 3 seconds and close dialog
+      setTimeout(() => {
+        setSubmitted(false)
+        setFormData({
+         ...formData,
+         fullPhone: fullPhone,
+         countryCode: selectedCountry.code,
+        })
+        onOpenChange(false)
+      }, 2500)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit enquiry. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+
+    // console.log('Submitted:', {
+    //   ...formData,
+    //   fullPhone,
+    //   countryCode: selectedCountry.code,
+    // })
+
+    // setSubmitting(false)
+    // setSubmitted(true)
+
+    // // Reset after 3 seconds and close dialog
+    // setTimeout(() => {
+    //   setSubmitted(false)
+    //   setFormData({
+    //     name: '',
+    //     email: '',
+    //     phone: '',
+    //     company: '',
+    //     productCategory: '',
+    //     message: '',
+    //   })
+    //   setSelectedCountry(DEFAULT_COUNTRY)
+    //   onOpenChange(false)
+    // }, 2500)
   }
 
   const handleInputChange = (field: string, value: string) => {

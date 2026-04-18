@@ -55,7 +55,7 @@
 // }) {
 //   const ref = useRef(null)
 //   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
 //   return (
 //     <motion.div
 //       ref={ref}
@@ -162,7 +162,7 @@
 //                 Reach out to us through any of the channels below. Our dedicated team is available 
 //                 to answer your questions and provide support for all your animal healthcare needs.
 //               </p>
-              
+
 //               <div className="space-y-6">
 //                 {contactInfo.map((item, i) => (
 //                   <motion.div 
@@ -531,8 +531,8 @@ const mapLocations: MapLocation[] = [
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -540,8 +540,8 @@ const fadeInUp = {
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
@@ -549,26 +549,26 @@ const fadeInLeft = {
 
 const fadeInRight = {
   hidden: { opacity: 0, x: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   }
 }
 
 // Animated section wrapper
-function AnimatedSection({ 
-  children, 
-  className = '', 
-  variant = fadeInUp 
-}: { 
+function AnimatedSection({
+  children,
+  className = '',
+  variant = fadeInUp
+}: {
   children: React.ReactNode
   className?: string
-  variant?: typeof fadeInUp 
+  variant?: typeof fadeInUp
 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
   return (
     <motion.div
       ref={ref}
@@ -583,27 +583,27 @@ function AnimatedSection({
 }
 
 const contactInfo = [
-  { 
-    icon: MapPin, 
-    title: 'Address', 
+  {
+    icon: MapPin,
+    title: 'Address',
     lines: ['Phase-1, Manu Residency, Plot No. 76 & 77,', 'Behind Sri Sairam Model School, Indra Reddy Allwyn Colony, Hafeezpet, Madeenaguda, Hyderabad, Telangana - 500049'],
     link: 'https://www.google.com/maps/dir//SIFLON+DRUGS+%26+PHARMACEUTICALS+PVT+LTD+Phase-1,+Manu+Residency+Plot+No.+76+%26+77,+behind+Sri+Sairam+Model+School,+Mythri+Nagar,+Indra+Reddy+Allwyn+Colony,+Hafeezpet+Madeenaguda,+Hyderabad,+Telangana+500049/@17.4912751,78.3494713,15z'
   },
-  { 
-    icon: Phone, 
-    title: 'Phone', 
+  {
+    icon: Phone,
+    title: 'Phone',
     lines: ['+91 9618828282'],
     link: 'tel:+919618828282'
   },
-  { 
-    icon: Mail, 
-    title: 'Email', 
+  {
+    icon: Mail,
+    title: 'Email',
     lines: ['marketing1@siflonpharma.com'],
     link: 'mailto:marketing1@siflonpharma.com'
   },
-  { 
-    icon: Clock, 
-    title: 'Business Hours', 
+  {
+    icon: Clock,
+    title: 'Business Hours',
     lines: ['Monday - Friday: 9:00 AM - 6:00 PM', 'Saturday: 9:00 AM - 2:00 PM'],
     link: null
   },
@@ -619,16 +619,51 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   // Simulate form submission
+  //   setIsSubmitted(true)
+  //   setTimeout(() => {
+  //     setIsSubmitted(false)
+  //     setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' })
+  //   }, 3000)
+  // }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Simulate form submission
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' })
-    }, 3000)
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message')
+      }
+
+      setIsSubmitted(true)
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' })
+      }, 5000)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -639,7 +674,7 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero Section */}
-      <section 
+      <section
         className="relative py-20 md:py-28"
         style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}
       >
@@ -672,13 +707,13 @@ export default function ContactPage() {
                 Contact Information
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Reach out to us through any of the channels below. Our dedicated team is available 
+                Reach out to us through any of the channels below. Our dedicated team is available
                 to answer your questions and provide support for all your animal healthcare needs.
               </p>
-              
+
               <div className="space-y-6">
                 {contactInfo.map((item, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     className="flex items-start gap-4"
                     initial={{ opacity: 0, x: -20 }}
@@ -686,7 +721,7 @@ export default function ContactPage() {
                     transition={{ delay: i * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
                       style={{ backgroundColor: `${PRIMARY_COLOR}15` }}
                     >
@@ -738,7 +773,7 @@ export default function ContactPage() {
               </motion.div> */}
 
               {/* Google Maps - Office Location */}
-              <motion.div 
+              <motion.div
                 className="mt-8 rounded-xl overflow-hidden border shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -757,7 +792,7 @@ export default function ContactPage() {
                     title="Siflon Drugs & Pharmaceuticals Location"
                   />
                 </div>
-                <a 
+                <a
                   href="https://www.google.com/maps/dir//SIFLON+DRUGS+%26+PHARMACEUTICALS+PVT+LTD+Phase-1,+Manu+Residency+Plot+No.+76+%26+77,+behind+Sri+Sairam+Model+School,+Mythri+Nagar,+Indra+Reddy+Allwyn+Colony,+Hafeezpet+Madeenaguda,+Hyderabad,+Telangana+500049/@17.4912751,78.3494713,15z"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -781,12 +816,12 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   {isSubmitted ? (
-                    <motion.div 
+                    <motion.div
                       className="text-center py-12"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                     >
-                      <div 
+                      <div
                         className="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4"
                         style={{ backgroundColor: `${PRIMARY_COLOR}20` }}
                       >
@@ -809,7 +844,7 @@ export default function ContactPage() {
                           <Input
                             placeholder="Your name"
                             value={formData.name}
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             required
                           />
                         </motion.div>
@@ -824,7 +859,7 @@ export default function ContactPage() {
                             type="email"
                             placeholder="your@email.com"
                             value={formData.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
                           />
                         </motion.div>
@@ -841,7 +876,7 @@ export default function ContactPage() {
                             type="tel"
                             placeholder="+91 98765 43210"
                             value={formData.phone}
-                            onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           />
                         </motion.div>
                         <motion.div
@@ -854,7 +889,7 @@ export default function ContactPage() {
                           <Input
                             placeholder="Company name"
                             value={formData.company}
-                            onChange={(e) => setFormData({...formData, company: e.target.value})}
+                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                           />
                         </motion.div>
                       </div>
@@ -868,7 +903,7 @@ export default function ContactPage() {
                         <Input
                           placeholder="How can we help?"
                           value={formData.subject}
-                          onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         />
                       </motion.div>
                       <motion.div
@@ -882,7 +917,7 @@ export default function ContactPage() {
                           placeholder="Tell us about your requirements..."
                           rows={5}
                           value={formData.message}
-                          onChange={(e) => setFormData({...formData, message: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           required
                         />
                       </motion.div>
@@ -892,8 +927,8 @@ export default function ContactPage() {
                         transition={{ delay: 0.3 }}
                         viewport={{ once: true }}
                       >
-                        <Button 
-                          type="submit" 
+                        <Button
+                          type="submit"
                           className="w-full"
                           style={{ backgroundColor: PRIMARY_COLOR }}
                         >
