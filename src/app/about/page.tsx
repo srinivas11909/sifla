@@ -611,14 +611,14 @@ const strengths = [
   },
 ]
 
-const milestones = [
+/*const milestones = [
   { year: '1996', title: 'Company Founded', description: 'Founded by Mr. R. Ananthaiah as a small scale PTFE component manufacturing industry' },
   { year: '2006', title: 'Siflon Drugs & Pharmaceuticals', description: 'Started veterinary formulations with a vision to provide quality animal healthcare' },
   { year: '2010', title: 'Product Portfolio Expansion', description: 'Launched comprehensive range of products for farm animals' },
   { year: '2015', title: 'Multi-Sector Growth', description: 'Diversified into 6 major business divisions' },
   { year: '2020', title: 'Global Reach', description: 'Established presence in multiple countries' },
   { year: '2024', title: 'Innovation & Growth', description: 'Continuing to develop new products addressing unmet medical needs' },
-]
+]*/
 
 // Integration, Quality, Infrastructure tabs data
 const integrationTabs = [
@@ -813,7 +813,7 @@ export default function AboutPage() {
 
 
       {/* Timeline Section */}
-      <section className="py-16 md:py-24 bg-white">
+      {/*<section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
@@ -825,7 +825,6 @@ export default function AboutPage() {
           </AnimatedSection>
 
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline line */}
             <div
               className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 hidden md:block"
               style={{ backgroundColor: `${PRIMARY_COLOR}20` }}
@@ -866,7 +865,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section>*/}
 
 
       {/* Siflon Drugs & Pharmaceuticals Section */}
