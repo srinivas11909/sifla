@@ -15,7 +15,7 @@ async function main() {
     // Create indexes
     await db.collection('admins').createIndex({ username: 1 }, { unique: true })
     await db.collection('admins').createIndex({ sessionToken: 1 })
-    await db.collection('heroSlides').createIndex({ order: 1 })
+    //await db.collection('heroSlides').createIndex({ order: 1 })
     await db.collection('aboutContent').createIndex({ section: 1 }, { unique: true })
     await db.collection('milestones').createIndex({ order: 1 })
     await db.collection('products').createIndex({ order: 1 })
@@ -41,54 +41,54 @@ async function main() {
       console.log('Admin user already exists')
     }
 
-    // Create default hero slides
-    const heroSlides = [
-      {
-        _id: crypto.randomUUID(),
-        title: 'Premium Animal Healthcare Solutions',
-        subtitle: 'Trusted partner for poultry, aqua, dairy, swine, equine, and pet healthcare. Delivering excellence through innovation for over 30 years.',
-        badge: 'Since 1993',
-        type: 'image',
-        src: '/hero-bg.png',
-        poster: null,
-        order: 0,
-        active: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        _id: crypto.randomUUID(),
-        title: 'Dairy Solutions for Better Yield',
-        subtitle: 'Specialized healthcare products for dairy cattle. Enhance milk production and cattle health with our proven solutions.',
-        badge: 'Dairy Focus',
-        type: 'video',
-        src: 'https://cdn.coverr.co/videos/coverr-milking-a-cow-on-a-farm-5764/1080p.mp4',
-        poster: '/hero-bg.png',
-        order: 1,
-        active: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        _id: crypto.randomUUID(),
-        title: 'Global Quality Standards',
-        subtitle: 'GMP, ISO, and WHO-GMP certified manufacturing. Trusted by farmers across 50+ countries worldwide.',
-        badge: 'Certified Excellence',
-        type: 'image',
-        src: '/hero-bg.png',
-        poster: null,
-        order: 2,
-        active: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]
+    // // Create default hero slides
+    // const heroSlides = [
+    //   {
+    //     _id: crypto.randomUUID(),
+    //     title: 'Premium Animal Healthcare Solutions',
+    //     subtitle: 'Trusted partner for poultry, aqua, dairy, swine, equine, and pet healthcare. Delivering excellence through innovation for over 30 years.',
+    //     badge: 'Since 1993',
+    //     type: 'image',
+    //     src: '/hero-bg.png',
+    //     poster: null,
+    //     order: 0,
+    //     active: true,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   },
+    //   {
+    //     _id: crypto.randomUUID(),
+    //     title: 'Dairy Solutions for Better Yield',
+    //     subtitle: 'Specialized healthcare products for dairy cattle. Enhance milk production and cattle health with our proven solutions.',
+    //     badge: 'Dairy Focus',
+    //     type: 'video',
+    //     src: 'https://cdn.coverr.co/videos/coverr-milking-a-cow-on-a-farm-5764/1080p.mp4',
+    //     poster: '/hero-bg.png',
+    //     order: 1,
+    //     active: true,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   },
+    //   {
+    //     _id: crypto.randomUUID(),
+    //     title: 'Global Quality Standards',
+    //     subtitle: 'GMP, ISO, and WHO-GMP certified manufacturing. Trusted by farmers across 50+ countries worldwide.',
+    //     badge: 'Certified Excellence',
+    //     type: 'image',
+    //     src: '/hero-bg.png',
+    //     poster: null,
+    //     order: 2,
+    //     active: true,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   },
+    // ]
 
-    const existingSlides = await db.collection('heroSlides').countDocuments()
-    if (existingSlides === 0) {
-      await db.collection('heroSlides').insertMany(heroSlides)
-      console.log('Created default hero slides')
-    }
+    // const existingSlides = await db.collection('heroSlides').countDocuments()
+    // if (existingSlides === 0) {
+    //   await db.collection('heroSlides').insertMany(heroSlides)
+    //   console.log('Created default hero slides')
+    // }
 
     // Create milestones
     const milestones = [

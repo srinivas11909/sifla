@@ -416,6 +416,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import FloatingSocialLinks from '@/components/FloatingSocialLinks'
 // import LeadershipSection from '@/components/LeadershipSection'
+import Company from "./company.jpg"
 
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
@@ -626,7 +627,7 @@ const integrationTabs = [
     id: 'integration',
     title: 'Backward & Forward Integration',
     icon: Layers,
-    image: 'https://siflonpharma.com/img/img-service-1.jpg',
+    image: '/company.jpeg',
     content: `Backward and forward integration has been the key to diversify into different sectors. The founder being a chemical engineer, always had a zeal to establish chemical industry and started Siflon Drugs for the manufacture of veterinary APIs. The company pursued a strategy of backward integration – in reactor, PTFE lined components manufacturing and forward integration – in veterinary formulations and franchisee outlets to market the veterinary medicines.`,
     highlights: [
       'Veterinary APIs Manufacturing',
@@ -879,8 +880,7 @@ export default function AboutPage() {
               Siflon Drugs & Pharmaceuticals Pvt. Ltd.
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              A member of Siflon Group, started in 2006 with a vision to provide good quality animal healthcare products.Siflon Pharma Pvt Ltd
-              A flagship of Siflon Group manufacturing Veterinary and API            </p>
+              A member of Siflon Group, started in 2006 with a vision to provide good quality animal healthcare products. </p>
           </AnimatedSection>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -995,7 +995,7 @@ export default function AboutPage() {
                 <img
                   src={activeTabData.image}
                   alt={activeTabData.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">

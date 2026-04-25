@@ -197,7 +197,7 @@
 //                     <GripVertical className="w-5 h-5 cursor-move" />
 //                     <span className="text-sm font-medium">{index + 1}</span>
 //                   </div>
-                  
+
 //                   <div 
 //                     className="w-32 h-20 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0"
 //                   >
@@ -270,7 +270,7 @@
 //               {editingSlide ? 'Update the slide details below.' : 'Fill in the details for the new slide.'}
 //             </DialogDescription>
 //           </DialogHeader>
-          
+
 //           <div className="space-y-4 py-4">
 //             <div className="space-y-2">
 //               <Label htmlFor="title">Title *</Label>
@@ -682,7 +682,7 @@
 //                         <GripVertical className="w-5 h-5 cursor-grab" />
 //                         <span className="text-sm font-medium w-6 text-center">{index + 1}</span>
 //                       </div>
-                      
+
 //                       <div 
 //                         className="w-32 h-20 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0"
 //                       >
@@ -766,7 +766,7 @@
 //               {editingSlide ? 'Update the slide details below.' : 'Fill in the details for the new slide.'}
 //             </DialogDescription>
 //           </DialogHeader>
-          
+
 //           <div className="space-y-4 py-4">
 //             <div className="space-y-2">
 //               <Label htmlFor="title">Title *</Label>
@@ -1180,7 +1180,7 @@
 //                         <GripVertical className="w-5 h-5 cursor-grab" />
 //                         <span className="text-sm font-medium w-6 text-center">{index + 1}</span>
 //                       </div>
-                      
+
 //                       <div 
 //                         className="w-32 h-20 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0"
 //                       >
@@ -1276,7 +1276,7 @@
 //               {editingSlide ? 'Update the slide details below.' : 'Fill in the details for the new slide.'}
 //             </DialogDescription>
 //           </DialogHeader>
-          
+
 //           <div className="space-y-4 py-4">
 //             <div className="space-y-2">
 //               <Label htmlFor="title">Title *</Label>
@@ -1445,31 +1445,36 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import { Progress } from '@/components/ui/progress'
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogFooter,
   DialogDescription
 } from '@/components/ui/dialog'
-import { 
-  Plus, 
-  Pencil, 
-  Trash2, 
-  GripVertical, 
-  Image as ImageIcon, 
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  GripVertical,
+  Image as ImageIcon,
   Video,
   Eye,
   EyeOff,
-  Save
+  Save,
+  Upload,
+  X,
+  Loader2
 } from 'lucide-react'
 import { motion, Reorder } from 'framer-motion'
 
@@ -1496,6 +1501,10 @@ export default function HeroSlidesAdmin() {
   const [deletingSlide, setDeletingSlide] = useState<HeroSlide | null>(null)
   const [hasOrderChanged, setHasOrderChanged] = useState(false)
   const [savingOrder, setSavingOrder] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
@@ -1551,6 +1560,57 @@ export default function HeroSlidesAdmin() {
       setSavingOrder(false)
     }
   }
+  //handle upload
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setUploadProgress(0)
+    setUploadError(null)
+
+    try {
+      const uploadFormData = new FormData()
+      uploadFormData.append('file', file)
+      uploadFormData.append('type', formData.type === 'video' ? 'video' : 'image')
+
+      // Simulate progress for better UX
+      const progressInterval = setInterval(() => {
+        setUploadProgress(prev => Math.min(prev + 10, 90))
+      }, 100)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: uploadFormData,
+      })
+
+      clearInterval(progressInterval)
+      setUploadProgress(100)
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Upload failed')
+      }
+
+      const data = await response.json()
+      setFormData(prev => ({ ...prev, src: data.url }))
+
+      setTimeout(() => {
+        setUploading(false)
+        setUploadProgress(0)
+      }, 500)
+    } catch (error) {
+      console.error('Upload error:', error)
+      setUploadError(error instanceof Error ? error.message : 'Upload failed')
+      setUploading(false)
+      setUploadProgress(0)
+    }
+
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
 
   const handleOpenDialog = (slide?: HeroSlide) => {
     if (slide) {
@@ -1581,8 +1641,8 @@ export default function HeroSlidesAdmin() {
 
   const handleSave = async () => {
     try {
-      const url = editingSlide 
-        ? `/api/hero-slides/${editingSlide.id}` 
+      const url = editingSlide
+        ? `/api/hero-slides/${editingSlide.id}`
         : '/api/hero-slides'
       const method = editingSlide ? 'PUT' : 'POST'
 
@@ -1650,7 +1710,7 @@ export default function HeroSlidesAdmin() {
         </div>
         <div className="flex items-center gap-3">
           {hasOrderChanged && (
-            <Button 
+            <Button
               onClick={handleSaveOrder}
               disabled={savingOrder}
               variant="outline"
@@ -1661,7 +1721,7 @@ export default function HeroSlidesAdmin() {
               {savingOrder ? 'Saving...' : 'Save Order'}
             </Button>
           )}
-          <Button 
+          <Button
             onClick={() => handleOpenDialog()}
             style={{ backgroundColor: PRIMARY_COLOR }}
           >
@@ -1692,15 +1752,15 @@ export default function HeroSlidesAdmin() {
           </CardContent>
         </Card>
       ) : (
-        <Reorder.Group 
-          axis="y" 
-          values={slides} 
+        <Reorder.Group
+          axis="y"
+          values={slides}
           onReorder={handleReorder}
           className="space-y-3"
         >
           {slides.map((slide, index) => (
-            <Reorder.Item 
-              key={slide.id} 
+            <Reorder.Item
+              key={slide.id}
               value={slide}
               className="cursor-grab active:cursor-grabbing"
             >
@@ -1718,8 +1778,8 @@ export default function HeroSlidesAdmin() {
                         <GripVertical className="w-5 h-5 cursor-grab" />
                         <span className="text-sm font-medium w-6 text-center">{index + 1}</span>
                       </div>
-                      
-                      <div 
+
+                      <div
                         className="w-32 h-20 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0"
                       >
                         {slide.type === 'youtube' ? (
@@ -1731,8 +1791,8 @@ export default function HeroSlidesAdmin() {
                             <Video className="w-8 h-8 text-purple-500" />
                           </div>
                         ) : slide.src ? (
-                          <img 
-                            src={slide.src} 
+                          <img
+                            src={slide.src}
                             alt={slide.title}
                             className="w-full h-full object-cover"
                           />
@@ -1747,12 +1807,12 @@ export default function HeroSlidesAdmin() {
                           {slide.badge && (
                             <Badge variant="secondary" className="text-xs">{slide.badge}</Badge>
                           )}
-                          <Badge 
+                          <Badge
                             className={
-                              slide.type === 'youtube' 
-                                ? 'bg-red-100 text-red-700' 
-                                : slide.type === 'video' 
-                                  ? 'bg-purple-100 text-purple-700' 
+                              slide.type === 'youtube'
+                                ? 'bg-red-100 text-red-700'
+                                : slide.type === 'video'
+                                  ? 'bg-purple-100 text-purple-700'
                                   : 'bg-blue-100 text-blue-700'
                             }
                           >
@@ -1814,7 +1874,7 @@ export default function HeroSlidesAdmin() {
               {editingSlide ? 'Update the slide details below.' : 'Fill in the details for the new slide.'}
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="title">Title (Optional)</Label>
@@ -1893,15 +1953,61 @@ export default function HeroSlidesAdmin() {
               <Label htmlFor="src">
                 {formData.type === 'youtube' ? 'YouTube URL *' : formData.type === 'video' ? 'Video URL *' : 'Image URL *'}
               </Label>
+              {/* File Upload Section for Image and Video */}
+              {formData.type !== 'youtube' && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept={formData.type === 'video' ? 'video/mp4,video/webm,video/ogg' : 'image/jpeg,image/png,image/gif,image/webp'}
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      id="file-upload"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className="gap-2"
+                    >
+                      {uploading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4" />
+                          Upload {formData.type === 'video' ? 'Video' : 'Image'}
+                        </>
+                      )}
+                    </Button>
+                    <span className="text-sm text-gray-500">or enter URL below</span>
+                  </div>
+
+                  {uploading && (
+                    <div className="space-y-1">
+                      <Progress value={uploadProgress} className="h-2" />
+                      <p className="text-xs text-gray-500 text-center">{uploadProgress}% uploading...</p>
+                    </div>
+                  )}
+
+                  {uploadError && (
+                    <p className="text-sm text-red-500">{uploadError}</p>
+                  )}
+                </div>
+              )}
               <Input
                 id="src"
                 value={formData.src}
                 onChange={(e) => setFormData({ ...formData, src: e.target.value })}
                 placeholder={
-                  formData.type === 'youtube' 
-                    ? 'https://www.youtube.com/watch?v=...' 
-                    : formData.type === 'video' 
-                      ? 'https://...video.mp4' 
+                  formData.type === 'youtube'
+                    ? 'https://www.youtube.com/watch?v=...'
+                    : formData.type === 'video'
+                      ? 'https://...video.mp4'
                       : '/image.png'
                 }
               />
@@ -1922,8 +2028,8 @@ export default function HeroSlidesAdmin() {
                   placeholder="/poster.png"
                 />
                 <p className="text-xs text-gray-500">
-                  {formData.type === 'youtube' 
-                    ? 'Image to show before YouTube video loads' 
+                  {formData.type === 'youtube'
+                    ? 'Image to show before YouTube video loads'
                     : 'Thumbnail image to show before video plays'}
                 </p>
               </div>
@@ -1945,7 +2051,7 @@ export default function HeroSlidesAdmin() {
             <Button variant="outline" onClick={() => setDialogOpen(false)}>
               Cancel
             </Button>
-            <Button 
+            <Button
               onClick={handleSave}
               style={{ backgroundColor: PRIMARY_COLOR }}
               disabled={!formData.src}

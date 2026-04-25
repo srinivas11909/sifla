@@ -88,7 +88,7 @@
 // }) {
 //   const ref = useRef(null)
 //   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
+
 //   return (
 //     <motion.div
 //       ref={ref}
@@ -113,7 +113,7 @@
 //       let start = 0
 //       const end = value
 //       const incrementTime = (duration * 1000) / end
-      
+
 //       const timer = setInterval(() => {
 //         start += 1
 //         setCount(start)
@@ -824,10 +824,10 @@
 //                 alt="World Map - Global Presence"
 //                 className="w-full h-[400px] md:h-[500px] object-cover"
 //               />
-              
+
 //               {/* Dark Overlay */}
 //               <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 via-gray-900/50 to-transparent" />
-              
+
 //               {/* Map Pins */}
 //               <div className="absolute inset-0">
 //                 {/* India */}
@@ -1154,7 +1154,24 @@ export const metadata: Metadata = {
     canonical: "https://siflonpharma.com/",
   },
 };
+async function getHeroSlides() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hero-slides`, {
+      cache: "no-store",
+    });
 
-export default function Page() {
-  return <HomePageClient />;
+    if (!res.ok) throw new Error("Failed to fetch");
+
+    const data = await res.json();
+    return data.filter((s: any) => s.active);
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+export default async function Page() {
+  const heroSlides = await getHeroSlides();
+  console.log(heroSlides)
+
+  return <HomePageClient heroSlides={heroSlides} />;
 }

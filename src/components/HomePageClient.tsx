@@ -428,42 +428,42 @@ function getYouTubeVideoId(url: string): string | null {
 }
 
 
-export default function Home() {
-  const [heroSlides, setHeroSlides] = useState<Array<{
-    type: string
-    src: string
-    poster?: string | null
-    title: string
-    subtitle: string
-    badge: string
-  }>>(defaultHeroSlides)
+export default function Home({ heroSlides }: { heroSlides: any[] }) {
+  // const [heroSlides, setHeroSlides] = useState<Array<{
+  //   type: string
+  //   src: string
+  //   poster?: string | null
+  //   title: string
+  //   subtitle: string
+  //   badge: string
+  // }>>(defaultHeroSlides)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   // Fetch hero slides from database
-  useEffect(() => {
-    const fetchSlides = async () => {
-      try {
-        const res = await fetch('/api/hero-slides')
-        const data: HeroSlideData[] = await res.json()
-        const activeSlides = data.filter(s => s.active)
-        if (activeSlides.length > 0) {
-          setHeroSlides(activeSlides.map(s => ({
-            type: s.type,
-            src: s.src,
-            poster: s.poster,
-            title: s.title,
-            subtitle: s.subtitle,
-            badge: s.badge || ''
-          })))
-        }
-      } catch (error) {
-        console.error('Error fetching hero slides:', error)
-      }
-    }
-    fetchSlides()
-  }, [])
+  // useEffect(() => {
+  //   const fetchSlides = async () => {
+  //     try {
+  //       const res = await fetch('/api/hero-slides')
+  //       const data: HeroSlideData[] = await res.json()
+  //       const activeSlides = data.filter(s => s.active)
+  //       if (activeSlides.length > 0) {
+  //         setHeroSlides(activeSlides.map(s => ({
+  //           type: s.type,
+  //           src: s.src,
+  //           poster: s.poster,
+  //           title: s.title,
+  //           subtitle: s.subtitle,
+  //           badge: s.badge || ''
+  //         })))
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching hero slides:', error)
+  //     }
+  //   }
+  //   fetchSlides()
+  // }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -490,6 +490,7 @@ export default function Home() {
   }
 
   const currentSlideData = heroSlides[currentSlide]
+  console.log(heroSlides);
 
   return (
     <div className="min-h-screen flex flex-col">

@@ -360,7 +360,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
   const currentSlideData = slides[currentSlide]
   const isVideo = currentSlideData.type === 'video' || currentSlideData.type === 'youtube'
-  const hasContent = currentSlideData.title || currentSlideData.subtitle
+  //const hasContent = currentSlideData.title || currentSlideData.subtitle
+  const hasContent = Boolean(currentSlideData.title?.trim() || currentSlideData.subtitle?.trim())
 
   return (
     <section 
