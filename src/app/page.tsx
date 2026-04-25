@@ -1156,9 +1156,7 @@ export const metadata: Metadata = {
 };
 async function getHeroSlides() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hero-slides`, {
-      cache: "no-store",
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hero-slides`);
 
     if (!res.ok) throw new Error("Failed to fetch");
 
