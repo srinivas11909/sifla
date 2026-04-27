@@ -631,7 +631,7 @@ const integrationTabs = [
     content: `Backward and forward integration has been the key to diversify into different sectors. The founder being a chemical engineer, always had a zeal to establish chemical industry and started Siflon Drugs for the manufacture of veterinary APIs. The company pursued a strategy of backward integration – in reactor, PTFE lined components manufacturing and forward integration – in veterinary formulations and franchisee outlets to market the veterinary medicines.`,
     highlights: [
       'Veterinary APIs Manufacturing',
-      'Reactor Manufacturing',
+      'Reactor Manufacturing with Micro irrigation equipment manufacturing',
       'PTFE Lined Components',
       'Veterinary Formulations',
       'Franchisee Outlets Network'
@@ -721,7 +721,7 @@ export default function AboutPage() {
                 From PTFE to Pharmaceutical Excellence
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed text-lg">
-                Founded in <strong>1996 by Mr. R. Ananthaiah</strong> as a small scale PTFE component manufacturing
+                Founded in <strong>1996 by Mr. R. Ananthaiah </strong> as a small scale PTFE component manufacturing
                 industry, we&apos;ve gradually diversified into different sectors. Today, our operations span 5 major areas
                 serving diverse industries.
               </p>

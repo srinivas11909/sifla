@@ -515,7 +515,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Siflon Drugs & Pharmaceuticals Pvt Ltd is one of the fastest-growing pharmaceutical and nutraceutical manufacturing companies
-                in the animal healthcare sector. We serve a diverse range of sectors including poultry, aqua,
+                in the animal healthcare sector. We serve a diverse range of sectors including sheep, poultry, aqua,
                 dairy, swine, equine, and pets, earning a sterling reputation for excellence and innovation.
               </p>
               <p className="text-gray-600 mb-8 leading-relaxed">
