@@ -627,7 +627,7 @@ const integrationTabs = [
     id: 'integration',
     title: 'Backward & Forward Integration',
     icon: Layers,
-    image: '/company.jpeg',
+    image: '/cmpny.png',
     content: `Backward and forward integration has been the key to diversify into different sectors. The founder being a chemical engineer, always had a zeal to establish chemical industry and started Siflon Drugs for the manufacture of veterinary APIs. The company pursued a strategy of backward integration – in reactor, PTFE lined components manufacturing and forward integration – in veterinary formulations and franchisee outlets to market the veterinary medicines.`,
     highlights: [
       'Veterinary APIs Manufacturing',
