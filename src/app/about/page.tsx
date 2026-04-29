@@ -1211,7 +1211,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative h-64 lg:h-auto">
                     <img
-                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop"
+                      src="/pharma.jpeg?w=800&h=600&fit=crop"
                       alt="Partner with Siflon"
                       className="w-full h-full object-cover"
                     />

@@ -136,7 +136,7 @@ const tabs = [
     id: 'process-approach',
     label: 'Process Approach',
     icon: Cog,
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
+    image: '/pharma.jpeg?w=800&h=600&fit=crop',
     title: 'Process-Driven Quality',
     subtitle: 'Systematic Approach to Consistent Excellence',
     description: 'We view our operations as interconnected processes that work together to deliver quality outcomes. This systematic approach allows us to identify opportunities for improvement, minimize variability, and ensure consistent product quality across all batches.',
