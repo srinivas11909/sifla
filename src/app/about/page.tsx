@@ -683,7 +683,7 @@ export default function AboutPage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=800&fit=crop"
+            src="/pharma.jpeg?w=1920&h=800&fit=crop"
             alt="About Siflon"
             className="w-full h-full object-cover"
           />
@@ -705,6 +705,8 @@ export default function AboutPage() {
             <p className="text-lg md:text-xl text-blue-100 max-w-2xl leading-relaxed">
               From humble beginnings to a diversified business group serving multiple sectors in veterinary healthcare and beyond.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
           </motion.div>
         </div>
       </section>
