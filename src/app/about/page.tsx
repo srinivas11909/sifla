@@ -670,7 +670,9 @@ const integrationTabs = [
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState('integration')
   const activeTabData = integrationTabs.find(t => t.id === activeTab)!
-
+  return <>
+     <h1>About section</h1>
+  </>
   return (
     <div className="min-h-screen flex flex-col">
       {/* Floating Social Links */}
