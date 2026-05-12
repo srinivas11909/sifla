@@ -1168,9 +1168,6 @@ async function getHeroSlides() {
   }
 }
 export default async function Page() {
-  //const heroSlides = await getHeroSlides();
-
-  //return <HomePageClient heroSlides={heroSlides} />;
-  return <> <h1>Will be back in soon</h1>
-  </>
+  const heroSlides = await getHeroSlides();
+  return <HomePageClient heroSlides={heroSlides} />;
 }
