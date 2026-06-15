@@ -602,9 +602,9 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
       <ProductsAtGlance />
       <FeaturedProductsCarousel />
 
-     
 
-   
+
+
 
       {/* Stats Section - 30+ Years of Excellence */}
       {/* <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
@@ -649,7 +649,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
 
 
 
- 
+
 
       {/* Our Best Services */}
       {/* <section className="py-16 md:py-24 bg-gray-50">
@@ -778,7 +778,132 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
 
       {/* <BecomeDistributor /> */}
 
- 
+
+
+      {/* Our Sister Companies Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+          <AnimatedSection className="text-center mb-16">
+            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
+              Our Network
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Explore Our Sister Companies
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover our broader portfolio of innovative pharmaceutical and polymer solutions
+            </p>
+          </AnimatedSection>
+
+          <motion.div
+            className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {/* Siflon Drugs Card */}
+            <motion.a
+              href="https://siflondrugs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variants={cardVariants}
+              whileHover={{ y: -8, boxShadow: '0 25px 50px rgba(36, 61, 128, 0.15)' }}
+              className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-lg transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              <div className="relative p-8 md:p-10">
+                {/* Icon Container */}
+                <motion.div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+                  style={{ backgroundColor: `${PRIMARY_COLOR}15` }}
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  <Globe className="w-8 h-8" style={{ color: PRIMARY_COLOR }} />
+                </motion.div>
+
+                {/* Content */}
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  Siflon Drugs
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Innovative pharmaceutical solutions dedicated to animal healthcare excellence. Discover our comprehensive range of veterinary products and services.
+                </p>
+
+                {/* Link indicator */}
+                <motion.div
+                  className="flex items-center gap-2 text-sm font-semibold transition-all"
+                  style={{ color: PRIMARY_COLOR }}
+                  whileHover={{ gap: 8 }}
+                >
+                  Visit Website
+                  <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </motion.div>
+
+                {/* Decorative line */}
+                <motion.div
+                  className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-600 to-blue-400"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+            </motion.a>
+
+            {/* Siflon Polymers Card */}
+            <motion.a
+              href="https://siflonpolymers.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variants={cardVariants}
+              whileHover={{ y: -8, boxShadow: '0 25px 50px rgba(139, 92, 246, 0.15)' }}
+              className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-lg transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              <div className="relative p-8 md:p-10">
+                {/* Icon Container */}
+                <motion.div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+                  style={{ backgroundColor: '#8b5cf620' }}
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  <Zap className="w-8 h-8" style={{ color: '#8b5cf6' }} />
+                </motion.div>
+
+                {/* Content */}
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">
+                  Siflon Polymers
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Advanced polymer solutions engineered for performance and sustainability. Explore cutting-edge materials and chemical innovations.
+                </p>
+
+                {/* Link indicator */}
+                <motion.div
+                  className="flex items-center gap-2 text-sm font-semibold transition-all"
+                  style={{ color: '#8b5cf6' }}
+                  whileHover={{ gap: 8 }}
+                >
+                  Visit Website
+                  <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </motion.div>
+
+                {/* Decorative line */}
+                <motion.div
+                  className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-purple-600 to-purple-400"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <motion.section className="py-16" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>

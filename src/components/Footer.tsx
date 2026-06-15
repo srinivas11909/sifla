@@ -324,7 +324,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0" style={{ color: PRIMARY_COLOR }} />
-                <span>info@siflonpharma.com, marketing1@siflonpharma.com</span>
+                <span>info@siflonpharma.com, marketing@siflonpharma.com</span>
               </li>
             </ul>
           </motion.div>
