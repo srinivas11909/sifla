@@ -504,7 +504,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
 
       {/* Welcome Section */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection variant={fadeInLeft}>
               <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
@@ -782,7 +782,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
 
       {/* Our Sister Companies Section */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
               Our Network
@@ -953,7 +953,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
 
       {/* CTA Section */}
       <motion.section className="py-16" style={{ background: `linear-gradient(to right, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2 className="text-3xl md:text-4xl font-bold text-white mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             Ready to Partner With Us?
           </motion.h2>

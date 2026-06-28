@@ -262,7 +262,7 @@ export default function QualityPage() {
 
       {/* Introduction Section */}
       <section className="py-16 md:py-20 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
               Our Commitment
@@ -297,7 +297,7 @@ export default function QualityPage() {
 
       {/* Tabs Section */}
       <section className="py-16 md:py-20 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
               Quality Principles

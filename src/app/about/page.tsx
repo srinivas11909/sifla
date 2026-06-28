@@ -1138,7 +1138,7 @@ export default function AboutPage() {
 
       {/* Stats Section - 30+ Years of Excellence */}
       <section className="py-16 md:py-20" style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}, ${PRIMARY_HOVER})` }}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <Badge className="mb-4 bg-white/20 text-white border-white/30 border">
               Our Journey

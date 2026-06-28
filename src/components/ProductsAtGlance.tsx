@@ -935,7 +935,7 @@ export default function ProductsAtGlance() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-white to-[#f4f6fb]" />
       
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div 
           className="text-center mb-16"
