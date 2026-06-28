@@ -14,6 +14,23 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const PRIMARY_COLOR = '#243d80'
 
+const networkListVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.08,
+      when: 'beforeChildren',
+    },
+  },
+}
+
+const networkItemVariants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: { opacity: 1, x: 0 },
+}
+
 interface FloatingActionsProps {
   phoneNumber?: string
   message?: string
@@ -69,9 +86,10 @@ export default function FloatingActions({
         <AnimatePresence>
           {showNetworks && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              variants={networkListVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
               className="mb-2 flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-xl backdrop-blur"
             >
               {networkLinks.map((link) => (
@@ -80,6 +98,7 @@ export default function FloatingActions({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  variants={networkItemVariants}
                   whileHover={{ x: -4, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#243d80]"
@@ -202,9 +221,10 @@ export default function FloatingActions({
         <AnimatePresence>
           {showNetworks && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              variants={networkListVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
               className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-xl backdrop-blur"
             >
               {networkLinks.map((link) => (
@@ -213,6 +233,7 @@ export default function FloatingActions({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  variants={networkItemVariants}
                   whileHover={{ x: -4, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#243d80]"

@@ -1562,6 +1562,37 @@ export default function ProductsPage() {
                                 <ImageIcon className="w-16 h-16 text-gray-300" />
                               </div>
                             )}
+
+                            <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+
+                            <div className="pointer-events-none absolute inset-x-5 bottom-5 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                              <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-4 shadow-2xl backdrop-blur-md">
+                                <div className="flex items-start gap-3">
+                                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white ring-1 ring-white/10">
+                                    {category?.icon ? (
+                                      <category.icon className="h-5 w-5" />
+                                    ) : (
+                                      <ImageIcon className="h-5 w-5" />
+                                    )}
+                                  </div>
+
+                                  <div className="min-w-0">
+                                    <p className="text-[11px] uppercase tracking-[0.24em] text-slate-300">
+                                      {category?.name || 'Category'}
+                                    </p>
+                                    <p className="mt-1 text-sm font-semibold text-white line-clamp-1">
+                                      {product.productType}
+                                    </p>
+                                    {category?.description && (
+                                      <p className="mt-2 text-xs leading-5 text-slate-300 line-clamp-2">
+                                        {category.description}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                             {product.featured && (
                               <div className="absolute top-3 left-3">
                                 <Badge className="bg-yellow-500 text-white border-0 shadow-md">

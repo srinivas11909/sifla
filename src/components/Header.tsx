@@ -107,14 +107,17 @@ export default function Header() {
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
-                      className="flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-[#243d80] hover:text-[#243d80]"
+                      className="relative overflow-hidden rounded-full p-[1px] bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 animate-pulse shadow-[0_0_20px_rgba(59,130,246,0.15)]"
                     >
-                      <Globe className="h-4 w-4" />
-                      Our Networks
-                      <ChevronDown className="h-4 w-4" />
+                      <span className="flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:text-[#243d80]">
+                        <Globe className="h-4 w-4" />
+                        Our Networks
+                        <ChevronDown className="h-4 w-4" />
+                      </span>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuContent align="end" className="w-56 rounded-3xl bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 p-[1px] animate-pulse shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+                  <div className="rounded-3xl bg-white/95 backdrop-blur-md">
                     <DropdownMenuLabel>Our Companies</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {networkLinks.map((link) => (
@@ -123,14 +126,17 @@ export default function Header() {
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex w-full items-center justify-between rounded-sm px-2 py-1.5 text-sm transition hover:bg-slate-100"
+                          className="block rounded-2xl bg-white px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50 hover:shadow-sm"
                         >
-                          <span>{link.name}</span>
-                          <span className="text-xs text-slate-400">↗</span>
+                          <div className="flex items-center justify-between">
+                            <span>{link.name}</span>
+                            <span className="text-xs text-slate-400">↗</span>
+                          </div>
                         </a>
                       </DropdownMenuItem>
                     ))}
-                  </DropdownMenuContent>
+                  </div>
+                </DropdownMenuContent>
                 </DropdownMenu>
 
                 <OutletsDialog />
@@ -201,24 +207,30 @@ export default function Header() {
               </Link> */}
                 {/* Mobile Action Buttons */}
                 <div className="mt-2 flex flex-col gap-2 border-t pt-3">
-                  <div className="rounded-lg border border-slate-200 p-3">
-                    <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                      <Globe className="h-4 w-4" style={{ color: PRIMARY_COLOR }} />
-                      <span>Our Networks</span>
-                    </div>
-                    <div className="mt-2 flex flex-col gap-2">
-                      {networkLinks.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:border-[#243d80] hover:text-[#243d80]"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {link.name}
-                        </a>
-                      ))}
+                  <div className="rounded-3xl bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 p-[1px]">
+                    <div className="rounded-3xl bg-white/95 p-3">
+                      <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-sm">
+                          <Globe className="h-4 w-4" />
+                        </span>
+                        <span>Our Networks</span>
+                      </div>
+                      <div className="mt-3 flex flex-col gap-2">
+                        {networkLinks.map((link) => (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-full bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 p-[1px] animate-pulse shadow-[0_0_20px_rgba(59,130,246,0.15)]"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <span className="flex w-full items-center justify-center rounded-full bg-white/95 px-4 py-2 text-sm text-slate-700 transition hover:text-[#243d80]">
+                              {link.name}
+                            </span>
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
