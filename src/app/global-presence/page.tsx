@@ -55,7 +55,7 @@ export default function GlobalPresencePage() {
                 <div className="absolute top-20 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
                 <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -101,7 +101,7 @@ export default function GlobalPresencePage() {
 
             {/* Tab Navigation */}
             <section className="py-8 bg-white border-b sticky top-16 z-40">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
                         {tabs.map((tab) => (
                             <motion.button
@@ -127,7 +127,7 @@ export default function GlobalPresencePage() {
 
             {/* Content Section */}
             <section className="py-8 md:py-12 relative z-0">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     {/* Tab Description */}
                     <motion.div
                         key={activeTab}
@@ -163,7 +163,7 @@ export default function GlobalPresencePage() {
 
             {/* Footer CTA */}
             <section className="py-12 bg-white border-t">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <Card className="border-0 shadow-lg overflow-hidden" style={{ backgroundColor: `${PRIMARY_COLOR}05` }}>
                         <CardContent className="p-8 text-center">
                             <h3 className="text-2xl font-bold text-gray-900 mb-3">

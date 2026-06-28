@@ -242,7 +242,7 @@ export default function CareersPage() {
                 <div className="absolute top-20 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
                 <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
-                <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -281,7 +281,7 @@ export default function CareersPage() {
 
             {/* About Section */}
             <section className="py-16 md:py-24 bg-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div
                         className="max-w-4xl mx-auto"
                         initial="hidden"
@@ -350,7 +350,7 @@ export default function CareersPage() {
 
             {/* Why Join Us Section */}
             <section id="why-join" className="py-16 md:py-24 bg-gray-50">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div
                         className="text-center mb-12"
                         initial={{ opacity: 0, y: 30 }}
@@ -428,7 +428,7 @@ export default function CareersPage() {
 
             {/* Apply Section */}
             <section id="apply" className="py-16 md:py-24 bg-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                         {/* Left - Info */}
                         <motion.div
