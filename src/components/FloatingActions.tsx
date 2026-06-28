@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Download, MapPin, MessageCircle } from 'lucide-react'
+import { X, Download, MapPin, MessageCircle, Globe } from 'lucide-react'
 import OutletsDialog from './OutletsDialog'
 
 // WhatsApp Icon Component
@@ -25,9 +25,16 @@ export default function FloatingActions({
 }: FloatingActionsProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showOutlets, setShowOutlets] = useState(false)
+  const [showNetworks, setShowNetworks] = useState(false)
   
   // Create WhatsApp URL
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+
+  const networkLinks = [
+    { name: 'Siflon Polymers', href: 'https://siflonpolymers.com' },
+    { name: 'Siflon Drugs', href: 'https://siflondrugs.com' },
+    { name: 'Siflon Pipes', href: 'https://siflonpipes.com' },
+  ]
 
   const menuItems = [
     {
@@ -60,12 +67,52 @@ export default function FloatingActions({
       {/* Desktop - Right side floating menu */}
       <div className="fixed right-6 bottom-24 z-50 hidden md:flex flex-col items-end gap-3">
         <AnimatePresence>
+          {showNetworks && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              className="mb-2 flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-xl backdrop-blur"
+            >
+              {networkLinks.map((link) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#243d80]"
+                >
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-sm">
+                    <Globe className="h-4 w-4" />
+                  </span>
+                  <span>{link.name}</span>
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <motion.button
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-600 shadow-lg"
+          onClick={() => {
+            setShowNetworks((prev) => !prev)
+            setIsMenuOpen(false)
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Globe className="h-5 w-5 text-white" />
+        </motion.button>
+
+        <AnimatePresence>
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              className="flex flex-col gap-2 mb-2"
+              className="mb-2 flex flex-col gap-2"
             >
               {menuItems.map((item, index) => {
                 const content = (
@@ -77,17 +124,17 @@ export default function FloatingActions({
                     transition={{ delay: index * 0.05 }}
                     className="flex items-center gap-3"
                   >
-                    <span className="text-sm font-medium text-gray-700 bg-white px-3 py-1.5 rounded-lg shadow-md">
+                    <span className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-md">
                       {item.label}
                     </span>
                     <motion.button
-                      className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                      className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg"
                       style={{ backgroundColor: item.color }}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={item.onClick}
                     >
-                      <item.icon className="w-5 h-5 text-white" />
+                      <item.icon className="h-5 w-5 text-white" />
                     </motion.button>
                   </motion.div>
                 )
@@ -114,9 +161,12 @@ export default function FloatingActions({
 
         {/* Main toggle button */}
         <motion.button
-          className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
+          className="flex h-14 w-14 items-center justify-center rounded-full shadow-lg"
           style={{ backgroundColor: isMenuOpen ? '#64748b' : PRIMARY_COLOR }}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => {
+            setIsMenuOpen((prev) => !prev)
+            setShowNetworks(false)
+          }}
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
@@ -131,7 +181,7 @@ export default function FloatingActions({
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="h-6 w-6 text-white" />
               </motion.div>
             ) : (
               <motion.div
@@ -140,7 +190,7 @@ export default function FloatingActions({
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -90, opacity: 0 }}
               >
-                <MessageCircle className="w-6 h-6 text-white" />
+                <MessageCircle className="h-6 w-6 text-white" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -148,48 +198,94 @@ export default function FloatingActions({
       </div>
 
       {/* Mobile - Floating buttons */}
-      <div className="fixed right-4 bottom-20 z-50 md:hidden flex items-center gap-3">
-        {/* Brochure Download */}
-        <motion.a
-          href="/siflonpharma-brochure.pdf"
-          download
-          className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
-          style={{ backgroundColor: PRIMARY_COLOR }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.5, type: 'spring', stiffness: 200 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Download className="w-5 h-5 text-white" />
-        </motion.a>
+      <div className="fixed right-4 bottom-20 z-50 flex flex-col items-end gap-2 md:hidden">
+        <AnimatePresence>
+          {showNetworks && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-xl backdrop-blur"
+            >
+              {networkLinks.map((link) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#243d80]"
+                >
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-sm">
+                    <Globe className="h-4 w-4" />
+                  </span>
+                  <span>{link.name}</span>
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Outlets Button */}
-        <motion.button
-          className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg bg-red-500"
-          onClick={() => setShowOutlets(true)}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.1, duration: 0.5, type: 'spring', stiffness: 200 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <MapPin className="w-5 h-5 text-white" />
-        </motion.button>
+        <div className="flex flex-col items-end gap-3">
+          <motion.button
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-600 shadow-lg"
+            onClick={() => {
+              setShowNetworks((prev) => !prev)
+              setIsMenuOpen(false)
+            }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 0.5, type: 'spring', stiffness: 200 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Globe className="h-5 w-5 text-white" />
+          </motion.button>
 
-        {/* WhatsApp */}
-        <motion.a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg bg-[#25D366]"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1, duration: 0.5, type: 'spring', stiffness: 200 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <WhatsAppIcon className="w-7 h-7 text-white" />
-          {/* Pulse animation */}
-          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
-        </motion.a>
+          {/* Brochure Download */}
+          <motion.a
+            href="/siflonpharma-brochure.pdf"
+            download
+            className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg"
+            style={{ backgroundColor: PRIMARY_COLOR }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 0.5, type: 'spring', stiffness: 200 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Download className="h-5 w-5 text-white" />
+          </motion.a>
+
+          {/* Outlets Button */}
+          <motion.button
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500 shadow-lg"
+            onClick={() => setShowOutlets(true)}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.1, duration: 0.5, type: 'spring', stiffness: 200 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <MapPin className="h-5 w-5 text-white" />
+          </motion.button>
+
+          {/* WhatsApp */}
+          <div className="relative">
+            <motion.a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] shadow-lg"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.5, type: 'spring', stiffness: 200 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <WhatsAppIcon className="h-5 w-5 text-white" />
+            </motion.a>
+            {/* Pulse animation - outside button */}
+            <span className="absolute inset-0 z-0 rounded-full bg-[#25D366] animate-pulse opacity-20" />
+          </div>
+        </div>
       </div>
 
       {/* Outlets Dialog */}

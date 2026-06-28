@@ -185,6 +185,12 @@ const products = [
   { name: 'Disinfectants', href: '/products' },
 ]
 
+const networkLinks = [
+  { name: 'Siflon Polymers', href: 'https://siflonpolymers.com' },
+  { name: 'Siflon Drugs', href: 'https://siflondrugs.com' },
+  { name: 'Siflon Pipes', href: 'https://siflonpipes.com' },
+]
+
 const socialLinks = [
   { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/siflonpharma', color: '#1877F2' },
   { name: 'Twitter', icon: Twitter, url: 'https://x.com/siflonpharma', color: '#1DA1F2' },
@@ -197,7 +203,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 mt-auto">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:ml-16 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -305,11 +311,35 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Contact */}
+          {/* Our Network */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-white font-semibold mb-4">Our Network</h4>
+            <ul className="space-y-2">
+              {networkLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-300 transition-colors hover:text-blue-400"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
             viewport={{ once: true }}
           >
             <h4 className="text-white font-semibold mb-4">Contact</h4>

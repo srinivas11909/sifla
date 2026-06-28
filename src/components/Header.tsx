@@ -4,14 +4,19 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Beaker, Download, Globe } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Menu, X, Download, Globe, ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
 import EnquiryDialog from '@/components/EnquiryDialog'
-
-
-
 
 const PRIMARY_COLOR = '#243d80'
 
@@ -23,6 +28,12 @@ const navigation = [
   { name: 'Global Presence', href: '/global-presence' },
   { name: 'Careers', href: '/careers' },
   { name: 'Contact', href: '/contact' },
+]
+
+const networkLinks = [
+  { name: 'Siflon Polymers', href: 'https://siflonpolymers.com' },
+  { name: 'Siflon Drugs', href: 'https://siflondrugs.com' },
+  { name: 'Siflon Pipes', href: 'https://siflonpipes.com' },
 ]
 
 export default function Header() {
@@ -91,7 +102,37 @@ export default function Header() {
               </Button>
             </Link> */}
               {/* Action Buttons */}
-              <div className="flex items-center gap-2 ml-4">
+              <div className="ml-4 flex items-center gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-[#243d80] hover:text-[#243d80]"
+                    >
+                      <Globe className="h-4 w-4" />
+                      Our Networks
+                      <ChevronDown className="h-4 w-4" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>Our Companies</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {networkLinks.map((link) => (
+                      <DropdownMenuItem key={link.href} asChild>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex w-full items-center justify-between rounded-sm px-2 py-1.5 text-sm transition hover:bg-slate-100"
+                        >
+                          <span>{link.name}</span>
+                          <span className="text-xs text-slate-400">↗</span>
+                        </a>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
                 <OutletsDialog />
 
                 <a href="/siflonpharma-brochure.pdf" download>
@@ -159,7 +200,28 @@ export default function Header() {
                 </Button>
               </Link> */}
                 {/* Mobile Action Buttons */}
-                <div className="flex flex-col gap-2 pt-3 border-t mt-2">
+                <div className="mt-2 flex flex-col gap-2 border-t pt-3">
+                  <div className="rounded-lg border border-slate-200 p-3">
+                    <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                      <Globe className="h-4 w-4" style={{ color: PRIMARY_COLOR }} />
+                      <span>Our Networks</span>
+                    </div>
+                    <div className="mt-2 flex flex-col gap-2">
+                      {networkLinks.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:border-[#243d80] hover:text-[#243d80]"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.name}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="flex items-center gap-2">
                     <Globe className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
                     <span className="text-sm text-gray-600">Our Outlets</span>

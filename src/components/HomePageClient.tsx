@@ -796,7 +796,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
           </AnimatedSection>
 
           <motion.div
-            className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+            className="grid gap-8 md:grid-cols-2 xl:grid-cols-3 max-w-6xl mx-auto"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -895,6 +895,52 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
                 {/* Decorative line */}
                 <motion.div
                   className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-purple-600 to-purple-400"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+            </motion.a>
+
+            {/* Siflon Pipes Card */}
+            <motion.a
+              href="https://siflonpipes.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variants={cardVariants}
+              whileHover={{ y: -8, boxShadow: '0 25px 50px rgba(16, 185, 129, 0.15)' }}
+              className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-lg transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              <div className="relative p-8 md:p-10">
+                <motion.div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+                  style={{ backgroundColor: '#10b98120' }}
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  <Globe className="w-8 h-8" style={{ color: '#10b981' }} />
+                </motion.div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                  Siflon Pipes
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Reliable piping solutions built for durability, efficiency, and long-term performance across industrial and infrastructure applications.
+                </p>
+
+                <motion.div
+                  className="flex items-center gap-2 text-sm font-semibold transition-all"
+                  style={{ color: '#10b981' }}
+                  whileHover={{ gap: 8 }}
+                >
+                  Visit Website
+                  <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </motion.div>
+
+                <motion.div
+                  className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-600 to-emerald-400"
                   initial={{ width: 0 }}
                   whileHover={{ width: '100%' }}
                   transition={{ duration: 0.3 }}

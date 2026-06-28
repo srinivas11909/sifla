@@ -12,8 +12,8 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { 
-  MapPin, Phone, Mail, Clock, Building2, Users, Globe, ChevronRight,
-  Instagram, Facebook, Linkedin, Youtube, Twitter
+  MapPin, Phone, Mail, Clock, Building2, Users, Landmark,
+  Instagram, Facebook, Linkedin, Youtube
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -208,8 +208,8 @@ export default function OutletsDialog({ children }: { children?: React.ReactNode
         size="sm"
         className="gap-2 text-gray-600 hover:text-gray-900"
       >
-        <Globe className="w-4 h-4" />
-        <span className="hidden sm:inline">Our Outlets</span>
+        <MapPin className="w-4 h-4" />
+        <span className="hidden sm:inline">Outlets</span>
       </Button>
     </DialogTrigger>
   )
@@ -247,7 +247,7 @@ export default function OutletsDialog({ children }: { children?: React.ReactNode
                       className="w-14 h-14 rounded-2xl flex items-center justify-center"
                       style={{ backgroundColor: PRIMARY_COLOR }}
                     >
-                      <Building2 className="w-7 h-7 text-white" />
+                      <Landmark className="w-7 h-7 text-white" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">

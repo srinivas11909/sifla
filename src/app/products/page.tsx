@@ -1323,8 +1323,8 @@ export default function ProductsPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Background Image */}
+      {/* <section className="relative overflow-hidden">
+    
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&h=800&fit=crop"
@@ -1356,35 +1356,7 @@ export default function ProductsPage() {
             </p>
           </motion.div>
         </div>
-
-        {/* Stats Bar */}
-        {/* <div className="relative bg-white/10 backdrop-blur-md border-t border-white/20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-            <motion.div 
-              className="grid grid-cols-2 md:grid-cols-4 gap-6"
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
-            >
-              {stats.map((stat, i) => (
-                <motion.div 
-                  key={i} 
-                  className="flex items-center gap-3"
-                  variants={scaleIn}
-                >
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/20">
-                    <stat.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-white">{stat.value}</div>
-                    <div className="text-sm text-blue-100">{stat.label}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div> */}
-      </section>
+      </section> */}
 
       {/* Mission Statement */}
       {/* <section className="py-12 md:py-16 bg-white">
