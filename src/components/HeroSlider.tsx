@@ -420,20 +420,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       </AnimatePresence>
 
       {/* Blue Gradient Overlay - ONLY for images */}
-      {currentSlideData.type === 'image' && (
+      {/* {currentSlideData.type === 'image' && (
         <div 
           className="absolute inset-0 z-10" 
           style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR}ee 0%, ${PRIMARY_COLOR}cc 50%, ${PRIMARY_COLOR}99 100%)` }} 
         />
-      )}
-
-      {/* Decorative elements - Only for images */}
-      {currentSlideData.type === 'image' && (
-        <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        </div>
-      )}
+      )} */}
 
       {/* Subtle overlay for videos with content */}
       {isVideo && hasContent && (
