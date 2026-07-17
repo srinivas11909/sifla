@@ -249,10 +249,6 @@ export default function CareersPage() {
                         transition={{ duration: 0.6 }}
                         className="max-w-3xl"
                     >
-                        <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                            <Briefcase className="w-3.5 h-3.5 mr-1.5" />
-                            Career Opportunities
-                        </Badge>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                             Join <span className="text-blue-200">Siflon Drugs</span> & Pharmaceuticals
@@ -290,9 +286,6 @@ export default function CareersPage() {
                         variants={fadeInUp}
                     >
                         <div className="text-center mb-12">
-                            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
-                                About Siflon
-                            </Badge>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                                 A Leading Veterinary Pharmaceutical Company
                             </h2>
@@ -358,10 +351,6 @@ export default function CareersPage() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
-                            <Heart className="w-3.5 h-3.5 mr-1.5" />
-                            Why Join Us
-                        </Badge>
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                             Build Your Future With Us
                         </h2>
@@ -437,10 +426,6 @@ export default function CareersPage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
-                            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}>
-                                <Send className="w-3.5 h-3.5 mr-1.5" />
-                                Apply Now
-                            </Badge>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                                 Ready to Start Your Journey?
                             </h2>

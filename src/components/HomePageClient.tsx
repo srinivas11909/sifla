@@ -19,6 +19,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import FloatingSocialLinks from '@/components/FloatingSocialLinks'
 import OutletsDialog from '@/components/OutletsDialog'
+import SiflonBrandModal from '@/components/SiflonBrandModal'
 import AnimalLoader from './AnimateLoader'
 import ProductsAtGlance from './ProductsAtGlance'
 import TestimonialsSection from './TestimonialsSection'
@@ -496,6 +497,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
     <div className="min-h-screen flex flex-col">
       {/* <FloatingSocialLinks /> */}
       <Header />
+      <SiflonBrandModal />
       <HeroSlider slides={heroSlides} />
       {/* Hero Carousel */}
 
@@ -507,9 +509,6 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection variant={fadeInLeft}>
-              <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
-                Welcome to Siflon
-              </Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 A Global Leader in Animal Healthcare
               </h2>
@@ -784,9 +783,9 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
       <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
-            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
+            {/* <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
               Our Network
-            </Badge>
+            </Badge> */}
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Explore Our Sister Companies
             </h2>

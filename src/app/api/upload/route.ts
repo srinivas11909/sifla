@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { put } from '@vercel/blob'
 import { writeFile, mkdir } from 'fs/promises'
-import { existsSync } from 'fs'
 import path from 'path'
 
 // Supported file types
@@ -39,25 +39,36 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', type === 'video' ? 'videos' : 'images')
-    await mkdir(uploadDir, { recursive: true })
-
     const timestamp = Date.now()
     const randomStr = Math.random().toString(36).substring(2, 8)
     const originalName = typeof file.name === 'string' ? file.name : 'upload'
     const extension = originalName.split('.').pop() || (type === 'video' ? 'mp4' : 'jpg')
     const fileName = `${timestamp}-${randomStr}.${extension}`
-    const filePath = path.join(uploadDir, fileName)
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-    await writeFile(filePath, buffer)
+    let url: string
 
-    const publicUrl = `/uploads/${type === 'video' ? 'videos' : 'images'}/${fileName}`
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const blob = await put(fileName, file, {
+        access: 'public',
+        contentType: file.type,
+        addRandomSuffix: false,
+      })
+      url = blob.url
+    } else {
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', type === 'video' ? 'videos' : 'images')
+      await mkdir(uploadDir, { recursive: true })
+
+      const filePath = path.join(uploadDir, fileName)
+      const bytes = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
+      await writeFile(filePath, buffer)
+
+      url = `/uploads/${type === 'video' ? 'videos' : 'images'}/${fileName}`
+    }
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
+      url,
       fileName,
       size: file.size,
       type: file.type,

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Menu, X, Download, Globe, ChevronDown } from 'lucide-react'
+import { Menu, X, Download, Globe, ChevronDown, Droplets, Package, Wheat, Pill, Syringe } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
@@ -20,10 +20,17 @@ import EnquiryDialog from '@/components/EnquiryDialog'
 
 const PRIMARY_COLOR = '#243d80'
 
+const productCategories = [
+  { id: 'oralLiquids', name: 'Oral Liquids', icon: Droplets },
+  { id: 'dryPowders', name: 'Dry Powders', icon: Package },
+  { id: 'feedSupplements', name: 'Feed Supplements', icon: Wheat },
+  { id: 'tabletsBolus', name: 'Tablets / Bolus', icon: Pill },
+  { id: 'injectables', name: 'Injectables', icon: Syringe },
+]
+
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Products', href: '/products' },
   { name: 'Quality', href: '/quality' },
   { name: 'Global Presence', href: '/global-presence' },
   { name: 'Careers', href: '/careers' },
@@ -38,13 +45,27 @@ const networkLinks = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [productsDropdownOpen, setProductsDropdownOpen] = useState(false)
   const pathname = usePathname()
   const [enquiryDialogOpen, setEnquiryDialogOpen] = useState(false)
-
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
     return pathname.startsWith(href)
+  }
+
+  const handleProductsMouseEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current)
+    }
+    setProductsDropdownOpen(true)
+  }
+
+  const handleProductsMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setProductsDropdownOpen(false)
+    }, 150)
   }
 
   return (
@@ -66,102 +87,151 @@ export default function Header() {
                 height={45}
                 className="h-[79px] w-auto object-contain"
               />
-              {/* <div
-              className="w-10 h-10 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: PRIMARY_COLOR }}
-            >
-              <Beaker className="w-6 h-6 text-white" />
-            </div> */}
-              {/* <div>
-              <span className="text-xl font-bold text-gray-900">Siflon </span>
-              <p className="text-xs text-gray-500 -mt-1">Drugs & Pharmaceuticals Pvt Ltd</p>
-            </div> */}
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors ${isActive(item.href)
-                    ? 'font-semibold'
-                    : 'text-gray-600 hover:opacity-80'
-                    }`}
-                  style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
+              {/* Home */}
+              <Link
+                href="/"
+                className={`text-sm font-medium transition-colors ${isActive('/')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                style={{ color: isActive('/') ? PRIMARY_COLOR : undefined }}
+              >
+                Home
+              </Link>
+
+              {/* About */}
+              <Link
+                href="/about"
+                className={`text-sm font-medium transition-colors ${isActive('/about')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                style={{ color: isActive('/about') ? PRIMARY_COLOR : undefined }}
+              >
+                About
+              </Link>
+
+              {/* Products Dropdown - Opens on Hover */}
+              <div
+                className="relative"
+                onMouseEnter={handleProductsMouseEnter}
+                onMouseLeave={handleProductsMouseLeave}
+              >
+                <button className={`text-sm font-medium transition-colors flex items-center gap-1 cursor-pointer ${isActive('/products')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                  style={{ color: isActive('/products') ? PRIMARY_COLOR : undefined }}
                 >
-                  {item.name}
-                </Link>
-              ))}
-              {/* <Link href="/contact">
+                  Products
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {productsDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-0 mt-0 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50"
+                  >
+                    {productCategories.map((category) => {
+                      const IconComponent = category.icon
+                      return (
+                        <Link key={category.id} href={`/products?category=${category.id}`}>
+                          <div className="flex items-center gap-3 cursor-pointer py-2.5 px-4 hover:bg-gray-50 transition-colors">
+                            <IconComponent className="h-4 w-4" style={{ color: PRIMARY_COLOR }} />
+                            <span className="text-sm">{category.name}</span>
+                          </div>
+                        </Link>
+                      )
+                    })}
+                    <div className="border-t border-gray-100 my-2" />
+                    <Link href="/products">
+                      <div className="cursor-pointer py-2.5 px-4 hover:bg-gray-50 transition-colors font-medium text-sm">
+                        View All Products
+                      </div>
+                    </Link>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Quality */}
+              <Link
+                href="/quality"
+                className={`text-sm font-medium transition-colors ${isActive('/quality')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                style={{ color: isActive('/quality') ? PRIMARY_COLOR : undefined }}
+              >
+                Quality
+              </Link>
+
+              {/* Global Presence */}
+              <Link
+                href="/global-presence"
+                className={`text-sm font-medium transition-colors ${isActive('/global-presence')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                style={{ color: isActive('/global-presence') ? PRIMARY_COLOR : undefined }}
+              >
+                Global Presence
+              </Link>
+
+              {/* Careers */}
+              <Link
+                href="/careers"
+                className={`text-sm font-medium transition-colors ${isActive('/careers')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                style={{ color: isActive('/careers') ? PRIMARY_COLOR : undefined }}
+              >
+                Careers
+              </Link>
+
+              {/* Contact */}
+              <Link
+                href="/contact"
+                className={`text-sm font-medium transition-colors ${isActive('/contact')
+                  ? 'font-semibold'
+                  : 'text-gray-600 hover:opacity-80'
+                  }`}
+                style={{ color: isActive('/contact') ? PRIMARY_COLOR : undefined }}
+              >
+                Contact
+              </Link>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="hidden md:flex items-center gap-2">
+              <a href="/siflonpharma-brochure.pdf" download>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
+                  style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
+                >
+                  <Download className="w-4 h-4" />
+                  Brochure
+                </Button>
+              </a>
+
               <Button
+                size="sm"
                 style={{ backgroundColor: PRIMARY_COLOR }}
                 className="hover:opacity-90"
+                onClick={() => setEnquiryDialogOpen(true)}
               >
                 Get Quote
               </Button>
-            </Link> */}
-              {/* Action Buttons */}
-              <div className="ml-4 flex items-center gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      type="button"
-                      className="relative overflow-hidden rounded-full p-[1px] bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 animate-pulse shadow-[0_0_20px_rgba(59,130,246,0.15)]"
-                    >
-                      <span className="flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:text-[#243d80]">
-                        <Globe className="h-4 w-4" />
-                        Our Networks
-                        <ChevronDown className="h-4 w-4" />
-                      </span>
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 rounded-3xl bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 p-[1px] animate-pulse shadow-[0_0_30px_rgba(59,130,246,0.15)]">
-                  <div className="rounded-3xl bg-white/95 backdrop-blur-md">
-                    <DropdownMenuLabel>Our Companies</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {networkLinks.map((link) => (
-                      <DropdownMenuItem key={link.href} asChild>
-                        <a
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block rounded-2xl bg-white px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50 hover:shadow-sm"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span>{link.name}</span>
-                            <span className="text-xs text-slate-400">↗</span>
-                          </div>
-                        </a>
-                      </DropdownMenuItem>
-                    ))}
-                  </div>
-                </DropdownMenuContent>
-                </DropdownMenu>
-
-                <OutletsDialog />
-
-                <a href="/siflonpharma-brochure.pdf" download>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2"
-                    style={{ borderColor: PRIMARY_COLOR, color: PRIMARY_COLOR }}
-                  >
-                    <Download className="w-4 h-4" />
-                    Brochure
-                  </Button>
-                </a>
-
-                <Button
-                  size="sm"
-                  style={{ backgroundColor: PRIMARY_COLOR }}
-                  className="hover:opacity-90"
-                  onClick={() => setEnquiryDialogOpen(true)}
-                >
-                  Get Quote
-                </Button>
-              </div>
             </div>
 
             {/* Mobile menu button */}
@@ -183,20 +253,113 @@ export default function Header() {
               exit={{ opacity: 0, height: 0 }}
             >
               <div className="flex flex-col gap-4">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`text-sm font-medium transition-colors ${isActive(item.href)
-                      ? 'font-semibold'
-                      : 'text-gray-600 hover:opacity-80'
-                      }`}
-                    style={{ color: isActive(item.href) ? PRIMARY_COLOR : undefined }}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                {/* Home */}
+                <Link
+                  href="/"
+                  className={`text-sm font-medium transition-colors ${isActive('/')
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
+                    }`}
+                  style={{ color: isActive('/') ? PRIMARY_COLOR : undefined }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+
+                {/* About */}
+                <Link
+                  href="/about"
+                  className={`text-sm font-medium transition-colors ${isActive('/about')
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
+                    }`}
+                  style={{ color: isActive('/about') ? PRIMARY_COLOR : undefined }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+
+                {/* Mobile Products Submenu */}
+                <div className="border-t pt-3 mt-2">
+                  <span className="text-sm font-medium text-gray-700 block mb-2">Products</span>
+                  <div className="flex flex-col gap-2 ml-3">
+                    {productCategories.map((category) => {
+                      const IconComponent = category.icon
+                      return (
+                        <Link
+                          key={category.id}
+                          href={`/products?category=${category.id}`}
+                          className="text-sm text-gray-600 hover:opacity-80 flex items-center gap-2 transition-colors"
+                          style={{ color: isActive('/products') ? PRIMARY_COLOR : undefined }}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <IconComponent className="h-4 w-4" />
+                          {category.name}
+                        </Link>
+                      )
+                    })}
+                    <Link
+                      href="/products"
+                      className="text-sm font-medium mt-2 transition-colors"
+                      style={{ color: PRIMARY_COLOR }}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      View All Products
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Quality */}
+                <Link
+                  href="/quality"
+                  className={`text-sm font-medium transition-colors ${isActive('/quality')
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
+                    }`}
+                  style={{ color: isActive('/quality') ? PRIMARY_COLOR : undefined }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Quality
+                </Link>
+
+                {/* Global Presence */}
+                <Link
+                  href="/global-presence"
+                  className={`text-sm font-medium transition-colors ${isActive('/global-presence')
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
+                    }`}
+                  style={{ color: isActive('/global-presence') ? PRIMARY_COLOR : undefined }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Global Presence
+                </Link>
+
+                {/* Careers */}
+                <Link
+                  href="/careers"
+                  className={`text-sm font-medium transition-colors ${isActive('/careers')
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
+                    }`}
+                  style={{ color: isActive('/careers') ? PRIMARY_COLOR : undefined }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Careers
+                </Link>
+
+                {/* Contact */}
+                <Link
+                  href="/contact"
+                  className={`text-sm font-medium transition-colors ${isActive('/contact')
+                    ? 'font-semibold'
+                    : 'text-gray-600 hover:opacity-80'
+                    }`}
+                  style={{ color: isActive('/contact') ? PRIMARY_COLOR : undefined }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
                 {/* <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                 <Button
                   className="w-full"
@@ -209,12 +372,6 @@ export default function Header() {
                 <div className="mt-2 flex flex-col gap-2 border-t pt-3">
                   <div className="rounded-3xl bg-gradient-to-r from-red-500 via-lime-500 to-blue-500 p-[1px]">
                     <div className="rounded-3xl bg-white/95 p-3">
-                      <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-sm">
-                          <Globe className="h-4 w-4" />
-                        </span>
-                        <span>Our Networks</span>
-                      </div>
                       <div className="mt-3 flex flex-col gap-2">
                         {networkLinks.map((link) => (
                           <a

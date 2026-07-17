@@ -62,11 +62,7 @@ export default function GlobalPresencePage() {
                         transition={{ duration: 0.6 }}
                         className="text-center max-w-3xl mx-auto"
                     >
-                        <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                            <Globe2 className="w-3.5 h-3.5 mr-1.5" />
-                            Global Network
-                        </Badge>
-
+                       
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                             Our Global <span className="text-blue-200">Presence</span>
                         </h1>
@@ -80,8 +76,7 @@ export default function GlobalPresencePage() {
                             {[
                                 { value: '200+', label: 'Total Locations' },
                                 { value: '50+', label: 'Countries' },
-                                { value: '7', label: 'Indian States' },
-                                { value: '14', label: 'International Markets' },
+                                { value: '7', label: 'Indian States' }
                             ].map((stat, index) => (
                                 <motion.div
                                     key={index}

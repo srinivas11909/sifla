@@ -1425,9 +1425,6 @@ export default function SectorsCarousel() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <Badge className="mb-4 px-4 py-1.5 bg-white/20 text-white border-white/30 backdrop-blur-sm">
-            Our Sectors
-          </Badge>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             We Are Into <span className="text-blue-200">Sectors</span>
           </h2>

@@ -684,9 +684,6 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-white/20 text-white border-white/30">
-              Contact Us
-            </Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Get In Touch
             </h1>

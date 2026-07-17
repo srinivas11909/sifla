@@ -83,7 +83,7 @@ export default function FloatingActions({
     <>
       {/* Desktop - Right side floating menu */}
       <div className="fixed right-6 bottom-24 z-50 hidden md:flex flex-col items-end gap-3">
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {showNetworks && (
             <motion.div
               variants={networkListVariants}
@@ -111,9 +111,9 @@ export default function FloatingActions({
               ))}
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
 
-        <motion.button
+        {/* <motion.button
           className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-600 shadow-lg"
           onClick={() => {
             setShowNetworks((prev) => !prev)
@@ -123,7 +123,7 @@ export default function FloatingActions({
           whileTap={{ scale: 0.95 }}
         >
           <Globe className="h-5 w-5 text-white" />
-        </motion.button>
+        </motion.button> */}
 
         <AnimatePresence>
           {isMenuOpen && (

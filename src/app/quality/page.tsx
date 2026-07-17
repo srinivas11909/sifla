@@ -247,9 +247,6 @@ export default function QualityPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-white/20 text-white border-white/30">
-              Quality Management
-            </Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Quality Excellence
             </h1>
@@ -264,9 +261,6 @@ export default function QualityPage() {
       <section className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
-              Our Commitment
-            </Badge>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Quality Management System
             </h2>
@@ -299,9 +293,9 @@ export default function QualityPage() {
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
+            {/* <Badge className="mb-4" style={{ backgroundColor: `${PRIMARY_COLOR}20`, color: PRIMARY_COLOR }}>
               Quality Principles
-            </Badge>
+            </Badge> */}
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Our Quality Pillars
             </h2>
