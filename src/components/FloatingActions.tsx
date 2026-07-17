@@ -218,7 +218,7 @@ export default function FloatingActions({
 
       {/* Mobile - Floating buttons */}
       <div className="fixed right-4 bottom-20 z-50 flex flex-col items-end gap-2 md:hidden">
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {showNetworks && (
             <motion.div
               variants={networkListVariants}
@@ -261,7 +261,7 @@ export default function FloatingActions({
             whileTap={{ scale: 0.9 }}
           >
             <Globe className="h-5 w-5 text-white" />
-          </motion.button>
+          </motion.button> */}
 
           {/* Brochure Download */}
           <motion.a
