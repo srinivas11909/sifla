@@ -218,50 +218,7 @@ export default function FloatingActions({
 
       {/* Mobile - Floating buttons */}
       <div className="fixed right-4 bottom-20 z-50 flex flex-col items-end gap-2 md:hidden">
-        {/* <AnimatePresence>
-          {showNetworks && (
-            <motion.div
-              variants={networkListVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-xl backdrop-blur"
-            >
-              {networkLinks.map((link) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variants={networkItemVariants}
-                  whileHover={{ x: -4, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#243d80]"
-                >
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-sm">
-                    <Globe className="h-4 w-4" />
-                  </span>
-                  <span>{link.name}</span>
-                </motion.a>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         <div className="flex flex-col items-end gap-3">
-          <motion.button
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-600 shadow-lg"
-            onClick={() => {
-              setShowNetworks((prev) => !prev)
-              setIsMenuOpen(false)
-            }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.2, duration: 0.5, type: 'spring', stiffness: 200 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Globe className="h-5 w-5 text-white" />
-          </motion.button> */}
 
           {/* Brochure Download */}
           <motion.a
