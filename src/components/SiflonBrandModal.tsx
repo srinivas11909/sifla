@@ -81,11 +81,11 @@ export default function SiflonBrandModal() {
   }, [])
 
   useEffect(() => {
-    // Auto-close the modal after 1 minute (60000ms) only if it's open
+    // Auto-close the modal after 1 minute (30000ms) only if it's open
     if (isOpen && hasShown) {
       const timer = setTimeout(() => {
         setIsOpen(false)
-      }, 60000)
+      }, 30000)
 
       return () => clearTimeout(timer)
     }
@@ -171,7 +171,7 @@ export default function SiflonBrandModal() {
             </div>
 
             {/* Auto-close Info */}
-            <p className="text-center text-gray-500 text-sm mt-8">This popup will auto-close in 1 minute</p>
+            <p className="text-center text-gray-500 text-sm mt-8">This popup will auto-close in 30 sec</p>
           </motion.div>
         </motion.div>
       )}

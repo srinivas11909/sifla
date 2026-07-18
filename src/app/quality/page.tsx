@@ -346,12 +346,12 @@ export default function QualityPage() {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/50 to-transparent" />
-                      <div className="absolute bottom-6 left-6 lg:bottom-auto lg:top-6">
+                      {/* <div className="absolute bottom-6 left-6 lg:bottom-auto lg:top-6">
                         <Badge className="bg-white/90 text-gray-900">
                           <activeTabData.icon className="w-4 h-4 mr-1" style={{ color: PRIMARY_COLOR }} />
                           {activeTabData.label}
                         </Badge>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Content Section */}

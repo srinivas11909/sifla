@@ -944,12 +944,12 @@ export default function ProductsAtGlance() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <span
+          {/* <span
             className="inline-block mb-4 px-4 py-1.5 text-sm font-semibold rounded-full uppercase tracking-wider"
             style={{ backgroundColor: `${PRIMARY_COLOR}10`, color: PRIMARY_COLOR }}
           >
             Our Range
-          </span>
+          </span> */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Products at a Glance
           </h2>

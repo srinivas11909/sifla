@@ -107,12 +107,12 @@ export default function CertificatesSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <span
+          {/* <span
             className="inline-block mb-4 px-4 py-1.5 text-sm font-semibold rounded-full uppercase tracking-wider"
             style={{ backgroundColor: `${PRIMARY_COLOR}15`, color: PRIMARY_COLOR }}
           >
             Accreditation
-          </span>
+          </span> */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Certifications & Approvals
           </h2>

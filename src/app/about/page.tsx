@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import {
   CheckCircle, Award, Globe, Shield, Users, Clock, Target, ChevronRight,
   Building2, Microscope, Beaker, Factory, Leaf, Stethoscope, ArrowRight,
-  Layers, ShieldCheck, Warehouse, Droplets, Pill, Package
+  ShieldCheck, Warehouse, Droplets, Pill, Package
 } from 'lucide-react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Header from '@/components/Header'
@@ -223,20 +223,6 @@ const strengths = [
 // Integration, Quality, Infrastructure tabs data
 const integrationTabs = [
   {
-    id: 'integration',
-    title: 'Backward & Forward Integration',
-    icon: Layers,
-    image: '/cmpny.png',
-    content: `Backward and forward integration has been the key to diversify into different sectors. The founder being a chemical engineer, always had a zeal to establish chemical industry and started Siflon Drugs for the manufacture of veterinary APIs. The company pursued a strategy of backward integration – in reactor, PTFE lined components manufacturing and forward integration – in veterinary formulations and franchisee outlets to market the veterinary medicines.`,
-    highlights: [
-      'Veterinary APIs Manufacturing',
-      'Reactor Manufacturing with Micro irrigation equipment manufacturing',
-      'PTFE Lined Components',
-      'Veterinary Formulations',
-      'Franchisee Outlets Network'
-    ]
-  },
-  {
     id: 'quality',
     title: 'Quality and Commitment',
     icon: ShieldCheck,
@@ -267,7 +253,7 @@ const integrationTabs = [
 ]
 
 export default function AboutPage() {
-  const [activeTab, setActiveTab] = useState('integration')
+  const [activeTab, setActiveTab] = useState('quality')
   const activeTabData = integrationTabs.find(t => t.id === activeTab)!
   return (
     <div className="min-h-screen flex flex-col">

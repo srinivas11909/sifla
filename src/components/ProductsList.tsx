@@ -284,12 +284,12 @@ export default function FeaturedProductsCarousel() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div>
-            <span
+            {/* <span
               className="inline-block mb-3 px-4 py-1.5 text-sm font-semibold rounded-full uppercase tracking-wider"
               style={{ backgroundColor: `${PRIMARY_COLOR}10`, color: PRIMARY_COLOR }}
             >
               Featured Selection
-            </span>
+            </span> */}
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
               Top Products
             </h2>
