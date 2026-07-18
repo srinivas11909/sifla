@@ -69,14 +69,12 @@ export default function SiflonBrandModal() {
   const [hasShown, setHasShown] = useState(false)
 
   useEffect(() => {
-    // Check if modal has been shown before using localStorage
-    const hasShownBefore = localStorage.getItem('siflonBrandModalShown')
-    
+    const hasShownBefore = window.sessionStorage.getItem('siflonBrandModalShown')
+
     if (!hasShownBefore) {
-      // Show modal for the first time
       setIsOpen(true)
-      localStorage.setItem('siflonBrandModalShown', 'true')
       setHasShown(true)
+      window.sessionStorage.setItem('siflonBrandModalShown', 'true')
     }
   }, [])
 
