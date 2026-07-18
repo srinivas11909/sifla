@@ -22,6 +22,7 @@ import FloatingSocialLinks from '@/components/FloatingSocialLinks'
 const PRIMARY_COLOR = '#243d80'
 const PRIMARY_HOVER = '#1a2d5c'
 const ITEMS_PER_PAGE = 12
+const DEFAULT_PRODUCT_TYPE = 'anthelmintics'
 
 // Animation variants
 const fadeInUp = {
@@ -296,6 +297,7 @@ function ProductSkeleton() {
 export default function ProductsContent() {
   const searchParams = useSearchParams()
   const categoryFromUrl = searchParams.get('category')
+  const productTypeFromUrl = searchParams.get('type')
   
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl || 'all')
   const [products, setProducts] = useState<Product[]>([])
@@ -303,15 +305,14 @@ export default function ProductsContent() {
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [selectedProductType, setSelectedProductType] = useState<string>('all')
+  const [selectedProductType, setSelectedProductType] = useState<string>(productTypeFromUrl || 'all')
 
-  // Update active category when URL changes
+  // Update active filters when URL changes
   useEffect(() => {
-    if (categoryFromUrl) {
-      setActiveCategory(categoryFromUrl)
-      setCurrentPage(1)
-    }
-  }, [categoryFromUrl])
+    setActiveCategory(categoryFromUrl || 'all')
+    setSelectedProductType(productTypeFromUrl || 'all')
+    setCurrentPage(1)
+  }, [categoryFromUrl, productTypeFromUrl])
 
   useEffect(() => {
     fetchProducts()
@@ -381,6 +382,26 @@ export default function ProductsContent() {
   const productTypesInCategory = activeCategory !== 'all'
     ? [...new Set(products.filter(p => getCategoryId(p.category) === activeCategory).map(p => p.productType))].filter(Boolean)
     : []
+  const productTypesKey = productTypesInCategory.join('|')
+
+  useEffect(() => {
+    if (activeCategory === 'all' || productTypeFromUrl) return
+
+    if (productTypesInCategory.length === 0) {
+      if (selectedProductType !== 'all') {
+        setSelectedProductType('all')
+      }
+      return
+    }
+
+    if (productTypesInCategory.includes(selectedProductType)) return
+
+    setSelectedProductType(
+      productTypesInCategory.includes(DEFAULT_PRODUCT_TYPE)
+        ? DEFAULT_PRODUCT_TYPE
+        : productTypesInCategory[0]
+    )
+  }, [activeCategory, productTypeFromUrl, productTypesKey, selectedProductType])
 
   // Pagination
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
@@ -390,7 +411,7 @@ export default function ProductsContent() {
   // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1)
-  }, [activeCategory, searchQuery])
+  }, [activeCategory, selectedProductType, searchQuery])
 
   // Get current category info
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory)
@@ -429,7 +450,10 @@ export default function ProductsContent() {
           {/* Category Tabs */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
             <motion.button
-              onClick={() => setActiveCategory('all')}
+              onClick={() => {
+                setActiveCategory('all')
+                setSelectedProductType('all')
+              }}
               className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${activeCategory === 'all'
                 ? 'text-white shadow-lg'
                 : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'
@@ -447,7 +471,10 @@ export default function ProductsContent() {
             {CATEGORIES.map((category) => (
               <motion.button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() => {
+                  setActiveCategory(category.id)
+                  setSelectedProductType('all')
+                }}
                 className={`flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-xl font-medium transition-all duration-300 ${activeCategory === category.id
                   ? 'text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:bg-gray-100 shadow-md'

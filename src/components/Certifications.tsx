@@ -134,7 +134,7 @@ export default function CertificatesSection() {
               key={index}
               variants={cardVariants}
               whileHover={{ y: -10, scale: 1.02 }}
-              onClick={() => setSelectedPdf(cert)}
+              // onClick={() => setSelectedPdf(cert)}
               className="group relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 cursor-pointer transition-all duration-300 hover:shadow-2xl overflow-hidden"
             >
               {/* Decorative Top Accent */}
@@ -170,13 +170,13 @@ export default function CertificatesSection() {
                 </p>
 
                 {/* Action Button */}
-                <div
+                {/* <div
                   className="flex items-center gap-2 text-sm font-semibold transition-colors duration-300"
                   style={{ color: PRIMARY_COLOR }}
                 >
                   <span>View Certificate</span>
                   <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </div>
+                </div> */}
               </div>
 
               {/* Hover Background Glow */}

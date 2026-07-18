@@ -491,7 +491,7 @@ export default function Home({ heroSlides }: { heroSlides: any[] }) {
   }
 
   const currentSlideData = heroSlides[currentSlide]
-  console.log(heroSlides);
+  //console.log(heroSlides);
 
   return (
     <div className="min-h-screen flex flex-col">

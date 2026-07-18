@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Menu, X, Download, Globe, ChevronDown, Droplets, Package, Wheat, Pill, Syringe } from 'lucide-react'
+import { Menu, X, Download, Globe, ChevronDown, ChevronRight, Droplets, Package, Wheat, Pill, Syringe } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import OutletsDialog from '@/components/OutletsDialog'
@@ -27,6 +27,20 @@ const productCategories = [
   { id: 'tabletsBolus', name: 'Tablets / Bolus', icon: Pill },
   { id: 'injectables', name: 'Injectables', icon: Syringe },
 ]
+
+const productTypesByCategory: Record<string, Array<{ id: string; name: string }>> = {
+  oralLiquids: [
+    { id: 'anthelmintics', name: 'Anthelmintics' },
+    { id: 'antibiotics', name: 'Antibiotics' },
+  ],
+  dryPowders: [
+    { id: 'anthelmintics', name: 'Anthelmintics' },
+    { id: 'antibiotics', name: 'Antibiotics' },
+  ],
+  feedSupplements: [{ id: 'anthelmintics', name: 'Anthelmintics' }],
+  injectables: [{ id: 'anthelmintics', name: 'Anthelmintics' }],
+  tabletsBolus: [],
+}
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -46,9 +60,15 @@ const networkLinks = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false)
+  const [hoveredProductCategory, setHoveredProductCategory] = useState<string | null>(null)
   const pathname = usePathname()
   const [enquiryDialogOpen, setEnquiryDialogOpen] = useState(false)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    setProductsDropdownOpen(false)
+    setHoveredProductCategory(null)
+  }, [pathname])
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -65,8 +85,15 @@ export default function Header() {
   const handleProductsMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setProductsDropdownOpen(false)
+      setHoveredProductCategory(null)
     }, 150)
   }
+
+  const closeProductsMenu = () => {
+    setProductsDropdownOpen(false)
+    setHoveredProductCategory(null)
+  }
+
 
   return (
     <>
@@ -138,25 +165,68 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute left-0 mt-0 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50"
+                    className="absolute left-0 mt-0 z-50"
                   >
-                    {productCategories.map((category) => {
-                      const IconComponent = category.icon
-                      return (
-                        <Link key={category.id} href={`/products?category=${category.id}`}>
-                          <div className="flex items-center gap-3 cursor-pointer py-2.5 px-4 hover:bg-gray-50 transition-colors">
-                            <IconComponent className="h-4 w-4" style={{ color: PRIMARY_COLOR }} />
-                            <span className="text-sm">{category.name}</span>
+                    <div className="w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2">
+                      {productCategories.map((category) => {
+                        const IconComponent = category.icon
+                        const isHovered = hoveredProductCategory === category.id
+                        const categoryProductTypes = productTypesByCategory[category.id] || []
+
+                        if (categoryProductTypes.length === 0) {
+                          return (
+                            <Link key={category.id} href={`/products?category=${category.id}`}  onClick={closeProductsMenu}>
+                              <div
+                                onMouseEnter={() => setHoveredProductCategory(category.id)}
+                                onMouseLeave={() => setHoveredProductCategory(null)}
+                                className={`relative flex items-center gap-3 cursor-pointer py-2.5 px-4 transition-colors ${isHovered ? 'bg-[#243d80] text-white' : 'text-gray-700 hover:bg-[#243d80] hover:text-white'
+                                  }`}
+                              >
+                                <IconComponent className="h-4 w-4" style={{ color: isHovered ? '#fff' : PRIMARY_COLOR }} />
+                                <span className="text-sm flex-1">{category.name}</span>
+                              </div>
+                            </Link>
+                          )
+                        }
+
+                        return (
+                          <div
+                            key={category.id}
+                            onMouseEnter={() => setHoveredProductCategory(category.id)}
+                            onMouseLeave={() => setHoveredProductCategory(null)}
+                            className={`relative flex items-center gap-3 cursor-pointer py-2.5 px-4 transition-colors ${isHovered ? 'bg-[#243d80] text-white' : 'text-gray-700 hover:bg-[#243d80] hover:text-white'
+                              }`}
+                          >
+                            <IconComponent className="h-4 w-4" style={{ color: isHovered ? '#fff' : PRIMARY_COLOR }} />
+                            <span className="text-sm flex-1">{category.name}</span>
+                            <ChevronRight className={`h-4 w-4 ${isHovered ? 'text-white' : 'text-gray-400'}`} />
+
+                            {isHovered && (
+                              <div className="absolute left-full top-0 w-48 bg-white rounded-r-lg shadow-xl border border-l-0 border-gray-100 py-0 text-gray-700">
+                                {categoryProductTypes.map((type) => (
+                                  <Link
+                                    key={type.id}
+                                    href={`/products?category=${category.id}&type=${type.id}`}
+                                    onClick={closeProductsMenu}
+                                  >
+                                    <div className="cursor-pointer py-2.5 px-4 hover:bg-[#243d80] hover:text-white transition-colors text-sm">
+                                      {type.name}
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
                           </div>
-                        </Link>
-                      )
-                    })}
-                    <div className="border-t border-gray-100 my-2" />
-                    <Link href="/products">
-                      <div className="cursor-pointer py-2.5 px-4 hover:bg-gray-50 transition-colors font-medium text-sm">
-                        View All Products
-                      </div>
-                    </Link>
+                        )
+                      })}
+                      <div className="border-t border-gray-100 my-2" />
+                      <Link href="/products">
+                        <div className="cursor-pointer py-2.5 px-4 hover:bg-[#243d80] hover:text-white transition-colors font-medium text-sm text-gray-700">
+                          View All Products
+                        </div>
+                      </Link>
+                    </div>
+
                   </motion.div>
                 )}
               </div>
@@ -285,17 +355,33 @@ export default function Header() {
                   <div className="flex flex-col gap-2 ml-3">
                     {productCategories.map((category) => {
                       const IconComponent = category.icon
+                      const categoryProductTypes = productTypesByCategory[category.id] || []
                       return (
-                        <Link
-                          key={category.id}
-                          href={`/products?category=${category.id}`}
-                          className="text-sm text-gray-600 hover:opacity-80 flex items-center gap-2 transition-colors"
-                          style={{ color: isActive('/products') ? PRIMARY_COLOR : undefined }}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          <IconComponent className="h-4 w-4" />
-                          {category.name}
-                        </Link>
+                        <div key={category.id} className="flex flex-col gap-2">
+                          <Link
+                            href={`/products?category=${category.id}`}
+                            className="text-sm text-gray-600 hover:opacity-80 flex items-center gap-2 transition-colors"
+                            style={{ color: isActive('/products') ? PRIMARY_COLOR : undefined }}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <IconComponent className="h-4 w-4" />
+                            {category.name}
+                          </Link>
+                          {categoryProductTypes.length > 0 && (
+                            <div className="ml-6 flex flex-col gap-1.5">
+                              {categoryProductTypes.map((type) => (
+                                <Link
+                                  key={type.id}
+                                  href={`/products?category=${category.id}&type=${type.id}`}
+                                  className="text-xs text-gray-500 hover:opacity-80 transition-colors"
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  {type.name}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       )
                     })}
                     <Link
