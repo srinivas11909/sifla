@@ -37,7 +37,7 @@ const productTypesByCategory: Record<string, Array<{ id: string; name: string }>
     { id: 'anthelmintics', name: 'Anthelmintics' },
     { id: 'antibiotics', name: 'Antibiotics' },
   ],
-  feedSupplements: [{ id: 'anthelmintics', name: 'Anthelmintics' }],
+  feedSupplements: [{ id: 'anthelmintics', name: 'Anthelmintics'}, {id: 'dry-feed', name : 'Dry-feed'}, {id: 'liquid-feed', name : 'Liquid-feed'}],
   injectables: [{ id: 'anthelmintics', name: 'Anthelmintics' }],
   tabletsBolus: [],
 }

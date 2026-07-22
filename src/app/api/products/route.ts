@@ -7,15 +7,15 @@
 //   try {
 //     const { searchParams } = new URL(request.url)
 //     const category = searchParams.get('category')
-    
+
 //     const collection = await getCollection('products')
-    
+
 //     const query = category ? { category } : {}
 //     const products = await collection
 //       .find(query)
 //       .sort({ order: 1 })
 //       .toArray()
-    
+
 //     const formattedProducts = products.map(item => ({
 //       id: item._id,
 //       name: item.name,
@@ -26,7 +26,7 @@
 //       active: item.active,
 //       order: item.order,
 //     }))
-    
+
 //     return NextResponse.json(formattedProducts)
 //   } catch (error) {
 //     console.error('Error fetching products:', error)
@@ -42,16 +42,16 @@
 //   try {
 //     const data = await request.json()
 //     const collection = await getCollection('products')
-    
+
 //     // Get max order
 //     const maxOrderItem = await collection
 //       .find({})
 //       .sort({ order: -1 })
 //       .limit(1)
 //       .toArray()
-    
+
 //     const maxOrder = maxOrderItem.length > 0 ? maxOrderItem[0].order : 0
-    
+
 //     const newProduct = {
 //       _id: randomUUID(),
 //       name: data.name,
@@ -64,9 +64,9 @@
 //       createdAt: new Date(),
 //       updatedAt: new Date(),
 //     }
-    
+
 //     await collection.insertOne(newProduct)
-    
+
 //     return NextResponse.json({
 //       id: newProduct._id,
 //       ...newProduct,
@@ -90,15 +90,38 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
-    
+    const type = searchParams.get('type')
+
+
     const collection = await getCollection('products')
-    
+
+    // If type=navbar, return grouped product types by category
+    if (type === 'navbar') {
+      const result = await collection.aggregate([
+        { $match: { active: true } },
+        {
+          $group: {
+            _id: '$category',
+            productTypes: { $addToSet: '$productType' }
+          }
+        },
+        { $sort: { _id: 1 } }
+      ]).toArray()
+
+      const navbarData = result.map(item => ({
+        category: item._id,
+        productTypes: item.productTypes.filter(Boolean)
+      }))
+
+      return NextResponse.json(navbarData)
+    }
+
     const query = category ? { category } : {}
     const products = await collection
       .find(query)
       .sort({ order: 1 })
       .toArray()
-    
+
     const formattedProducts = products.map(item => ({
       id: item._id,
       name: item.name,
@@ -114,7 +137,7 @@ export async function GET(request: NextRequest) {
       active: item.active,
       order: item.order,
     }))
-    
+
     return NextResponse.json(formattedProducts)
   } catch (error) {
     console.error('Error fetching products:', error)
@@ -130,16 +153,16 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
     const collection = await getCollection('products')
-    
+
     // Get max order
     const maxOrderItem = await collection
       .find({})
       .sort({ order: -1 })
       .limit(1)
       .toArray()
-    
+
     const maxOrder = maxOrderItem.length > 0 ? maxOrderItem[0].order : 0
-    
+
     const newProduct = {
       _id: randomUUID(),
       name: data.name,
@@ -157,9 +180,9 @@ export async function POST(request: NextRequest) {
       createdAt: new Date(),
       updatedAt: new Date(),
     }
-    
+
     await collection.insertOne(newProduct)
-    
+
     return NextResponse.json({
       id: newProduct._id,
       ...newProduct,
